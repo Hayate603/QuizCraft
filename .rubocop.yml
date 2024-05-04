@@ -1,0 +1,38 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.3.0
+  NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'bin/*'
+    - 'config/**/*'
+    - 'lib/tasks/**/*'
+    - 'vendor/**/*'
+    - 'path/ruby/**/*'
+    - 'tmp/**/*'
+    - 'node_modules/**/*'
+    - 'log/**/*'
+
+Layout/LineLength:
+  Max: 120
+
+Layout/IndentationWidth:
+  Width: 2
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Lint/Debugger:
+  Enabled: true
+
+Rails/HttpStatus:
+  Enabled: true
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
