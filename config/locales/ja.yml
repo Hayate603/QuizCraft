@@ -1,0 +1,27 @@
+ja:
+  devise:
+    sessions:
+      signed_in: 'ログインしました。'
+      signed_out: 'ログアウトしました。'
+    registrations:
+      signed_up: 'アカウント登録が完了しました。'
+      updated: 'アカウント情報が更新されました。'
+      destroyed: 'アカウントが削除されました。'
+    passwords:
+      updated: 'パスワードが正しく変更されました。'
+    confirmations:
+      confirmed: 'アカウントが確認されました。ログインしてください。'
+    unlocks:
+      unlocked: 'アカウントのロックが解除されました。'
+    omniauth_callbacks:
+      success: '%{kind} アカウントによる認証に成功しました。'
+      failure: '%{kind} アカウントによる認証に失敗しました。理由：%{reason}'
+
+  errors:
+    messages:
+      already_confirmed: 'すでに確認されています。ログインしてください。'
+      not_found: 'は見つかりません。'
+      not_locked: 'ロックされていません。'
+      not_saved:
+        one: '1つのエラーにより保存できませんでした：'
+        other: '%{count}つのエラーにより保存できませんでした：'
