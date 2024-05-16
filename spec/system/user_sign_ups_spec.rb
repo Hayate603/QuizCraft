@@ -14,16 +14,20 @@ RSpec.describe "ユーザー登録", type: :system do
       fill_in "Password", with: "password123"
       fill_in "Password confirmation", with: "password123"
       click_button "Sign up"
-      expect(page).to have_content("アカウント登録が完了しました。")
+      expect(ActionMailer::Base.deliveries.count).to eq 1
+      expect(ActionMailer::Base.deliveries.last.to).to include("valid@example.com")
+      expect(page).to have_content("確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効にしてください。")
     end
 
     it "パスワードが6文字だと登録が成功すること" do
       visit new_user_registration_path
-      fill_in "Email", with: "new@example.com"
+      fill_in "Email", with: "valid@example.com"
       fill_in "Password", with: "passwd"
       fill_in "Password confirmation", with: "passwd"
       click_button "Sign up"
-      expect(page).to have_content("アカウント登録が完了しました。")
+      expect(ActionMailer::Base.deliveries.count).to eq 1
+      expect(ActionMailer::Base.deliveries.last.to).to include("valid@example.com")
+      expect(page).to have_content("確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効にしてください。")
     end
   end
   context "無効な情報が入力された場合" do
