@@ -4,6 +4,7 @@ ja:
       signed_in: 'ログインしました。'
       signed_out: 'ログアウトしました。'
     registrations:
+      signed_up_but_unconfirmed: '確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効にしてください。'
       signed_up: 'アカウント登録が完了しました。'
       updated: 'アカウント情報が更新されました。'
       destroyed: 'アカウントが削除されました。'
