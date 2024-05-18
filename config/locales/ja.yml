@@ -18,6 +18,20 @@ ja:
       success: '%{kind} アカウントによる認証に成功しました。'
       failure: '%{kind} アカウントによる認証に失敗しました。理由：%{reason}'
 
+    failure:
+      already_authenticated: "すでにログインしています。"
+      unauthenticated: "ログインしてください。"
+      unconfirmed: "メールアドレスの確認が必要です。"
+      invalid: "メールアドレスまたはパスワードが違います。"
+      invalid_token: "無効なトークンです。"
+      locked: "アカウントがロックされています。"
+      last_attempt: "最後の試行です。アカウントがロックされる前にログインしてください。"
+      timeout: "セッションの有効期限が切れました。再度ログインしてください。"
+      not_found_in_database: "メールアドレスまたはパスワードが違います。"
+      inactive: "アカウントが無効です。"
+      expired: "アカウントの有効期限が切れています。"
+      session_limit_exceeded: "このアカウントでログインできる最大セッション数を超えました。"
+
   errors:
     messages:
       already_confirmed: 'すでに確認されています。ログインしてください。'
