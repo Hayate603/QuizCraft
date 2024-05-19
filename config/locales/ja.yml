@@ -10,6 +10,7 @@ ja:
       destroyed: 'アカウントが削除されました。'
     passwords:
       updated: 'パスワードが正しく変更されました。'
+      send_instructions: "パスワード再設定の手順を記載したメールを数分以内にお送りします。"
     confirmations:
       confirmed: 'アカウントが確認されました。ログインしてください。'
     unlocks:
