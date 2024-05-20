@@ -15,8 +15,13 @@ RSpec.describe "ユーザー登録", type: :system do
       fill_in "Password confirmation", with: "password123"
       click_button "Sign up"
       expect(ActionMailer::Base.deliveries.count).to eq 1
-      expect(ActionMailer::Base.deliveries.last.to).to include("valid@example.com")
       expect(page).to have_content("確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効にしてください。")
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.to).to include("valid@example.com")
+      expect(mail.body.encoded).to include('アカウント確認のために以下のリンクをクリックしてください。')
+      confirmation_link = mail.body.encoded.match(/href="(?<url>.+?)">アカウント確認/)[:url]
+      visit confirmation_link
+      expect(page).to have_content('アカウントが確認されました。ログインしてください。')
     end
 
     it "パスワードが6文字だと登録が成功すること" do
@@ -26,8 +31,13 @@ RSpec.describe "ユーザー登録", type: :system do
       fill_in "Password confirmation", with: "passwd"
       click_button "Sign up"
       expect(ActionMailer::Base.deliveries.count).to eq 1
-      expect(ActionMailer::Base.deliveries.last.to).to include("valid@example.com")
       expect(page).to have_content("確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効にしてください。")
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.to).to include("valid@example.com")
+      expect(mail.body.encoded).to include('アカウント確認のために以下のリンクをクリックしてください。')
+      confirmation_link = mail.body.encoded.match(/href="(?<url>.+?)">アカウント確認/)[:url]
+      visit confirmation_link
+      expect(page).to have_content('アカウントが確認されました。ログインしてください。')
     end
   end
   context "無効な情報が入力された場合" do
