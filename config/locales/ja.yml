@@ -1,4 +1,14 @@
 ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+        current_password: "現在のパスワード"
+
   devise:
     sessions:
       signed_in: 'ログインしました。'
@@ -8,6 +18,7 @@ ja:
       signed_up: 'アカウント登録が完了しました。'
       updated: 'アカウント情報が更新されました。'
       destroyed: 'アカウントが削除されました。'
+      update_needs_confirmation: 'メールアドレスの変更には確認が必要です。確認メールを送信しました。'
     passwords:
       updated: 'パスワードが正しく変更されました。'
       send_instructions: "パスワード再設定の手順を記載したメールを数分以内にお送りします。"
