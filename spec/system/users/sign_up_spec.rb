@@ -10,10 +10,10 @@ RSpec.describe "ユーザー登録", type: :system do
   context "有効な情報が入力された場合" do
     it "有効な情報が入力されたら登録が成功すること" do
       visit new_user_registration_path
-      fill_in "Email", with: "valid@example.com"
-      fill_in "Password", with: "password123"
-      fill_in "Password confirmation", with: "password123"
-      click_button "Sign up"
+      fill_in "メールアドレス", with: "valid@example.com"
+      fill_in "パスワード", with: "password123"
+      fill_in "パスワード確認", with: "password123"
+      click_button "新規登録"
       expect(ActionMailer::Base.deliveries.count).to eq 1
       expect(page).to have_content("確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効にしてください。")
       mail = ActionMailer::Base.deliveries.last
@@ -26,10 +26,10 @@ RSpec.describe "ユーザー登録", type: :system do
 
     it "パスワードが6文字だと登録が成功すること" do
       visit new_user_registration_path
-      fill_in "Email", with: "valid@example.com"
-      fill_in "Password", with: "passwd"
-      fill_in "Password confirmation", with: "passwd"
-      click_button "Sign up"
+      fill_in "メールアドレス", with: "valid@example.com"
+      fill_in "パスワード", with: "passwd"
+      fill_in "パスワード確認", with: "passwd"
+      click_button "新規登録"
       expect(ActionMailer::Base.deliveries.count).to eq 1
       expect(page).to have_content("確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効にしてください。")
       mail = ActionMailer::Base.deliveries.last
@@ -43,47 +43,47 @@ RSpec.describe "ユーザー登録", type: :system do
   context "無効な情報が入力された場合" do
     it "メールアドレスが空であったら登録が失敗すること" do
       visit new_user_registration_path
-      fill_in "Email", with: ""
-      fill_in "Password", with: "password123"
-      fill_in "Password confirmation", with: "password123"
-      click_button "Sign up"
-      expect(page).to have_content("Emailを入力してください")
+      fill_in "メールアドレス", with: ""
+      fill_in "パスワード", with: "password123"
+      fill_in "パスワード確認", with: "password123"
+      click_button "新規登録"
+      expect(page).to have_content("メールアドレスを入力してください")
     end
 
     it "メールアドレスが重複していたら登録が失敗すること" do
       visit new_user_registration_path
-      fill_in "Email", with: user.email
-      fill_in "Password", with: "password123"
-      fill_in "Password confirmation", with: "password123"
-      click_button "Sign up"
-      expect(page).to have_content("Emailはすでに存在します")
+      fill_in "メールアドレス", with: user.email
+      fill_in "パスワード", with: "password123"
+      fill_in "パスワード確認", with: "password123"
+      click_button "新規登録"
+      expect(page).to have_content("メールアドレスはすでに存在します")
     end
 
     it "メールアドレスが無効なフォーマットであったら登録が失敗すること" do
       visit new_user_registration_path
-      fill_in "Email", with: "invalid-email"
-      fill_in "Password", with: "password123"
-      fill_in "Password confirmation", with: "password123"
-      click_button "Sign up"
-      expect(page).to have_content("Emailは不正な値です")
+      fill_in "メールアドレス", with: "invalid-email"
+      fill_in "パスワード", with: "password123"
+      fill_in "パスワード確認", with: "password123"
+      click_button "新規登録"
+      expect(page).to have_content("メールアドレスは不正な値です")
     end
 
     it "パスワードが5文字であったら登録が失敗すること" do
       visit new_user_registration_path
-      fill_in "Email", with: "new@example.com"
-      fill_in "Password", with: "passw"
-      fill_in "Password confirmation", with: "passw"
-      click_button "Sign up"
-      expect(page).to have_content("Passwordは6文字以上で入力してください")
+      fill_in "メールアドレス", with: "new@example.com"
+      fill_in "パスワード", with: "passw"
+      fill_in "パスワード確認", with: "passw"
+      click_button "新規登録"
+      expect(page).to have_content("パスワードは6文字以上で入力してください")
     end
     
     it "パスワードとパスワード確認が異なる場合無効であること" do
       visit new_user_registration_path
-      fill_in "Email", with: "another@example.com"
-      fill_in "Password", with: "password123"
-      fill_in "Password confirmation", with: "different123"
-      click_button "Sign up"
-      expect(page).to have_content("Password confirmationとPasswordの入力が一致しません")
+      fill_in "メールアドレス", with: "another@example.com"
+      fill_in "パスワード", with: "password123"
+      fill_in "パスワード確認", with: "different123"
+      click_button "新規登録"
+      expect(page).to have_content("パスワード確認とパスワードの入力が一致しません")
     end
   end
 end
