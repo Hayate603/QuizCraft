@@ -26,6 +26,7 @@ ja:
       confirmed: 'アカウントが確認されました。ログインしてください。'
     unlocks:
       unlocked: 'アカウントのロックが解除されました。'
+      send_instructions: "アンロック指示を送信しました。"
     omniauth_callbacks:
       success: '%{kind} アカウントによる認証に成功しました。'
       failure: '%{kind} アカウントによる認証に失敗しました。理由：%{reason}'
