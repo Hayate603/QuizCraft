@@ -6,7 +6,7 @@ RSpec.describe "アカウント削除", type: :system do
 
   it "アカウントを削除できること", js: true do
     sign_in user
-    visit edit_user_registration_path
+    visit edit_user_path(user)
     accept_confirm do
       click_button "アカウントを削除する"
     end
@@ -16,7 +16,7 @@ RSpec.describe "アカウント削除", type: :system do
 
   it "削除確認ダイアログをキャンセルした場合、アカウントが削除されないこと", js: true do
     sign_in user
-    visit edit_user_registration_path
+    visit edit_user_path(user)
     dismiss_confirm do
       click_button "アカウントを削除する"
     end
@@ -26,7 +26,7 @@ RSpec.describe "アカウント削除", type: :system do
 
   it "他のユーザーのアカウントが影響を受けないこと", js: true do
     sign_in user
-    visit edit_user_registration_path
+    visit edit_user_path(user)
     accept_confirm do
       click_button "アカウントを削除する"
     end
@@ -34,13 +34,13 @@ RSpec.describe "アカウント削除", type: :system do
   end
 
   it "ログインしていないユーザーが削除ページにアクセスできないこと" do
-    visit edit_user_registration_path
+    visit edit_user_path(user)
     expect(page).to have_content("ログインしてください。")
   end
 
   it "他のユーザーが他のアカウントの削除ページにアクセスできないこと" do
     sign_in other_user
-    visit edit_user_registration_path(user)
+    visit edit_user_path(user)
     expect(page).to have_content("アクセス権がありません。")
   end
 end

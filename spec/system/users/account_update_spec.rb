@@ -8,7 +8,7 @@ RSpec.describe "アカウント情報の更新", type: :system do
   end
 
   it "ログイン中のユーザーがメールアドレスを変更できること" do
-    visit edit_user_registration_path
+    visit edit_user_path(user)
     fill_in "メールアドレス", with: "newemail@example.com"
     fill_in "現在のパスワード", with: "password123"
     click_button "更新"
@@ -28,7 +28,7 @@ RSpec.describe "アカウント情報の更新", type: :system do
   end
 
   it "ログイン中のユーザーがパスワードを変更できること" do
-    visit edit_user_registration_path
+    visit edit_user_path(user)
     fill_in "現在のパスワード", with: "password123"
     fill_in "新しいパスワード", with: "newpassword123"
     fill_in "パスワード確認", with: "newpassword123"
@@ -37,7 +37,7 @@ RSpec.describe "アカウント情報の更新", type: :system do
   end
 
   it "現在のパスワードが間違っている場合、アカウント情報の更新が失敗すること" do
-    visit edit_user_registration_path
+    visit edit_user_path(user)
     fill_in "メールアドレス", with: "newemail@example.com"
     fill_in "現在のパスワード", with: "wrongpassword"
     click_button "更新"
@@ -46,7 +46,7 @@ RSpec.describe "アカウント情報の更新", type: :system do
   end
 
   it "新しいパスワードと確認用パスワードが一致しない場合、パスワード変更が失敗すること" do
-    visit edit_user_registration_path
+    visit edit_user_path(user)
     fill_in "現在のパスワード", with: "password123"
     fill_in "新しいパスワード", with: "newpassword123"
     fill_in "パスワード確認", with: "differentpassword123"
