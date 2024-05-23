@@ -17,6 +17,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
+
   quizcraft:
     build:
       context: .
@@ -27,6 +28,7 @@ services:
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: password
       MYSQL_HOST: mysql
+      SELENIUM_REMOTE_URL: http://chrome:4444/wd/hub
     depends_on:
       - mysql
     networks:
@@ -42,6 +44,7 @@ services:
     tty: true
     stdin_open: true
     command: bundle exec rails server -b 0.0.0.0
+
   mailhog:
     image: mailhog/mailhog
     ports:
@@ -49,3 +52,8 @@ services:
       - "1025:1025"
     networks:
       - default
+
+  chrome:
+    image: selenium/standalone-chrome:114.0
+    ports:
+      - "4444:4444"
