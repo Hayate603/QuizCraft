@@ -18,8 +18,3 @@
   <%= link_to "アンロックメールを受け取っていない場合", new_unlock_path(resource_name) %><br />
 <% end %>
 
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to "#{OmniAuth::Utils.camelize(provider)}でサインイン", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
-  <% end %>
-<% end %>

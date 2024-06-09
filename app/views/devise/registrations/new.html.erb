@@ -26,4 +26,10 @@
   </div>
 <% end %>
 
+<div class="oauth-providers">
+  <h3>または</h3>
+  <%= button_to "Googleで新規登録", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "oauth-btn google" %>
+  <%= button_to "Facebookで新規登録", user_facebook_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "oauth-btn facebook" %>
+</div>
+
 <%= render "devise/shared/links" %>
