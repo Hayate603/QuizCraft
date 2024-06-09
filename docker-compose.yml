@@ -29,6 +29,10 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_HOST: mysql
       SELENIUM_REMOTE_URL: http://chrome:4444/wd/hub
+      GOOGLE_CLIENT_ID: "1084132138336-m0p9ujbhvdqf72cd5ko7fen9ck2qaiv1.apps.googleusercontent.com"
+      GOOGLE_CLIENT_SECRET: "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"
+      FACEBOOK_APP_ID: "1105642750504524"
+      FACEBOOK_APP_SECRET: "f64ae77d587ba3bd65358276a79fe29b"
     depends_on:
       - mysql
     networks:
