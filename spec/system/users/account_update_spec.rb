@@ -12,17 +12,17 @@ RSpec.describe "アカウント情報の更新", type: :system do
     fill_in "メールアドレス", with: "newemail@example.com"
     fill_in "現在のパスワード", with: "password123"
     click_button "更新"
-    
+
     expect(ActionMailer::Base.deliveries.count).to eq 1
     expect(page).to have_content("メールアドレスの変更には確認が必要です。確認メールを送信しました。")
-    
+
     mail = ActionMailer::Base.deliveries.last
     expect(mail.to).to include("newemail@example.com")
     expect(mail.body.encoded).to include('アカウント確認のために以下のリンクをクリックしてください。')
-    
+
     confirmation_link = mail.body.encoded.match(/href="(?<url>.+?)">アカウント確認/)[:url]
     visit confirmation_link
-    
+
     expect(page).to have_content('アカウントが確認されました。ログインしてください。')
     expect(user.reload.email).to eq("newemail@example.com")
   end

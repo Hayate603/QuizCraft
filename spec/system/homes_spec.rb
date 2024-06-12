@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Homes", type: :system do
-  
   describe "認証関連リンクの表示" do
     context "ログインしていない場合" do
       it "ログインと新規登録のリンクが表示される" do

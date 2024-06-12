@@ -79,7 +79,7 @@ RSpec.describe "ユーザー登録", type: :system do
         click_button "新規登録"
         expect(page).to have_content("パスワードは6文字以上で入力してください")
       end
-      
+
       it "パスワードとパスワード確認が異なる場合無効であること" do
         visit new_user_registration_path
         fill_in "メールアドレス", with: "another@example.com"
@@ -95,18 +95,18 @@ RSpec.describe "ユーザー登録", type: :system do
     context "成功する場合" do
       it "Google OAuth2を使用して登録が成功すること" do
         visit new_user_registration_path
-        expect {
+        expect do
           click_button 'Googleで新規登録'
           sleep 1
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
       end
-  
+
       it "Facebookを使用して登録が成功すること" do
         visit new_user_registration_path
-        expect {
+        expect do
           click_button 'Facebookで新規登録'
           sleep 1
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
       end
 
       it "既存のユーザーがGoogle OAuth2を使って認証した場合、同一のユーザーとして認識されること" do
@@ -116,13 +116,13 @@ RSpec.describe "ユーザー登録", type: :system do
           uid: '123545',
           info: { email: 'existing@example.com', name: 'Existing User' }
         })
-        
+
         visit new_user_registration_path
-        expect {
+        expect do
           click_button 'Googleで新規登録'
           sleep 1
-        }.to_not change(User, :count)
-        
+        end.to_not change(User, :count)
+
         existing_user.reload
         expect(existing_user.provider).to eq 'google_oauth2'
         expect(existing_user.uid).to eq '123545'
@@ -133,20 +133,20 @@ RSpec.describe "ユーザー登録", type: :system do
       it "Google OAuth2で無効な資格情報の場合" do
         OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
         visit new_user_registration_path
-        expect {
+        expect do
           click_button 'Googleで新規登録'
           sleep 1
-        }.to_not change(User, :count)
+        end.to_not change(User, :count)
         expect(page).to have_content("認証に失敗しました。")
       end
 
       it "Google OAuth2でプロバイダからのアクセスが拒否された場合" do
         OmniAuth.config.mock_auth[:google_oauth2] = :access_denied
         visit new_user_registration_path
-        expect {
+        expect do
           click_button 'Googleで新規登録'
           sleep 1
-        }.to_not change(User, :count)
+        end.to_not change(User, :count)
         expect(page).to have_content("認証に失敗しました。")
       end
 
@@ -157,20 +157,20 @@ RSpec.describe "ユーザー登録", type: :system do
           info: { email: nil }
         })
         visit new_user_registration_path
-        expect {
+        expect do
           click_button 'Googleで新規登録'
           sleep 1
-        }.to_not change(User, :count)
+        end.to_not change(User, :count)
         expect(page).to have_content("認証に失敗しました。")
       end
 
       it "Google OAuth2でタイムアウトが発生した場合" do
         allow(User).to receive(:from_omniauth).and_raise(Net::OpenTimeout)
         visit new_user_registration_path
-        expect {
+        expect do
           click_button 'Googleで新規登録'
           sleep 1
-        }.to_not change(User, :count)
+        end.to_not change(User, :count)
         expect(page).to have_content("認証中にタイムアウトが発生しました。もう一度お試しください。")
       end
     end

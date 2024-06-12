@@ -14,7 +14,7 @@ RSpec.describe "パスワードリセット", type: :system do
     expect(mail.subject).to include("Reset password instructions")
     expect(page).to have_content("パスワード再設定の手順を記載したメールを数分以内にお送りします。")
   end
-  
+
   it "パスワードリセットが成功すること" do
     token = user.send_reset_password_instructions
     visit edit_user_password_path(reset_password_token: token)
