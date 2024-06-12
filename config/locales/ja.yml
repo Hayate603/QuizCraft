@@ -30,6 +30,7 @@ ja:
     omniauth_callbacks:
       success: '%{kind} アカウントによる認証に成功しました。'
       failure: '%{kind} アカウントによる認証に失敗しました。理由：%{reason}'
+      timeout: "認証中にタイムアウトが発生しました。もう一度お試しください。"
 
     failure:
       already_authenticated: "すでにログインしています。"
