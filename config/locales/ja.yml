@@ -45,6 +45,7 @@ ja:
       inactive: "アカウントが無効です。"
       expired: "アカウントの有効期限が切れています。"
       session_limit_exceeded: "このアカウントでログインできる最大セッション数を超えました。"
+      unauthorized_access: "アクセス権がありません。"
 
   errors:
     messages:

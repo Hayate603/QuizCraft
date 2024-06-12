@@ -7,7 +7,7 @@ module Users
 
     def authorize_user
       user = User.find_by(id: params[:id])
-      redirect_to(root_path, alert: "アクセス権がありません。") if user.nil? || (current_user != user)
+      redirect_to(root_path, alert: I18n.t('devise.failure.unauthorized_access')) if user.nil? || (current_user != user)
     end
   end
 end
