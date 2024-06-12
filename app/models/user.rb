@@ -4,11 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :omniauthable,
-         omniauth_providers: [:google_oauth2, :facebook]
+         omniauth_providers: %i[google_oauth2 facebook]
 
   def self.from_omniauth(auth)
     user = User.find_by(email: auth.info.email)
-  
+
     if user
       user.update(provider: auth.provider, uid: auth.uid, username: auth.info.name)
     else
@@ -22,7 +22,7 @@ class User < ApplicationRecord
       user.skip_confirmation! if user.respond_to?(:skip_confirmation!)
       user.save!
     end
-  
+
     user
   rescue Net::OpenTimeout
     nil
