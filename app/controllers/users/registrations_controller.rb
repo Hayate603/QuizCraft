@@ -7,7 +7,7 @@ module Users
 
     def authorize_user
       user = User.find_by(id: params[:id])
-      return redirect_to(root_path, alert: "アクセス権がありません。") if user.nil? || (current_user != user)
+      redirect_to(root_path, alert: "アクセス権がありません。") if user.nil? || (current_user != user)
     end
   end
 end
