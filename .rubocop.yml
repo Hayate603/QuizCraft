@@ -36,3 +36,15 @@ Style/StringLiterals:
 
 Style/Documentation:
   Enabled: false
+
+# キーワード引数の省略を無効にする
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+# コメントのインデントを無効にする
+Layout/LeadingCommentSpace:
+  Enabled: false
+
+# ハッシュのインデントを一貫させる
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
