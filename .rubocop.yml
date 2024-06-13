@@ -2,6 +2,10 @@ require:
   - rubocop-performance
   - rubocop-rails
 
+inherit_mode:
+  merge:
+    - Exclude
+
 AllCops:
   TargetRubyVersion: 3.3.0
   NewCops: enable
@@ -37,17 +41,22 @@ Style/StringLiterals:
 Style/Documentation:
   Enabled: false
 
-# キーワード引数の省略を無効にする
 Style/TrailingCommaInArguments:
   Enabled: false
 
-# コメントのインデントを無効にする
 Layout/LeadingCommentSpace:
   Enabled: false
 
-# ハッシュのインデントを一貫させる
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 Rails/LexicallyScopedActionFilter:
   Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
