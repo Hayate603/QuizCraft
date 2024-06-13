@@ -48,3 +48,6 @@ Layout/LeadingCommentSpace:
 # ハッシュのインデントを一貫させる
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
