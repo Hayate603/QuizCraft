@@ -22,7 +22,7 @@ module Users
     end
 
     def process_successful_auth(kind)
-      flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind: kind)
+      flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind:)
       sign_in_and_redirect @user, event: :authentication
     end
 
