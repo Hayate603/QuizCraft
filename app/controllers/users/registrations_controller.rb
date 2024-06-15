@@ -39,11 +39,12 @@ module Users
     end
 
     def handle_successful_update(prev_unconfirmed_email)
-      if resource.respond_to?(:unconfirmed_email) && resource.unconfirmed_email != prev_unconfirmed_email
-        flash[:notice] = I18n.t('devise.registrations.update_needs_confirmation')
-      else
-        flash[:notice] = I18n.t('devise.registrations.updated')
-      end
+      flash[:notice] = if resource.respond_to?(:unconfirmed_email) &&
+                          resource.unconfirmed_email != prev_unconfirmed_email
+                         I18n.t('devise.registrations.update_needs_confirmation')
+                       else
+                         I18n.t('devise.registrations.updated')
+                       end
       bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
       redirect_to after_update_path_for(resource)
     end
