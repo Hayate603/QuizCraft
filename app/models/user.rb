@@ -7,7 +7,8 @@ class User < ApplicationRecord
          omniauth_providers: %i[google_oauth2 facebook]
 
   def self.from_omniauth(auth)
-    user = User.find_by(email: auth.info.email)
+    user = User.find_by(provider: auth.provider, uid: auth.uid)
+    user ||= User.find_by(email: auth.info.email)
 
     if user
       update_user_from_omniauth(user, auth)
