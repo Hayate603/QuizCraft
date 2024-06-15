@@ -26,10 +26,13 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
-  <div class="field">
-    <%= f.label :current_password, "現在のパスワード" %> <i>(変更を確認するために必要です)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+  <% if resource.provider.blank? %>
+    <div class="field">
+      <%= f.label :current_password, "現在のパスワード" %> <i>(変更を確認するために必要です)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password" %>
+    </div>
+  <% end %>
+
 
   <div class="actions">
     <%= f.submit "更新" %>
