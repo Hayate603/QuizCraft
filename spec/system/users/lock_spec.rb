@@ -26,7 +26,7 @@ RSpec.describe "アカウントロック機能", type: :system do
       expect(ActionMailer::Base.deliveries.count).to eq 1
       mail = ActionMailer::Base.deliveries.last
       expect(mail.to).to include(user.email)
-      expect(mail.subject).to eq("Unlock instructions")
+      expect(mail.subject).to eq("アカウントロック解除のお知らせ")
     end
   end
 

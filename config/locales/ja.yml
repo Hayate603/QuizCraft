@@ -31,6 +31,17 @@ ja:
       success: '%{kind} アカウントによる認証に成功しました。'
       failure: '%{kind} アカウントによる認証に失敗しました。理由：%{reason}'
       timeout: "認証中にタイムアウトが発生しました。もう一度お試しください。"
+    mailer:
+      confirmation_instructions:
+        subject: 'アカウント確認メール'
+      email_changed:
+        subject: 'メールアドレス変更のお知らせ'
+      password_change:
+        subject: 'パスワード変更のお知らせ'
+      reset_password_instructions:
+        subject: 'パスワードリセットのお知らせ'
+      unlock_instructions:
+        subject: 'アカウントロック解除のお知らせ'
 
     failure:
       already_authenticated: "すでにログインしています。"

@@ -11,7 +11,7 @@ RSpec.describe "パスワードリセット", type: :system do
     expect(ActionMailer::Base.deliveries.size).to eq(1)
     mail = ActionMailer::Base.deliveries.last
     expect(mail.to).to include(user.email)
-    expect(mail.subject).to include("Reset password instructions")
+    expect(mail.subject).to include("パスワードリセットのお知らせ")
     expect(page).to have_content("パスワード再設定の手順を記載したメールを数分以内にお送りします。")
   end
 
