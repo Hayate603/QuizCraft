@@ -1,0 +1,5 @@
+<p><%= @email %>様</p>
+
+<p>アカウント確認のために以下のリンクをクリックしてください。</p>
+
+<p><%= link_to 'アカウント確認', confirmation_url(@resource, confirmation_token: @token) %></p>

@@ -1,0 +1,32 @@
+<h2>ログイン</h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, "パスワード" %><br />
+    <%= f.password_field :password, autocomplete: "current-password" %>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me, "ログイン情報を記憶する" %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit "ログイン" %>
+  </div>
+<% end %>
+
+<div class="oauth-providers">
+  <h3>または</h3>
+  <%= button_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, method: :post, class: "oauth-btn google", data: { turbo: false } %>
+  <%= button_to "Facebookでログイン", user_facebook_omniauth_authorize_path, method: :post, class: "oauth-btn facebook", data: { turbo: false } %>
+</div>
+
+<%= render "devise/shared/links" %>

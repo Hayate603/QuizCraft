@@ -1,0 +1,68 @@
+ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+        current_password: "現在のパスワード"
+
+  devise:
+    sessions:
+      signed_in: 'ログインしました。'
+      signed_out: 'ログアウトしました。'
+    registrations:
+      signed_up_but_unconfirmed: '確認メールを送信しました。メール内のリンクをクリックしてアカウントを有効にしてください。'
+      signed_up: 'アカウント登録が完了しました。'
+      updated: 'アカウント情報が更新されました。'
+      destroyed: 'アカウントが削除されました。'
+      update_needs_confirmation: 'メールアドレスの変更には確認が必要です。確認メールを送信しました。'
+    passwords:
+      updated: 'パスワードが正しく変更されました。'
+      send_instructions: "パスワード再設定の手順を記載したメールを数分以内にお送りします。"
+    confirmations:
+      confirmed: 'アカウントが確認されました。ログインしてください。'
+    unlocks:
+      unlocked: 'アカウントのロックが解除されました。'
+      send_instructions: "アンロック指示を送信しました。"
+    omniauth_callbacks:
+      success: '%{kind} アカウントによる認証に成功しました。'
+      failure: '%{kind} アカウントによる認証に失敗しました。理由：%{reason}'
+      timeout: "認証中にタイムアウトが発生しました。もう一度お試しください。"
+    mailer:
+      confirmation_instructions:
+        subject: 'アカウント確認メール'
+      email_changed:
+        subject: 'メールアドレス変更のお知らせ'
+      password_change:
+        subject: 'パスワード変更のお知らせ'
+      reset_password_instructions:
+        subject: 'パスワードリセットのお知らせ'
+      unlock_instructions:
+        subject: 'アカウントロック解除のお知らせ'
+
+    failure:
+      already_authenticated: "すでにログインしています。"
+      unauthenticated: "ログインしてください。"
+      unconfirmed: "メールアドレスの確認が必要です。"
+      invalid: "メールアドレスまたはパスワードが違います。"
+      invalid_token: "無効なトークンです。"
+      locked: "アカウントがロックされています。"
+      last_attempt: "最後の試行です。アカウントがロックされる前にログインしてください。"
+      timeout: "セッションの有効期限が切れました。再度ログインしてください。"
+      not_found_in_database: "メールアドレスまたはパスワードが違います。"
+      inactive: "アカウントが無効です。"
+      expired: "アカウントの有効期限が切れています。"
+      session_limit_exceeded: "このアカウントでログインできる最大セッション数を超えました。"
+      unauthorized_access: "アクセス権がありません。"
+
+  errors:
+    messages:
+      already_confirmed: 'すでに確認されています。ログインしてください。'
+      not_found: 'は見つかりません。'
+      not_locked: 'ロックされていません。'
+      not_saved:
+        one: '1つのエラーにより保存できませんでした：'
+        other: '%{count}つのエラーにより保存できませんでした：'
