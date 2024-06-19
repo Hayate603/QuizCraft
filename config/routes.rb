@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'quizzes/new'
-  get 'quizzes/create'
-  get 'quizzes/index'
-  get 'quizzes/show'
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
@@ -13,4 +9,5 @@ Rails.application.routes.draw do
     delete 'users/:id', to: 'users/registrations#destroy', as: 'user'
   end
   root 'home#index'
+  resources :quizzes, only: [:new, :create, :index, :show]
 end
