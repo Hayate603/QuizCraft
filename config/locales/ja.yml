@@ -2,12 +2,16 @@ ja:
   activerecord:
     models:
       user: "ユーザー"
+      quiz: "クイズ"
     attributes:
       user:
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "パスワード確認"
         current_password: "現在のパスワード"
+      quiz:
+        title: "タイトル"
+        description: "説明"
 
   devise:
     sessions:
@@ -66,3 +70,27 @@ ja:
       not_saved:
         one: '1つのエラーにより保存できませんでした：'
         other: '%{count}つのエラーにより保存できませんでした：'
+
+  activerecord:
+    errors:
+      models:
+        quiz:
+          attributes:
+            title:
+              blank: "タイトルを入力してください"
+              taken: "タイトルはすでに存在します"
+            description:
+              blank: "説明を入力してください"
+        user:
+          attributes:
+            email:
+              blank: "メールアドレスを入力してください"
+              taken: "メールアドレスはすでに存在します"
+              invalid: "メールアドレスは不正な値です"
+              not_found: "メールアドレスは見つかりません。"
+            password:
+              too_short: "パスワードは6文字以上で入力してください"
+            password_confirmation:
+              confirmation: "パスワード確認とパスワードの入力が一致しません"
+            current_password:
+              invalid: "現在のパスワードは不正な値です"
