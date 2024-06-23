@@ -73,6 +73,7 @@ ja:
 
   notices:
     quiz_created: 'クイズが作成されました。'
+    question_created: '質問が正常に作成されました。'
 
   activerecord:
     errors:
