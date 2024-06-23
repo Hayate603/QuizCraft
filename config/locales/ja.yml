@@ -78,7 +78,7 @@ ja:
           attributes:
             title:
               blank: "タイトルを入力してください"
-              taken: "タイトルはすでに存在します"
+              taken: "%{value}というタイトルのクイズは既に存在します。別のタイトルを入力してください。"
             description:
               blank: "説明を入力してください"
         user:
