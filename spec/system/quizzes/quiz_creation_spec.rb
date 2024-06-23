@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Quiz Creation', type: :system do
   let(:user) { FactoryBot.create(:user) }
+  let(:another_user) { FactoryBot.create(:user) }
 
   before do
     sign_in user
@@ -22,6 +23,20 @@ RSpec.describe 'Quiz Creation', type: :system do
         expect(page).to have_content 'Test Quiz'
         expect(page).to have_content 'This is a test description'
       end
+
+      it '他のユーザーなら同じタイトルのクイズでも作成できること' do
+        Quiz.create!(title: 'Duplicate Title', description: 'This is a test description', user: user)
+        sign_out user
+        sign_in another_user
+        visit new_quiz_path
+        fill_in 'タイトル', with: 'Duplicate Title'
+        fill_in '説明', with: 'This is another test description'
+        click_button 'クイズを作成'
+
+        expect(page).to have_content 'クイズが作成されました。'
+        expect(page).to have_content 'Duplicate Title'
+        expect(page).to have_content 'This is another test description'
+      end
     end
 
     context '無効な値が入力された場合' do
@@ -40,6 +55,16 @@ RSpec.describe 'Quiz Creation', type: :system do
         click_button 'クイズを作成'
 
         expect(page).to have_content '説明を入力してください'
+      end
+
+      it '同じユーザーが同じタイトルのクイズを作成できないこと' do
+        Quiz.create!(title: 'Duplicate Title', description: 'This is a test description', user: user)
+        visit new_quiz_path
+        fill_in 'タイトル', with: 'Duplicate Title'
+        fill_in '説明', with: 'This is another test description'
+        click_button 'クイズを作成'
+
+        expect(page).to have_content 'Duplicate Titleというタイトルのクイズは既に存在します。別のタイトルを入力してください。'
       end
     end
   end
