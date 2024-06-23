@@ -71,6 +71,9 @@ ja:
         one: '1つのエラーにより保存できませんでした：'
         other: '%{count}つのエラーにより保存できませんでした：'
 
+  notices:
+    quiz_created: 'クイズが作成されました。'
+
   activerecord:
     errors:
       models:

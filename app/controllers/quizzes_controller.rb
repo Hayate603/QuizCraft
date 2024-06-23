@@ -16,7 +16,7 @@ class QuizzesController < ApplicationController
   def create
     @quiz = current_user.quizzes.build(quiz_params)
     if @quiz.save
-      redirect_to @quiz, notice: 'クイズが作成されました。'
+      redirect_to @quiz, notice: I18n.t('notices.quiz_created')
     else
       render :new
     end
