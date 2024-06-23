@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   end
   root 'home#index'
   resources :quizzes, only: [:new, :create, :index, :show]
+  resources :questions
 end
