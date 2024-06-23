@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     delete 'users/:id', to: 'users/registrations#destroy', as: 'user'
   end
   root 'home#index'
+  resources :quizzes, only: [:new, :create, :index, :show]
 end
