@@ -25,7 +25,7 @@ RSpec.describe 'Quiz Creation', type: :system do
       end
 
       it '他のユーザーなら同じタイトルのクイズでも作成できること' do
-        Quiz.create!(title: 'Duplicate Title', description: 'This is a test description', user: user)
+        Quiz.create!(title: 'Duplicate Title', description: 'This is a test description', user:)
         sign_out user
         sign_in another_user
         visit new_quiz_path
@@ -58,7 +58,7 @@ RSpec.describe 'Quiz Creation', type: :system do
       end
 
       it '同じユーザーが同じタイトルのクイズを作成できないこと' do
-        Quiz.create!(title: 'Duplicate Title', description: 'This is a test description', user: user)
+        Quiz.create!(title: 'Duplicate Title', description: 'This is a test description', user:)
         visit new_quiz_path
         fill_in 'タイトル', with: 'Duplicate Title'
         fill_in '説明', with: 'This is another test description'
@@ -70,7 +70,7 @@ RSpec.describe 'Quiz Creation', type: :system do
   end
 
   describe 'クイズ一覧の表示' do
-    let!(:quiz) { FactoryBot.create(:quiz, user: user, title: 'Sample Quiz', description: 'Sample description') }
+    let!(:quiz) { FactoryBot.create(:quiz, user:, title: 'Sample Quiz', description: 'Sample description') }
 
     it 'クイズの一覧が表示されること' do
       visit quizzes_path
@@ -80,7 +80,7 @@ RSpec.describe 'Quiz Creation', type: :system do
   end
 
   describe 'クイズの詳細の表示' do
-    let!(:quiz) { FactoryBot.create(:quiz, user: user, title: 'Sample Quiz', description: 'Sample description') }
+    let!(:quiz) { FactoryBot.create(:quiz, user:, title: 'Sample Quiz', description: 'Sample description') }
 
     it 'クイズの詳細が表示されること' do
       visit quiz_path(quiz)

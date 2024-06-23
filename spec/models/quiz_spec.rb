@@ -7,12 +7,12 @@ RSpec.describe Quiz, type: :model do
   describe 'バリデーションに関するテスト' do
     context '有効な場合' do
       it 'タイトルと説明があれば有効であること' do
-        quiz = Quiz.new(title: '有効なタイトル', description: '有効な説明', user: user)
+        quiz = Quiz.new(title: '有効なタイトル', description: '有効な説明', user:)
         expect(quiz).to be_valid
       end
 
       it '他のユーザーなら同じタイトルのクイズでも作成できること' do
-        Quiz.create!(title: '同じタイトル', description: '有効な説明', user: user)
+        Quiz.create!(title: '同じタイトル', description: '有効な説明', user:)
         quiz = Quiz.new(title: '同じタイトル', description: '有効な説明', user: another_user)
         expect(quiz).to be_valid
       end
@@ -20,20 +20,20 @@ RSpec.describe Quiz, type: :model do
 
     context '無効な場合' do
       it 'タイトルがなければ無効であること' do
-        quiz = Quiz.new(description: '有効な説明', user: user)
+        quiz = Quiz.new(description: '有効な説明', user:)
         quiz.valid?
         expect(quiz.errors[:title]).to include("タイトルを入力してください")
       end
 
       it '説明がなければ無効であること' do
-        quiz = Quiz.new(title: '有効なタイトル', user: user)
+        quiz = Quiz.new(title: '有効なタイトル', user:)
         quiz.valid?
         expect(quiz.errors[:description]).to include("説明を入力してください")
       end
 
       it '同じユーザーが同じタイトルのクイズを作成できないこと' do
-        Quiz.create!(title: '同じタイトル', description: '有効な説明', user: user)
-        quiz = Quiz.new(title: '同じタイトル', description: '有効な説明', user: user)
+        Quiz.create!(title: '同じタイトル', description: '有効な説明', user:)
+        quiz = Quiz.new(title: '同じタイトル', description: '有効な説明', user:)
         quiz.valid?
         expect(quiz.errors[:title]).to include("同じタイトルというタイトルのクイズは既に存在します。別のタイトルを入力してください。")
       end
@@ -41,7 +41,7 @@ RSpec.describe Quiz, type: :model do
   end
 
   describe '関連付けに関するテスト' do
-    let(:quiz) { FactoryBot.create(:quiz, user: user) }
+    let(:quiz) { FactoryBot.create(:quiz, user:) }
 
     it 'ユーザーに属していること' do
       expect(quiz.user).to eq(user)
