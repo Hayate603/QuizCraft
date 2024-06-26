@@ -1,19 +1,20 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_question, only: %i[show edit update destroy]
+  before_action :set_quiz, only: %i[new create]
 
   def index
     @questions = Question.all
   end
 
   def new
-    @question = Question.new
+    @question = @quiz.questions.build
   end
 
   def create
-    @question = Question.new(question_params)
+    @question = @quiz.questions.build(question_params)
     if @question.save
-      redirect_to @question, notice: I18n.t('notices.question_created')
+      redirect_to [@quiz, @question], notice: I18n.t('notices.question_created')
     else
       render :new
     end
@@ -42,6 +43,10 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def set_quiz
+    @quiz = Quiz.find(params[:quiz_id])
   end
 
   def question_params
