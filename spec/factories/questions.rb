@@ -1,6 +1,11 @@
 FactoryBot.define do
   factory :question do
-    question_text { "MyText" }
-    correct_answer { "MyString" }
+    question_text { "Sample question" }
+    correct_answer { "Sample answer" }
+
+    after(:build) do |question|
+      quiz = build(:quiz)
+      question.quiz_questions << build(:quiz_question, quiz: quiz, question: question)
+    end
   end
 end
