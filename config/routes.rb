@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     patch 'users', to: 'users/registrations#update', as: 'update_user_registration'
     delete 'users/:id', to: 'users/registrations#destroy', as: 'user'
   end
-  root 'home#index'
+
+  root 'quizzes#index'
 
   resources :quizzes, only: %i[new create index show] do
     resources :questions, only: %i[new create]
