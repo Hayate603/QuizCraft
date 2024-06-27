@@ -74,6 +74,8 @@ ja:
   notices:
     quiz_created: 'クイズが作成されました。'
     question_created: '質問が正常に作成されました。'
+    quiz_updated: 'クイズが更新されました。'
+    quiz_deleted: 'クイズが削除されました。'
 
   activerecord:
     errors:
