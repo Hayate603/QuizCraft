@@ -5,5 +5,9 @@
   <%= @question.correct_answer %>
 </p>
 
-<%= link_to '編集', edit_quiz_question_path(@question.quiz, @question) %> |
+<% if user_signed_in? && (@question.quiz.user == current_user || @question.user == current_user) %>
+  <%= link_to '編集', edit_quiz_question_path(@question.quiz, @question) %> |
+  <%= link_to '削除', [@question.quiz, @question], method: :delete, data: { confirm: '本当に削除しますか？' } %> |
+<% end %>
+
 <%= link_to 'クイズ詳細に戻る', quiz_path(@question.quiz) %>
