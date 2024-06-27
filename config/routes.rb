@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root 'quizzes#index'
 
-  resources :quizzes, only: %i[new create index show] do
+  resources :quizzes do
     resources :questions, only: %i[new create]
   end
 
