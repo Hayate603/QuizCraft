@@ -1,12 +1,12 @@
 class QuizzesController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
+  before_action :set_quiz, only: %i[show edit update destroy]
 
   def index
     @quizzes = Quiz.all
   end
 
   def show
-    @quiz = Quiz.find(params[:id])
   end
 
   def new
@@ -22,7 +22,27 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @quiz.update(quiz_params)
+      redirect_to @quiz, notice: I18n.t('notices.quiz_updated')
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @quiz.destroy
+    redirect_to quizzes_url, notice: I18n.t('notices.quiz_deleted')
+  end
+
   private
+
+  def set_quiz
+    @quiz = Quiz.find(params[:id])
+  end
 
   def quiz_params
     params.require(:quiz).permit(:title, :description)
