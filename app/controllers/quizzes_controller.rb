@@ -1,6 +1,7 @@
 class QuizzesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_quiz, only: %i[show edit update destroy]
+  before_action :authorize_user!, only: %i[edit update destroy]
 
   def index
     @quizzes = Quiz.all
@@ -42,6 +43,12 @@ class QuizzesController < ApplicationController
 
   def set_quiz
     @quiz = Quiz.find(params[:id])
+  end
+
+  def authorize_user!
+    unless @quiz.user == current_user
+      redirect_to quizzes_path, alert: I18n.t('alerts.access_denied')
+    end
   end
 
   def quiz_params

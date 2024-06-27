@@ -71,6 +71,9 @@ ja:
         one: '1つのエラーにより保存できませんでした：'
         other: '%{count}つのエラーにより保存できませんでした：'
 
+  alerts:
+    access_denied: 'アクセス権がありません'
+
   notices:
     quiz_created: 'クイズが作成されました。'
     question_created: '質問が正常に作成されました。'
