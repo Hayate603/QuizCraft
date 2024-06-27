@@ -3,10 +3,6 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy]
   before_action :set_quiz, only: %i[new create]
 
-  def index
-    @questions = Question.all
-  end
-
   def new
     @question = @quiz.questions.build
   end
