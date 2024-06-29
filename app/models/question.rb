@@ -15,11 +15,9 @@ class Question < ApplicationRecord
   end
 
   def ensure_no_quiz_associations
-    if quiz_questions.exists?
-      errors.add(:base, "Cannot delete question with associated quizzes")
-      throw(:abort)
-    end
+    return unless quiz_questions.exists?
+
+    errors.add(:base, "Cannot delete question with associated quizzes")
+    throw(:abort)
   end
 end
-
-

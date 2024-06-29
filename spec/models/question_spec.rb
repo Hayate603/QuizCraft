@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   let(:user) { create(:user) }
-  let(:quiz) { create(:quiz, user: user) }
+  let(:quiz) { create(:quiz, user:) }
 
   describe "バリデーション" do
     context "有効な場合" do
@@ -45,9 +45,9 @@ RSpec.describe Question, type: :model do
     context "他のクイズに関連付けられている場合" do
       it "質問が削除されないこと" do
         question = create(:question, question_text: "Sample question", correct_answer: "Sample answer", quizzes: [quiz])
-        another_quiz = create(:quiz, user: user, title: "Another Quiz")
-        create(:quiz_question, quiz: another_quiz, question: question)
-        expect { question.destroy }.to_not change { Question.count }
+        another_quiz = create(:quiz, user:, title: "Another Quiz")
+        create(:quiz_question, quiz: another_quiz, question:)
+        expect { question.destroy }.to_not(change { Question.count })
       end
     end
   end

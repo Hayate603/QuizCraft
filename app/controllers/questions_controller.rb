@@ -4,8 +4,16 @@ class QuestionsController < ApplicationController
   before_action :set_quiz, only: %i[new create]
   before_action :authorize_user!, only: %i[edit update destroy]
 
+  def show
+    @quiz = @question.quizzes.first
+  end
+
   def new
     @question = @quiz.questions.build
+  end
+
+  def edit
+    @quiz = @question.quizzes.first
   end
 
   def create
@@ -16,14 +24,6 @@ class QuestionsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-    @quiz = @question.quizzes.first
-  end
-
-  def edit
-    @quiz = @question.quizzes.first
   end
 
   def update
@@ -55,8 +55,8 @@ class QuestionsController < ApplicationController
   end
 
   def authorize_user!
-    unless @question.quizzes.first.user == current_user
-      redirect_to root_path, alert: I18n.t('alerts.access_denied')
-    end
+    return if @question.quizzes.first.user == current_user
+
+    redirect_to root_path, alert: I18n.t('alerts.access_denied')
   end
 end

@@ -2,26 +2,26 @@ require 'rails_helper'
 
 RSpec.describe QuizQuestion, type: :model do
   let(:user) { create(:user) }
-  let(:quiz) { create(:quiz, user: user) }
+  let(:quiz) { create(:quiz, user:) }
   let(:question) { create(:question, quizzes: [quiz]) }
 
   describe 'バリデーションに関するテスト' do
     context '有効な場合' do
       it '質問とクイズがあれば有効であること' do
-        quiz_question = QuizQuestion.new(quiz: quiz, question: question)
+        quiz_question = QuizQuestion.new(quiz:, question:)
         expect(quiz_question).to be_valid
       end
     end
 
     context '無効な場合' do
       it 'クイズがない場合は無効であること' do
-        quiz_question = QuizQuestion.new(quiz: nil, question: question)
+        quiz_question = QuizQuestion.new(quiz: nil, question:)
         expect(quiz_question).to be_invalid
         expect(quiz_question.errors[:quiz]).to include("を入力してください")
       end
 
       it '質問がない場合は無効であること' do
-        quiz_question = QuizQuestion.new(quiz: quiz, question: nil)
+        quiz_question = QuizQuestion.new(quiz:, question: nil)
         expect(quiz_question).to be_invalid
         expect(quiz_question.errors[:question]).to include("を入力してください")
       end

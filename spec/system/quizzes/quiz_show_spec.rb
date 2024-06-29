@@ -4,7 +4,9 @@ RSpec.describe 'Quiz Show', type: :system do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
   let!(:quiz) { create(:quiz, user:, title: 'Sample Quiz', description: 'Sample description') }
-  let!(:question) { create(:question, question_text: 'Sample Question', correct_answer: 'Sample Answer', quizzes: [quiz]) }
+  let!(:question) do
+    create(:question, question_text: 'Sample Question', correct_answer: 'Sample Answer', quizzes: [quiz])
+  end
 
   describe 'クイズの詳細ページの表示' do
     it 'クイズの詳細が表示されること' do

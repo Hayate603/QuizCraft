@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Question Creation', type: :system do
   let(:user) { create(:user) }
-  let(:quiz) { create(:quiz, user: user) }
+  let(:quiz) { create(:quiz, user:) }
 
   before do
     sign_in user

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Question Show', type: :system do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
-  let(:quiz) { create(:quiz, user: user) }
+  let(:quiz) { create(:quiz, user:) }
   let!(:question) { create(:question, question_text: 'これは詳細表示のテスト質問です', correct_answer: '答え', quizzes: [quiz]) }
 
   describe '質問の詳細の表示' do

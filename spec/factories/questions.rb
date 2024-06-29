@@ -5,7 +5,7 @@ FactoryBot.define do
 
     after(:build) do |question|
       quiz = build(:quiz)
-      question.quiz_questions << build(:quiz_question, quiz: quiz, question: question)
+      question.quiz_questions << build(:quiz_question, quiz:, question:)
     end
   end
 end

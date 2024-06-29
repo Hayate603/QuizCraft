@@ -7,12 +7,13 @@ class QuizzesController < ApplicationController
     @quizzes = Quiz.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @quiz = Quiz.new
   end
+
+  def edit; end
 
   def create
     @quiz = current_user.quizzes.build(quiz_params)
@@ -21,9 +22,6 @@ class QuizzesController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
@@ -46,9 +44,9 @@ class QuizzesController < ApplicationController
   end
 
   def authorize_user!
-    unless @quiz.user == current_user
-      redirect_to quizzes_path, alert: I18n.t('alerts.access_denied')
-    end
+    return if @quiz.user == current_user
+
+    redirect_to quizzes_path, alert: I18n.t('alerts.access_denied')
   end
 
   def quiz_params
