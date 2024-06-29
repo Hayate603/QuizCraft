@@ -12,6 +12,9 @@ ja:
       quiz:
         title: "タイトル"
         description: "説明"
+      question:
+        question_text: "質問テキスト"
+        correct_answer: "正解"
 
   devise:
     sessions:
@@ -71,8 +74,16 @@ ja:
         one: '1つのエラーにより保存できませんでした：'
         other: '%{count}つのエラーにより保存できませんでした：'
 
+  alerts:
+    access_denied: 'アクセス権がありません'
+
   notices:
     quiz_created: 'クイズが作成されました。'
+    quiz_updated: 'クイズが更新されました。'
+    quiz_deleted: 'クイズが削除されました。'
+    question_created: '質問が作成されました。'
+    question_updated: '質問が更新されました。'
+    question_deleted: '質問が削除されました。'
 
   activerecord:
     errors:
@@ -84,6 +95,12 @@ ja:
               taken: "%{value}というタイトルのクイズは既に存在します。別のタイトルを入力してください。"
             description:
               blank: "説明を入力してください"
+        question:
+          attributes:
+            question_text:
+              blank: "質問テキストを入力してください"
+            correct_answer:
+              blank: "正解を入力してください"
         user:
           attributes:
             email:

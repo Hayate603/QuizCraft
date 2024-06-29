@@ -1,3 +1,22 @@
 <h1><%= @quiz.title %></h1>
 <p><%= @quiz.description %></p>
+
+<% if user_signed_in? && @quiz.user == current_user %>
+  <%= link_to 'クイズを編集', edit_quiz_path(@quiz) %> |
+  <%= link_to 'クイズを削除', @quiz, method: :delete, data: { confirm: '本当に削除しますか？' } %>
+<% end %>
+
+<h2>質問一覧</h2>
+<ul>
+  <% @quiz.questions.each do |question| %>
+    <li>
+      <%= link_to question.question_text, quiz_question_path(@quiz, question) %>
+    </li>
+  <% end %>
+</ul>
+
+<% if user_signed_in? && @quiz.user == current_user %>
+  <%= link_to '新しい質問を追加', new_quiz_question_path(@quiz) %>
+<% end %>
+
 <%= link_to 'クイズ一覧に戻る', quizzes_path %>

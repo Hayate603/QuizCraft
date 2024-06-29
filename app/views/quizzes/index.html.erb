@@ -1,5 +1,9 @@
 <h1>クイズ一覧</h1>
-<%= link_to '新しいクイズを作成', new_quiz_path %>
+
+<% if user_signed_in? %>
+  <%= link_to '新しいクイズを作成', new_quiz_path %>
+<% end %>
+
 <ul>
   <% @quizzes.each do |quiz| %>
     <li>

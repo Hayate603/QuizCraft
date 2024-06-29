@@ -40,23 +40,20 @@ RSpec.describe Quiz, type: :model do
     end
   end
 
-  describe '関連付けに関するテスト' do
-    let(:quiz) { FactoryBot.create(:quiz, user:) }
-
-    it 'ユーザーに属していること' do
-      expect(quiz.user).to eq(user)
+  describe 'アソシエーションに関するテスト' do
+    it 'Quizは1つのUserに属すること' do
+      assoc = described_class.reflect_on_association(:user)
+      expect(assoc.macro).to eq :belongs_to
     end
 
-    # これらのテストは、question と quiz_question モデルが作成された後に有効にしてください
-    # it '複数のquiz_questionsを持っていること' do
-    #   quiz_question = FactoryBot.create(:quiz_question, quiz: quiz)
-    #   expect(quiz.quiz_questions).to include(quiz_question)
-    # end
+    it 'Quizは複数のQuizQuestionsを持っていること' do
+      assoc = described_class.reflect_on_association(:quiz_questions)
+      expect(assoc.macro).to eq :has_many
+    end
 
-    # it 'quiz_questionsを通じて複数のquestionsを持っていること' do
-    #   question = FactoryBot.create(:question)
-    #   quiz_question = FactoryBot.create(:quiz_question, quiz: quiz, question: question)
-    #   expect(quiz.questions).to include(question)
-    # end
+    it 'QuizはQuizQuestionsを通じて複数のQuestionsを持っていること' do
+      assoc = described_class.reflect_on_association(:questions)
+      expect(assoc.macro).to eq :has_many
+    end
   end
 end

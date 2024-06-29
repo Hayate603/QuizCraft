@@ -1,0 +1,26 @@
+<% if @question.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+    <ul>
+      <% @question.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: [@quiz, @question], local: true, data: { turbo: false } do |form| %>
+  <div class="field">
+    <%= form.label :question_text, "質問テキスト" %>
+    <%= form.text_area :question_text %>
+  </div>
+
+  <div class="field">
+    <%= form.label :correct_answer, "正解" %>
+    <%= form.text_field :correct_answer %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "質問を作成" %>
+  </div>
+<% end %>

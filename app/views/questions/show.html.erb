@@ -1,0 +1,13 @@
+<h1><%= @question.question_text %></h1>
+
+<p>
+  <strong>正解:</strong>
+  <%= @question.correct_answer %>
+</p>
+
+<% if user_signed_in? && (@question.quizzes.first.user == current_user) %>
+  <%= link_to '質問を編集', edit_quiz_question_path(@question.quizzes.first, @question) %> |
+  <%= link_to '質問を削除', quiz_question_path(@question.quizzes.first, @question), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+<% end %>
+
+<%= link_to 'クイズ詳細に戻る', quiz_path(@question.quizzes.first) %>

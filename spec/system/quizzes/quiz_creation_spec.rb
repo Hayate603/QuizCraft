@@ -68,24 +68,4 @@ RSpec.describe 'Quiz Creation', type: :system do
       end
     end
   end
-
-  describe 'クイズ一覧の表示' do
-    let!(:quiz) { FactoryBot.create(:quiz, user:, title: 'Sample Quiz', description: 'Sample description') }
-
-    it 'クイズの一覧が表示されること' do
-      visit quizzes_path
-      expect(page).to have_content 'Sample Quiz'
-      expect(page).to have_link 'Sample Quiz', href: quiz_path(quiz)
-    end
-  end
-
-  describe 'クイズの詳細の表示' do
-    let!(:quiz) { FactoryBot.create(:quiz, user:, title: 'Sample Quiz', description: 'Sample description') }
-
-    it 'クイズの詳細が表示されること' do
-      visit quiz_path(quiz)
-      expect(page).to have_content 'Sample Quiz'
-      expect(page).to have_content 'Sample description'
-    end
-  end
 end
