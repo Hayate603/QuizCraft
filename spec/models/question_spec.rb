@@ -16,13 +16,13 @@ RSpec.describe Question, type: :model do
       it "質問テキストがなければ無効であること" do
         question = Question.new(question_text: "", correct_answer: "Sample answer", quizzes: [quiz])
         expect(question).to be_invalid
-        expect(question.errors[:question_text]).to include("を入力してください")
+        expect(question.errors[:question_text]).to include("質問テキストを入力してください")
       end
 
       it "正解がなければ無効であること" do
         question = Question.new(question_text: "Sample question", correct_answer: "", quizzes: [quiz])
         expect(question).to be_invalid
-        expect(question.errors[:correct_answer]).to include("を入力してください")
+        expect(question.errors[:correct_answer]).to include("正解を入力してください")
       end
 
       it "クイズに関連付けられていない場合は無効であること" do
