@@ -10,7 +10,7 @@
 <ul>
   <% @quiz.questions.each do |question| %>
     <li>
-      <%= link_to question.question_text, question_path(question) %>
+      <%= link_to question.question_text, quiz_question_path(@quiz, question) %>
     </li>
   <% end %>
 </ul>
