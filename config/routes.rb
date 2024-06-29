@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   root 'quizzes#index'
 
   resources :quizzes do
-    resources :questions, only: %i[new create]
+    resources :questions, only: %i[new create show edit update destroy]
   end
-
-  resources :questions, only: %i[show edit update destroy]
 end
