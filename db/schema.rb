@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_24_072043) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_29_110548) do
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "question_text"
     t.string "correct_answer"
@@ -25,6 +25,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_072043) do
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_quiz_questions_on_question_id"
     t.index ["quiz_id"], name: "index_quiz_questions_on_quiz_id"
+  end
+
+  create_table "quiz_sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "quiz_id", null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_quiz_sessions_on_quiz_id"
+    t.index ["user_id"], name: "index_quiz_sessions_on_user_id"
   end
 
   create_table "quizzes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -64,5 +75,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_072043) do
 
   add_foreign_key "quiz_questions", "questions"
   add_foreign_key "quiz_questions", "quizzes"
+  add_foreign_key "quiz_sessions", "quizzes"
+  add_foreign_key "quiz_sessions", "users"
   add_foreign_key "quizzes", "users"
 end
