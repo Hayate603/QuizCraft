@@ -6,6 +6,10 @@
   <%= link_to 'クイズを削除', @quiz, method: :delete, data: { confirm: '本当に削除しますか？' } %>
 <% end %>
 
+<% if user_signed_in? %>
+  <%= link_to 'クイズを実行する', take_quiz_path(@quiz), class: 'btn btn-primary' %>
+<% end %>
+
 <h2>質問一覧</h2>
 <ul>
   <% @quiz.questions.each do |question| %>

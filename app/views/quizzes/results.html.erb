@@ -1,0 +1,30 @@
+<h1><%= @quiz.title %> - 結果</h1>
+
+<p>クイズが完了しました！以下はあなたの結果です</p>
+
+<table class="results-table">
+  <thead>
+    <tr>
+      <th>質問</th>
+      <th>あなたの回答</th>
+      <th>正解</th>
+      <th>回答の正否</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user_answers.each do |answer| %>
+      <tr>
+        <td><%= answer.question.question_text %></td>
+        <td><%= answer.answer_text %></td>
+        <td><%= answer.question.correct_answer %></td>
+        <td><%= answer.correct ? '〇' : '✕' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="results-summary">
+  <p>総合結果: <%= @user_answers.select(&:correct).count %> / <%= @user_answers.count %> </p>
+</div>
+
+<%= link_to 'クイズ一覧に戻る', quizzes_path, class: 'btn btn-primary' %>
