@@ -4,8 +4,6 @@ class UserAnswer < ApplicationRecord
   belongs_to :question
   belongs_to :quiz_session
 
-  validates :answer_text, presence: true
-
   before_save :check_correctness
 
   private
