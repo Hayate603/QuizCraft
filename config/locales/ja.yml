@@ -15,6 +15,10 @@ ja:
       question:
         question_text: "質問テキスト"
         correct_answer: "正解"
+      user_answer:
+        answer_text: "回答テキスト"
+      quiz_session:
+        start_time: "開始時間"
 
   devise:
     sessions:
@@ -76,14 +80,21 @@ ja:
 
   alerts:
     access_denied: 'アクセス権がありません'
+    no_completed_session: 'このクイズの完了したセッションは見つかりませんでした。'
+    already_answered: 'この質問には既に回答しています。'
+    end_quiz_session_failed: 'クイズセッションの終了に失敗しました。'
+
 
   notices:
     quiz_created: 'クイズが作成されました。'
     quiz_updated: 'クイズが更新されました。'
     quiz_deleted: 'クイズが削除されました。'
+    quiz_completed: 'クイズが完了しました！'
     question_created: '質問が作成されました。'
     question_updated: '質問が更新されました。'
     question_deleted: '質問が削除されました。'
+    answer_submitted: '回答が送信されました！'
+    quiz_session_ended: 'クイズセッションが終了しました。'
 
   activerecord:
     errors:
@@ -114,3 +125,10 @@ ja:
               confirmation: "パスワード確認とパスワードの入力が一致しません"
             current_password:
               invalid: "現在のパスワードは不正な値です"
+        user_answer:
+          attributes:
+            answer_text:
+        quiz_session:
+          attributes:
+            start_time:
+              blank: "開始時間を入力してください"
