@@ -1,6 +1,10 @@
 class FavoriteQuizzesController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @favorite_quizzes = current_user.favorite_quizzes.includes(:quiz)
+  end
+
   def create
     quiz = Quiz.find(params[:quiz_id])
     current_user.favorite_quizzes.create!(quiz: quiz)
