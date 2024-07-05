@@ -1,0 +1,10 @@
+<h1>お気に入りクイズ</h1>
+
+<ul>
+  <% @favorite_quizzes.each do |favorite_quiz| %>
+    <li>
+      <%= link_to favorite_quiz.quiz.title, favorite_quiz.quiz %>
+      <%= button_to 'お気に入りから削除', quiz_favorite_quiz_path(favorite_quiz.quiz), method: :delete %>
+    </li>
+  <% end %>
+</ul>
