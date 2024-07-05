@@ -19,9 +19,14 @@ Rails.application.routes.draw do
       get 'start', to: 'quizzes#start', as: 'start'
       get 'resume', to: 'quizzes#resume', as: 'resume'
     end
+    resource :favorite_quiz, only: [:create, :destroy]
     resources :questions, only: %i[new create show edit update destroy] do
       resources :user_answers, only: [:create]
     end
     resources :quiz_sessions, only: [:create, :update]
+  end
+
+  resources :users do
+    resources :favorite_quizzes, only: [:index]
   end
 end
