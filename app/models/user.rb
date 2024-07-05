@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :quizzes, dependent: :destroy
-  has_many :favorite_quizzes
-  has_many :favorite_quizzes, through: :favorite_quizzes, source: :quiz
+  has_many :favorite_quizzes, dependent: :destroy
+  has_many :favorite_quizzed, through: :favorite_quizzes, source: :quiz
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
