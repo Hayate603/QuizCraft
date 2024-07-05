@@ -4,6 +4,8 @@ class Quiz < ApplicationRecord
   has_many :questions, through: :quiz_questions
   has_many :quiz_sessions, dependent: :destroy
   has_many :user_answers, dependent: :destroy
+  has_many :favorite_quizzes
+  has_many :favorited_by, through: :favorite_quizzes, source: :user
 
   validates :title, presence: true, uniqueness: { scope: :user_id }
   validates :description, presence: true
