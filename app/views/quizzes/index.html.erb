@@ -8,6 +8,13 @@
   <% @quizzes.each do |quiz| %>
     <li>
       <%= link_to quiz.title, quiz %>
+      <% if user_signed_in? %>
+        <% if current_user.favorite_quizzes.exists?(quiz: quiz) %>
+          <%= link_to 'お気に入りから削除', quiz_favorite_quiz_path(quiz), method: :delete %>
+        <% else %>
+          <%= link_to 'お気に入りに追加', quiz_favorite_quiz_path(quiz), method: :post %>
+        <% end %>
+      <% end %>
     </li>
   <% end %>
 </ul>
