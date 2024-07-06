@@ -60,3 +60,6 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
