@@ -6,7 +6,7 @@
 
 <ul>
   <% @quizzes.each do |quiz| %>
-    <li>
+    <li class="quiz-item-<%= quiz.id %>">
       <%= link_to quiz.title, quiz %>
       <% if user_signed_in? %>
         <% if current_user.favorite_quizzes.exists?(quiz: quiz) %>
