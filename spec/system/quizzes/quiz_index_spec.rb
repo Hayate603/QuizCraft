@@ -27,7 +27,7 @@ RSpec.describe 'Quiz Index', type: :system do
       end
 
       it 'クイズをお気に入りから削除できること' do
-        user.favorite_quizzes.create!(quiz: quiz)
+        user.favorite_quizzes.create!(quiz:)
         visit quizzes_path
         within(".quiz-item-#{quiz.id}") do
           click_link 'お気に入りから削除'

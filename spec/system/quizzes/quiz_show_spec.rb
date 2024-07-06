@@ -41,7 +41,7 @@ RSpec.describe 'Quiz Show', type: :system do
         end
 
         it 'クイズをお気に入りから削除できること' do
-          user.favorite_quizzes.create!(quiz: quiz)
+          user.favorite_quizzes.create!(quiz:)
           visit quiz_path(quiz)
           click_button 'お気に入りから削除'
           expect(page).to have_content('クイズをお気に入りから削除しました。')
@@ -68,7 +68,7 @@ RSpec.describe 'Quiz Show', type: :system do
         end
 
         it 'クイズをお気に入りから削除できること' do
-          another_user.favorite_quizzes.create!(quiz: quiz)
+          another_user.favorite_quizzes.create!(quiz:)
           visit quiz_path(quiz)
           click_button 'お気に入りから削除'
           expect(page).to have_content('クイズをお気に入りから削除しました。')

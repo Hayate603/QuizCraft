@@ -7,13 +7,13 @@ class FavoriteQuizzesController < ApplicationController
 
   def create
     quiz = Quiz.find(params[:quiz_id])
-    current_user.favorite_quizzes.create!(quiz: quiz)
+    current_user.favorite_quizzes.create!(quiz:)
     redirect_back fallback_location: quiz, notice: I18n.t('notices.favorite_quiz_added')
   end
 
   def destroy
     quiz = Quiz.find(params[:quiz_id])
-    current_user.favorite_quizzes.find_by(quiz: quiz).destroy
+    current_user.favorite_quizzes.find_by(quiz:).destroy
     redirect_back fallback_location: quiz, notice: I18n.t('notices.favorite_quiz_removed')
   end
 end
