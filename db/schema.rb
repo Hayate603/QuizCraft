@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_30_014514) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_05_025215) do
+  create_table "favorite_quizzes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "quiz_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_favorite_quizzes_on_quiz_id"
+    t.index ["user_id", "quiz_id"], name: "index_favorite_quizzes_on_user_id_and_quiz_id", unique: true
+    t.index ["user_id"], name: "index_favorite_quizzes_on_user_id"
+  end
+
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "question_text"
     t.string "correct_answer"
@@ -88,6 +98,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_014514) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "favorite_quizzes", "quizzes"
+  add_foreign_key "favorite_quizzes", "users"
   add_foreign_key "quiz_questions", "questions"
   add_foreign_key "quiz_questions", "quizzes"
   add_foreign_key "quiz_sessions", "quizzes"

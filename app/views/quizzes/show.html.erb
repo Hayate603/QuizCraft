@@ -10,6 +10,14 @@
   <%= link_to 'クイズを実行する', take_quiz_path(@quiz), class: 'btn btn-primary' %>
 <% end %>
 
+<% if user_signed_in? %>
+  <% if current_user.favorite_quizzes.exists?(quiz: @quiz) %>
+    <%= button_to 'お気に入りから削除', quiz_favorite_quiz_path(@quiz), method: :delete, class: 'btn btn-danger' %>
+  <% else %>
+    <%= button_to 'お気に入りに追加', quiz_favorite_quiz_path(@quiz), class: 'btn btn-success' %>
+  <% end %>
+<% end %>
+
 <h2>質問一覧</h2>
 <ul>
   <% @quiz.questions.each do |question| %>

@@ -3,6 +3,7 @@ ja:
     models:
       user: "ユーザー"
       quiz: "クイズ"
+      favorite_quiz: "お気に入りクイズ"
     attributes:
       user:
         email: "メールアドレス"
@@ -19,6 +20,9 @@ ja:
         answer_text: "回答テキスト"
       quiz_session:
         start_time: "開始時間"
+      favorite_quiz:
+        user: "ユーザー"
+        quiz: "クイズ"
 
   devise:
     sessions:
@@ -95,6 +99,8 @@ ja:
     question_deleted: '質問が削除されました。'
     answer_submitted: '回答が送信されました！'
     quiz_session_ended: 'クイズセッションが終了しました。'
+    favorite_quiz_added: 'クイズをお気に入りに追加しました。'
+    favorite_quiz_removed: 'クイズをお気に入りから削除しました。'
 
   activerecord:
     errors:
@@ -132,3 +138,12 @@ ja:
           attributes:
             start_time:
               blank: "開始時間を入力してください"
+        favorite_quiz:
+          attributes:
+            user:
+              blank: "ユーザー情報が見つかりません"
+            quiz:
+              blank: "クイズ情報が見つかりません"
+            user_id:
+              taken: "同じユーザーとクイズの組み合わせはすでに存在します"
+
