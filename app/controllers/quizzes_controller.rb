@@ -7,7 +7,9 @@ class QuizzesController < ApplicationController
     @quizzes = Quiz.all
   end
 
-  def show; end
+  def show
+    @qr = RQRCode::QRCode.new(quiz_url(@quiz))
+  end
 
   def new
     @quiz = Quiz.new
