@@ -1,6 +1,11 @@
 <h1><%= @quiz.title %></h1>
 <p><%= @quiz.description %></p>
 
+<div class="qr-code">
+  <p>このクイズを共有するには、以下のQRコードをスキャンしてください：</p>
+  <%= raw RQRCode::QRCode.new(quiz_url(@quiz)).as_svg.html_safe %>
+</div>
+
 <% if user_signed_in? && @quiz.user == current_user %>
   <%= link_to 'クイズを編集', edit_quiz_path(@quiz) %> |
   <%= link_to 'クイズを削除', @quiz, method: :delete, data: { confirm: '本当に削除しますか？' } %>
