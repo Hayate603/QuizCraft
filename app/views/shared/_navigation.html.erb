@@ -2,7 +2,7 @@
   <ul>
     <li><%= link_to 'ホーム', root_path %></li>
     <% if user_signed_in? %>
-      <li><%= link_to 'マイクイズ' %></li>
+      <li><%= link_to 'マイクイズ', user_my_quizzes_path(current_user) %></li>
       <li><%= link_to 'お気に入り', user_favorite_quizzes_path(current_user) %></li>
       <li><%= link_to 'クイズ作成', new_quiz_path %></li>
     <% end %>

@@ -28,5 +28,6 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :favorite_quizzes, only: [:index]
+    get 'my_quizzes', to: 'my_quizzes#index', as: 'my_quizzes'
   end
 end
