@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_question, only: %i[show edit update destroy]
-  before_action :set_quiz, only: %i[new create]
+  before_action :set_quiz, only: %i[new create generate_from_image]
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def show
@@ -24,6 +24,15 @@ class QuestionsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def generate_from_image
+    uploaded_image = params[:image].tempfile
+    vision = Google::Cloud::Vision.image_annotator
+    response = vision.text_detection(image: uploaded_image)
+    extracted_text = response.responses.first.text_annotations.first.description
+
+    render json: { text: extracted_text } # 仮のレスポンス
   end
 
   def update
