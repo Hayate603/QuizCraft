@@ -4,3 +4,5 @@ import "controllers"
 import * as Rails from "@rails/ujs"
 
 Rails.start()
+
+import "image_upload"
