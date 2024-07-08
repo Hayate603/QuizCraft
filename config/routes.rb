@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     resource :favorite_quiz, only: [:create, :destroy]
     resources :questions, only: %i[new create show edit update destroy] do
       resources :user_answers, only: [:create]
+      collection do
+        post 'generate_from_image', to: 'questions#generate_from_image'
+      end
     end
     resources :quiz_sessions, only: [:create, :update]
   end
