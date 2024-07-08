@@ -30,4 +30,8 @@ RUN apt-get update                                                              
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
+
+# Copy the service account key
+COPY service-account-key.json /quizcraft/service-account-key.json
+
 ENTRYPOINT ["entrypoint.sh"]
