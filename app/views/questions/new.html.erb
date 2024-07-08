@@ -24,3 +24,20 @@
     <%= form.submit "質問を作成" %>
   </div>
 <% end %>
+
+<h2>画像から質問を自動生成</h2>
+
+<%= form_with url: generate_from_image_quiz_questions_path(@quiz), local: true, multipart: true, data: { turbo: false }, id: 'image-upload-form' do |form| %>
+  <div class="field">
+    <%= form.label :image, '画像をアップロードしてください' %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'アップロード', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<div id="generated-questions">
+  <!-- ここに生成された質問が表示されます -->
+</div>
