@@ -71,10 +71,11 @@ group :test do
 end
 
 gem 'devise'
+gem 'google-cloud-vision'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-oauth2', '1.7.1'
 gem 'omniauth-rails_csrf_protection'
 gem 'rails-i18n'
 gem 'rqrcode'
-gem 'google-cloud-vision'
+gem 'ruby-openai'
