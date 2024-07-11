@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       resources :user_answers, only: [:create]
       collection do
         post 'generate_from_image', to: 'questions#generate_from_image'
+        post 'generate_questions_from_text', to: 'questions#generate_questions_from_text'
+        post 'save_all_questions', to: 'questions#save_all_questions'
       end
     end
     resources :quiz_sessions, only: [:create, :update]
