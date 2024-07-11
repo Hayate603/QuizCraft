@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create edit update destroy]
+  include QuestionsHelper
+  before_action :authenticate_user!, only: %i[new create edit update destroy save_all_questions]
   before_action :set_question, only: %i[show edit update destroy]
-  before_action :set_quiz, only: %i[new create generate_from_image]
+  before_action :set_quiz, only: %i[new create generate_from_image save_all_questions]
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def show
@@ -20,9 +21,20 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.quizzes << @quiz
     if @question.save
-      redirect_to quiz_path(@quiz), notice: I18n.t('notices.question_created')
+      render json: { success: true }, status: :created
     else
-      render :new
+      render json: { success: false, error: @question.errors.full_messages.join(', ') }, status: :unprocessable_entity
+    end
+  end
+
+  def save_all_questions
+    questions_params = fetch_questions_params
+    no_errors, errors = save_questions(questions_params, @quiz)
+
+    if no_errors
+      render json: { success: true }
+    else
+      render json: { success: false, errors: }
     end
   end
 
@@ -32,7 +44,17 @@ class QuestionsController < ApplicationController
     response = vision.text_detection(image: uploaded_image)
     extracted_text = response.responses.first.text_annotations.first.description
 
-    render json: { text: extracted_text } # 仮のレスポンス
+    render json: { text: extracted_text }
+  end
+
+  def generate_questions_from_text
+    extracted_text = params[:extracted_text]
+    client = OpenAI::Client.new
+    response = fetch_openai_response(client, extracted_text)
+
+    questions_and_answers = parse_response(response)
+
+    render json: { questions: questions_and_answers }
   end
 
   def update
