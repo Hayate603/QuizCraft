@@ -5,4 +5,4 @@ import * as Rails from "@rails/ujs"
 
 Rails.start()
 
-import "image_upload"
+import "image_to_text_and_generate_questions"
