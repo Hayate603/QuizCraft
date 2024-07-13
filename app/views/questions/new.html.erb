@@ -1,13 +1,4 @@
-<% if @question.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-    <ul>
-      <% @question.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<div id="message-container"></div>
 
 <h2>テキストから質問を自動生成</h2>
 
@@ -39,7 +30,7 @@
 </div>
 
 <div id="question-forms-container" data-quiz-id="<%= @quiz.id %>">
-  <%= form_with model: [@quiz, @question], local: true, data: { turbo: false }, id: 'initial-question-form' do |form| %>
+  <%= form_with model: [@quiz, @question], local: true, data: { turbo: false }, class: 'question-form' do |form| %>
     <div class="field">
       <%= form.label :question_text, "質問テキスト", for: 'initial_question_text' %>
       <%= form.text_area :question_text, id: 'initial_question_text' %>
@@ -50,6 +41,7 @@
       <%= form.text_field :correct_answer, id: 'initial_correct_answer' %>
     </div>
 
+    <div class="error-messages" style="color: red;"></div>
     <div class="actions">
       <%= form.submit "質問を作成" %>
     </div>
@@ -57,5 +49,4 @@
 </div>
 
 <button id="add-question-form">質問を追加</button>
-
 <button id="submit-all-questions">すべての質問を作成</button>
