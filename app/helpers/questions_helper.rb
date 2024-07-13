@@ -6,17 +6,20 @@ module QuestionsHelper
   end
 
   def save_questions(questions_params, quiz)
-    errors = questions_params.flat_map do |question_param|
-      save_single_question(question_param, quiz)
+    success_questions = []
+    failed_questions = []
+
+    questions_params.each do |question_param|
+      question = Question.new(question_param)
+      question.quizzes << quiz
+      if question.save
+        success_questions << { question_text: question.question_text, correct_answer: question.correct_answer }
+      else
+        failed_questions << { errors: question.errors.full_messages, question_text: question.question_text, correct_answer: question.correct_answer }
+      end
     end
 
-    [errors.empty?, errors]
-  end
-
-  def save_single_question(question_param, quiz)
-    question = Question.new(question_param)
-    question.quizzes << quiz
-    question.save ? [] : question.errors.full_messages
+    [success_questions, failed_questions]
   end
 
   def parse_response(response)
