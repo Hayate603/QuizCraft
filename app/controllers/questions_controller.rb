@@ -21,20 +21,20 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.quizzes << @quiz
     if @question.save
-      render json: { success: true }, status: :created
+      render json: { success: true, message: "質問が正常に作成されました。" }, status: :created
     else
-      render json: { success: false, error: @question.errors.full_messages.join(', ') }, status: :unprocessable_entity
+      render json: { success: false, errors: @question.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def save_all_questions
     questions_params = fetch_questions_params
-    no_errors, errors = save_questions(questions_params, @quiz)
+    success_questions, failed_questions = save_questions(questions_params, @quiz)
 
-    if no_errors
-      render json: { success: true }
+    if failed_questions.empty?
+      render json: { success: true, message: 'すべての質問が正常に作成されました。' }
     else
-      render json: { success: false, errors: }
+      render json: { success: false, errors: failed_questions, success_questions: success_questions }
     end
   end
 
@@ -44,7 +44,7 @@ class QuestionsController < ApplicationController
     response = vision.text_detection(image: uploaded_image)
     extracted_text = response.responses.first.text_annotations.first.description
 
-    render json: { text: extracted_text }
+    render json: { text: extracted_text, message: '画像からテキストを抽出しました。' }
   end
 
   def generate_questions_from_text
@@ -54,7 +54,7 @@ class QuestionsController < ApplicationController
 
     questions_and_answers = parse_response(response)
 
-    render json: { questions: questions_and_answers }
+    render json: { questions: questions_and_answers, message: '質問が正常に生成されました。' }
   end
 
   def update
