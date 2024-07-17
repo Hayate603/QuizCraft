@@ -1,5 +1,8 @@
 require 'openai'
 
+Choice = Struct.new(:message)
+Message = Struct.new(:content)
+
 RSpec.configure do |config|
   config.before(:each) do
     mock_openai_client = instance_double(OpenAI::Client)
@@ -8,15 +11,7 @@ RSpec.configure do |config|
   end
 
   def mock_openai_response
-    OpenStruct.new(
-      choices: [
-        OpenStruct.new(
-          message: OpenStruct.new(
-            content: "Q: Mocked question?\nA: Mocked answer"
-          )
-        )
-      ]
-    )
+    choices = [Choice.new(Message.new("Q: Mocked question?\nA: Mocked answer"))]
+    Struct.new(:choices).new(choices)
   end
 end
-
