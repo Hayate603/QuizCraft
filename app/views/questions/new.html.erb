@@ -1,26 +1,58 @@
-<% if @question.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-    <ul>
-      <% @question.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<div id="message-container"></div>
 
-<%= form_with model: [@quiz, @question], local: true, data: { turbo: false } do |form| %>
-  <div class="field">
-    <%= form.label :question_text, "質問テキスト" %>
-    <%= form.text_area :question_text %>
-  </div>
+<h2>テキストから質問を自動生成</h2>
 
+<%= form_with url: generate_from_image_quiz_questions_path(@quiz), local: true, multipart: true, data: { remote: true }, id: 'image-upload-form' do |form| %>
   <div class="field">
-    <%= form.label :correct_answer, "正解" %>
-    <%= form.text_field :correct_answer %>
+    <%= form.label :image, '画像をアップロードしてください' %>
+    <%= form.file_field :image %>
   </div>
 
   <div class="actions">
-    <%= form.submit "質問を作成" %>
+    <%= form.submit '画像からテキストを抽出', class: 'btn btn-primary' %>
   </div>
 <% end %>
+
+<%= form_with url: generate_questions_from_text_quiz_questions_path(@quiz), local: true, data: { remote: true }, id: 'text-generation-form' do |form| %>
+  <div class="field">
+    <%= form.label :extracted_text, 'テキストを入力してください', for: 'extracted-text-area'  %>
+    <%= form.text_area :extracted_text, id: 'extracted-text-area' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'ChatGPTで質問を生成', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<!-- 生成された質問と回答を表示するコンテナ -->
+<div id="generated-questions">
+  <!-- ここに生成された質問と回答が表示されます -->
+</div>
+
+<div id="question-forms-container" data-quiz-id="<%= @quiz.id %>">
+  <%= form_with model: [@quiz, @question], local: true, data: { remote: true }, class: 'question-form' do |form| %>
+    <div class="field">
+      <%= form.label :question_text, "質問テキスト", for: 'initial_question_text' %>
+      <%= form.text_area :question_text, id: 'initial_question_text' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :correct_answer, "正解", for: 'initial_correct_answer' %>
+      <%= form.text_field :correct_answer, id: 'initial_correct_answer' %>
+    </div>
+
+    <div class="error-messages" style="color: red;"></div>
+    <div class="actions">
+      <%= form.submit "質問を作成" %>
+    </div>
+  <% end %>
+</div>
+
+<button id="add-question-form">質問を追加</button>
+<%= form_with url: save_all_questions_quiz_questions_path(@quiz), local: true, data: { remote: true }, id: 'save-all-questions-form' do |form| %>
+  <%= form.hidden_field :questions_data, id: 'questions-data' %>
+  <div class="actions">
+    <%= form.submit 'すべての質問を作成', class: 'btn btn-primary', id: 'submit-all-questions' %>
+  </div>
+<% end %>
+

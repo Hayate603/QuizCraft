@@ -74,6 +74,7 @@ ja:
       unauthorized_access: "アクセス権がありません。"
 
   errors:
+    format: "%{message}"
     messages:
       already_confirmed: 'すでに確認されています。ログインしてください。'
       not_found: 'は見つかりません。'
@@ -95,6 +96,9 @@ ja:
     quiz_deleted: 'クイズが削除されました。'
     quiz_completed: 'クイズが完了しました！'
     question_created: '質問が作成されました。'
+    questions_generated: '質問が生成されました。'
+    all_questions_created: 'すべての質問が正常に作成されました。'
+    text_extracted_from_image: '画像からテキストを抽出しました。'
     question_updated: '質問が更新されました。'
     question_deleted: '質問が削除されました。'
     answer_submitted: '回答が送信されました！'
@@ -115,6 +119,7 @@ ja:
         question:
           attributes:
             question_text:
+              format: "%{message}"
               blank: "質問テキストを入力してください"
             correct_answer:
               blank: "正解を入力してください"
@@ -146,4 +151,3 @@ ja:
               blank: "クイズ情報が見つかりません"
             user_id:
               taken: "同じユーザーとクイズの組み合わせはすでに存在します"
-

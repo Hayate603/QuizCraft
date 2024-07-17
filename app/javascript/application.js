@@ -1,6 +1,9 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
+import { Turbo } from "@hotwired/turbo-rails"
 import "controllers"
-import * as Rails from "@rails/ujs"
+import Rails from "@rails/ujs"
 
-Rails.start()
+Rails.start();
+Turbo.start();
+
+import "image_to_text_and_generate_questions"

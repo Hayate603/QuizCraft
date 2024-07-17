@@ -33,6 +33,8 @@ services:
       GOOGLE_CLIENT_SECRET: "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"
       FACEBOOK_APP_ID: "1105642750504524"
       FACEBOOK_APP_SECRET: "f64ae77d587ba3bd65358276a79fe29b"
+      GOOGLE_APPLICATION_CREDENTIALS: "/quizcraft/service-account-key.json"
+      OPENAI_API_KEY: "sk-quizcraft-key-vzBwcyaOZwXuVEKigI6iT3BlbkFJC4gpVg6GNDEajux6lt6J"
     depends_on:
       - mysql
     networks:
