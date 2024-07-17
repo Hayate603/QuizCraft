@@ -11,13 +11,8 @@ module QuestionsHelper
     failed_questions = []
 
     questions_params.each do |question_param|
-      question = Question.new(question_param)
-      question.quizzes << quiz
-      if question.save
-        success_questions << { question_text: question.question_text, correct_answer: question.correct_answer }
-      else
-        failed_questions << { errors: question.errors.full_messages, question_text: question.question_text, correct_answer: question.correct_answer }
-      end
+      question = build_question(question_param, quiz)
+      save_question(question, success_questions, failed_questions)
     end
 
     [success_questions, failed_questions]
@@ -61,5 +56,22 @@ module QuestionsHelper
         n: 1
       }
     )
+  end
+
+  private
+
+  def build_question(question_param, quiz)
+    question = Question.new(question_param)
+    question.quizzes << quiz
+    question
+  end
+
+  def save_question(question, success_questions, failed_questions)
+    if question.save
+      success_questions << { question_text: question.question_text, correct_answer: question.correct_answer }
+    else
+      failed_questions << { errors: question.errors.full_messages, question_text: question.question_text,
+                            correct_answer: question.correct_answer }
+    end
   end
 end
