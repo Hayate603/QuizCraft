@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
     if failed_questions.empty?
       render json: { success: true, message: I18n.t('notices.all_questions_created') }
     else
-      render json: { success: false, errors: failed_questions, success_questions: success_questions }
+      render json: { success: false, errors: failed_questions, success_questions: }
     end
   end
 
