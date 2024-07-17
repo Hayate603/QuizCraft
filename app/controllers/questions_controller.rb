@@ -23,7 +23,7 @@ class QuestionsController < ApplicationController
     if @question.save
       render json: { success: true, message: I18n.t('notices.question_created') }, status: :created
     else
-      render json: { success: false, errors: @question.errors.full_messages }, status: :unprocessable_entity
+      render json: { success: false, errors: @question.errors.full_messages }, status: :ok
     end
   end
 
