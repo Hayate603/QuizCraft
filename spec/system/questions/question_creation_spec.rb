@@ -136,4 +136,3 @@ RSpec.describe 'Question Management', type: :system do
     end
   end
 end
-
