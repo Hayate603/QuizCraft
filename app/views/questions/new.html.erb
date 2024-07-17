@@ -2,7 +2,7 @@
 
 <h2>テキストから質問を自動生成</h2>
 
-<%= form_with url: generate_from_image_quiz_questions_path(@quiz), local: true, multipart: true, data: { turbo: false }, id: 'image-upload-form' do |form| %>
+<%= form_with url: generate_from_image_quiz_questions_path(@quiz), local: true, multipart: true, data: { remote: true }, id: 'image-upload-form' do |form| %>
   <div class="field">
     <%= form.label :image, '画像をアップロードしてください' %>
     <%= form.file_field :image %>
@@ -13,9 +13,9 @@
   </div>
 <% end %>
 
-<%= form_with url: generate_questions_from_text_quiz_questions_path(@quiz), local: true, data: { turbo: false }, id: 'text-generation-form' do |form| %>
+<%= form_with url: generate_questions_from_text_quiz_questions_path(@quiz), local: true, data: { remote: true }, id: 'text-generation-form' do |form| %>
   <div class="field">
-    <%= form.label :extracted_text, 'テキストを入力してください' %>
+    <%= form.label :extracted_text, 'テキストを入力してください', for: 'extracted-text-area'  %>
     <%= form.text_area :extracted_text, id: 'extracted-text-area' %>
   </div>
 
@@ -30,7 +30,7 @@
 </div>
 
 <div id="question-forms-container" data-quiz-id="<%= @quiz.id %>">
-  <%= form_with model: [@quiz, @question], local: true, data: { turbo: false }, class: 'question-form' do |form| %>
+  <%= form_with model: [@quiz, @question], local: true, data: { remote: true }, class: 'question-form' do |form| %>
     <div class="field">
       <%= form.label :question_text, "質問テキスト", for: 'initial_question_text' %>
       <%= form.text_area :question_text, id: 'initial_question_text' %>
@@ -49,4 +49,10 @@
 </div>
 
 <button id="add-question-form">質問を追加</button>
-<button id="submit-all-questions">すべての質問を作成</button>
+<%= form_with url: save_all_questions_quiz_questions_path(@quiz), local: true, data: { remote: true }, id: 'save-all-questions-form' do |form| %>
+  <%= form.hidden_field :questions_data, id: 'questions-data' %>
+  <div class="actions">
+    <%= form.submit 'すべての質問を作成', class: 'btn btn-primary', id: 'submit-all-questions' %>
+  </div>
+<% end %>
+
