@@ -1,0 +1,68 @@
+.account-edit {
+  &__title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.75rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    box-shadow: $box-shadow-sm;
+
+    @media (max-width: $breakpoint-md) {
+      padding: 1.5rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 1rem;
+    }
+  }
+
+  &__confirmation {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: $text-muted-color;
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 0.75rem;
+    }
+  }
+
+  &__delete-title {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1rem;
+    }
+  }
+
+  &__delete {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  &__back {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+}

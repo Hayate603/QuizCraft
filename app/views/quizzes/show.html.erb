@@ -1,39 +1,48 @@
-<h1><%= @quiz.title %></h1>
-<p><%= @quiz.description %></p>
+<div class="quiz-details">
+  <h1 class="quiz-details__title"><%= @quiz.title %></h1>
+  <p class="quiz-details__description"><%= @quiz.description %></p>
 
-<div class="qr-code">
-  <p>このクイズを共有するには、以下のQRコードをスキャンしてください：</p>
-  <%= raw RQRCode::QRCode.new(quiz_url(@quiz)).as_svg.html_safe %>
+  <div class="quiz-details__qr-code">
+    <p class="quiz-details__qr-instruction">このクイズを共有するには、以下のQRコードをスキャンしてください：</p>
+    <%= raw RQRCode::QRCode.new(quiz_url(@quiz)).as_svg(module_size: 6).html_safe %>
+  </div>
+
+  <% if user_signed_in? && @quiz.user == current_user %>
+    <div class="quiz-details__actions">
+      <%= link_to 'クイズを編集', edit_quiz_path(@quiz), class: 'quiz-details__edit button button--secondary' %>
+      <%= link_to 'クイズを削除', @quiz, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'quiz-details__delete button button--danger' %>
+    </div>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= link_to 'クイズを実行する', take_quiz_path(@quiz), class: 'quiz-details__take button button--primary' %>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <% if current_user.favorite_quizzes.exists?(quiz: @quiz) %>
+      <%= button_to 'お気に入りから削除', quiz_favorite_quiz_path(@quiz), method: :delete, class: 'quiz-details__favorite quiz-details__favorite--remove button button--danger' %>
+    <% else %>
+      <%= button_to 'お気に入りに追加', quiz_favorite_quiz_path(@quiz), class: 'quiz-details__favorite quiz-details__favorite--add button button--success' %>
+    <% end %>
+  <% end %>
+
+  <h2 class="quiz-details__questions-title">質問一覧</h2>
+  <ul class="quiz-details__questions-list">
+    <% @quiz.questions.each do |question| %>
+      <li class="quiz-details__question-item">
+        <%= link_to question.question_text, quiz_question_path(@quiz, question), class: 'quiz-details__question-link' %>
+        <% if user_signed_in? && @quiz.user == current_user %>
+          <%= button_to '質問を削除', quiz_question_path(@quiz, question), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'quiz-details__question-delete button button--danger' %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <% if user_signed_in? && @quiz.user == current_user %>
+    <div>
+      <%= link_to '新しい質問を追加', new_quiz_question_path(@quiz), class: 'quiz-details__add-question button button--secondary' %>
+    </div>
+  <% end %>
+
+  <%= link_to 'クイズ一覧に戻る', quizzes_path, class: 'quiz-details__back button button--link' %>
 </div>
-
-<% if user_signed_in? && @quiz.user == current_user %>
-  <%= link_to 'クイズを編集', edit_quiz_path(@quiz) %> |
-  <%= link_to 'クイズを削除', @quiz, method: :delete, data: { confirm: '本当に削除しますか？' } %>
-<% end %>
-
-<% if user_signed_in? %>
-  <%= link_to 'クイズを実行する', take_quiz_path(@quiz), class: 'btn btn-primary' %>
-<% end %>
-
-<% if user_signed_in? %>
-  <% if current_user.favorite_quizzes.exists?(quiz: @quiz) %>
-    <%= button_to 'お気に入りから削除', quiz_favorite_quiz_path(@quiz), method: :delete, class: 'btn btn-danger' %>
-  <% else %>
-    <%= button_to 'お気に入りに追加', quiz_favorite_quiz_path(@quiz), class: 'btn btn-success' %>
-  <% end %>
-<% end %>
-
-<h2>質問一覧</h2>
-<ul>
-  <% @quiz.questions.each do |question| %>
-    <li>
-      <%= link_to question.question_text, quiz_question_path(@quiz, question) %>
-    </li>
-  <% end %>
-</ul>
-
-<% if user_signed_in? && @quiz.user == current_user %>
-  <%= link_to '新しい質問を追加', new_quiz_question_path(@quiz) %>
-<% end %>
-
-<%= link_to 'クイズ一覧に戻る', quizzes_path %>

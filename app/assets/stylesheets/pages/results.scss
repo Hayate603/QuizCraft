@@ -1,0 +1,99 @@
+.results {
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #6c757d;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+
+    @media (max-width: 768px) {
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.75rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #dee2e6;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+
+    &__header {
+      padding: 0.75rem;
+      border: 1px solid #dee2e6;
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+
+    &__row {
+      &:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      &:hover {
+        background-color: #e9ecef;
+      }
+    }
+
+    &__question,
+    &__user-answer,
+    &__correct-answer,
+    &__correctness {
+      padding: 0.75rem;
+      border: 1px solid #dee2e6;
+    }
+  }
+
+  &__summary {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__back {
+    text-align: center;
+  }
+}

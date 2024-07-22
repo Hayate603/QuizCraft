@@ -1,0 +1,70 @@
+.favorite-quizzes {
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem; // モバイルデバイスでのフォントサイズを調整
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px;
+
+    @media (max-width: 768px) {
+      padding: 0 1rem; // モバイルデバイスでのパディングを調整
+    }
+  }
+
+  &__item {
+    padding: 1rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $white;
+    box-shadow: $box-shadow-sm;
+
+    &:hover {
+      box-shadow: $box-shadow-md;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column; // モバイルデバイスでのレイアウトを変更
+      align-items: flex-start; // モバイルデバイスでの配置を調整
+      padding: 0.75rem; // モバイルデバイスでのパディングを調整
+    }
+  }
+
+  &__link {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: $primary-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 1rem; // モバイルデバイスでのフォントサイズを調整
+    }
+  }
+
+  &__remove {
+    &:hover {
+      background-color: lighten($danger-color, 20%);
+    }
+
+    @media (max-width: 768px) {
+      width: 100%; // モバイルデバイスでのボタンの幅を調整
+      margin-top: 0.5rem; // モバイルデバイスでのマージンを調整
+    }
+  }
+}

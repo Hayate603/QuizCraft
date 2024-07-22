@@ -1,26 +1,26 @@
-<h1>新しいクイズを作成</h1>
+<h1 class="quiz-new__title">新しいクイズを作成</h1>
 
-<%= form_with model: @quiz, local: true do |form| %>
+<%= form_with model: @quiz, local: true, data: { turbo: false }, class: 'quiz-new__form' do |form| %>
   <% if @quiz.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@quiz.errors.count, "エラー") %>が発生しました:</h2>
-      <ul>
+    <div id="error_explanation" class="quiz-new__error">
+      <h2 class="quiz-new__error-title"><%= pluralize(@quiz.errors.count, "エラー") %>が発生しました:</h2>
+      <ul class="quiz-new__error-list">
         <% @quiz.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+          <li class="quiz-new__error-item"><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, "タイトル" %>
-    <%= form.text_field :title %>
+  <div class="form-field quiz-new__field">
+    <%= form.label :title, "タイトル", class: 'form-label quiz-new__label' %>
+    <%= form.text_field :title, class: 'form-input quiz-new__input' %>
   </div>
-  <div>
-    <%= form.label :description, "説明" %>
-    <%= form.text_area :description %>
+  <div class="form-field quiz-new__field">
+    <%= form.label :description, "説明", class: 'form-label quiz-new__label' %>
+    <%= form.text_area :description, class: 'form-input quiz-new__textarea' %>
   </div>
-  <div>
-    <%= form.submit 'クイズを作成' %>
+  <div class="form-actions quiz-new__actions">
+    <%= form.submit 'クイズを作成', class: 'form-submit button button--primary quiz-new__submit' %>
   </div>
 <% end %>

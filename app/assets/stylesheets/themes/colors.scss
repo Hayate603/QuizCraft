@@ -1,0 +1,34 @@
+// Primary color palette
+$primary-color: #007bff;      // Primary (blue)
+$secondary-color: #6c757d;    // Secondary (gray)
+$success-color: #28a745;      // Success (green)
+$danger-color: #dc3545;       // Danger (red)
+$warning-color: #ffc107;      // Warning (yellow)
+$info-color: #17a2b8;         // Info (cyan)
+$light-color: #f8f9fa;        // Light (light gray)
+$dark-color: #343a40;         // Dark (dark gray)
+$white: #ffffff;
+$text-muted-color: #6c757d;
+
+// Background colors
+$body-bg: #ffffff;            // Body background
+$header-bg: #2C3E50;   // Header background
+$footer-bg: #34495E;      // Footer background
+
+// Text colors
+$text-color: #212529;         // Main text color
+$muted-text-color: #6c757d;   // Muted text color
+$link-color: $primary-color;  // Link color
+$link-hover-color: darken($primary-color, 10%);  // Link hover color
+$error-bg: #f8d7da;
+$error-text: #721c24;
+
+// Border colors
+$border-color: #dee2e6;       // Default border color
+$input-border-color: #ced4da; // Input field border color
+
+// Other UI colors
+$button-bg-color: $primary-color;   // Button background color
+$button-hover-bg-color: darken($primary-color, 10%);  // Button hover background color
+$card-bg-color: #ffffff;           // Card background color
+$card-border-color: #dee2e6;       // Card border color

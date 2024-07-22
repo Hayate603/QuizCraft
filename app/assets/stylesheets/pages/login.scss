@@ -1,0 +1,85 @@
+.login {
+  &__title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    box-shadow: $box-shadow-sm;
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 1rem;
+    }
+  }
+
+  &__field {
+    margin-bottom: 1.5rem;
+  }
+
+  &__actions {
+    text-align: center;
+  }
+
+  &__oauth-providers {
+    margin-top: 2rem;
+    text-align: center;
+    color: $light-color;
+    max-width: 500px;
+    margin: 0 auto;
+
+    .oauth-title {
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+
+    .oauth-btn {
+      display: block;
+      width: 70%;
+      margin: 0.5rem auto;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+
+      &.google {
+        background-color: #db4437;
+        border-color: #db4437;
+
+        &:hover {
+          background-color: darken(#db4437, 10%);
+          border-color: darken(#db4437, 10%);
+        }
+      }
+
+      &.facebook {
+        background-color: #3b5998;
+        border-color: #3b5998;
+
+        &:hover {
+          background-color: darken(#3b5998, 10%);
+          border-color: darken(#3b5998, 10%);
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .oauth-btn {
+        width: 100%;
+      }
+    }
+  }
+}

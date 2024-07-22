@@ -1,0 +1,77 @@
+.my-quizzes {
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px;
+
+    @media (max-width: 768px) {
+      padding: 0 1rem;
+    }
+  }
+
+  &__item {
+    padding: 1rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    margin-bottom: 1rem;
+    background-color: $white;
+    box-shadow: $box-shadow-sm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover {
+      box-shadow: $box-shadow-md;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__link {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: $primary-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+
+  &__delete {
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+
+    @media (max-width: 768px) {
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__message {
+    text-align: center;
+    font-size: 1.25rem;
+    color: $text-muted-color;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+}

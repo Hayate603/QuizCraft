@@ -1,11 +1,18 @@
-<h1>マイクイズ一覧</h1>
+<div class="my-quizzes">
+  <h1 class="my-quizzes__title">マイクイズ一覧</h1>
 
-<% if @quizzes.any? %>
-  <ul>
-    <% @quizzes.each do |quiz| %>
-      <li><%= link_to quiz.title, quiz_path(quiz) %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>クイズはまだありません。</p>
-<% end %>
+  <% if @quizzes.any? %>
+    <ul class="my-quizzes__list">
+      <% @quizzes.each do |quiz| %>
+        <li class="my-quizzes__item">
+          <%= link_to quiz.title, quiz_path(quiz), class: 'my-quizzes__link' %>
+          <% if user_signed_in? && quiz.user == current_user %>
+            <%= link_to '削除', quiz, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'my-quizzes__delete button button--danger' %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="my-quizzes__message">クイズはまだありません。</p>
+  <% end %>
+</div>

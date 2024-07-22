@@ -1,0 +1,25 @@
+.nav {
+  background-color: $secondary-color;
+  padding: $spacer-md;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: $spacer-md;
+
+    li {
+      margin: 0;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
