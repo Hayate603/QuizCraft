@@ -1,0 +1,27 @@
+.card {
+  background-color: $card-bg-color;
+  border: 1px solid $card-border-color;
+  border-radius: $border-radius-md;
+  padding: $spacer-md;
+  margin-bottom: $spacer-md;
+  box-shadow: $box-shadow-md;
+  transition: box-shadow $transition-speed;
+
+  &:hover {
+    box-shadow: $box-shadow-lg;
+  }
+
+  .card__header {
+    font-size: $font-size-lg;
+    margin-bottom: $spacer-sm;
+  }
+
+  .card__body {
+    font-size: $font-size-md;
+  }
+
+  .card__footer {
+    margin-top: $spacer-sm;
+    text-align: right;
+  }
+}

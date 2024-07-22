@@ -1,0 +1,34 @@
+.error-messages {
+  background-color: $error-bg;
+  color: $error-text;
+  padding: 1rem;
+  border-radius: $border-radius-md;
+  margin-bottom: 1.5rem;
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &__item {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.devise-link {
+  color: $link-color;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

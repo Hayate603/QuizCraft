@@ -1,4 +1,6 @@
 import Rails from "@rails/ujs";
+import { addFlashMessage } from "./flash_messages"; // フラッシュメッセージの関数をインポート
+
 document.addEventListener('turbo:load', initializeImageToTextAndGenerateQuestions);
 
 function initializeImageToTextAndGenerateQuestions() {
@@ -8,7 +10,6 @@ function initializeImageToTextAndGenerateQuestions() {
   const generatedQuestionsContainer = document.getElementById('generated-questions');
   const submitAllButton = document.getElementById('submit-all-questions');
   const addQuestionButton = document.getElementById('add-question-form');
-  const messageContainer = document.getElementById('message-container');
   const questionsDataField = document.getElementById('questions-data');
   const saveAllQuestionsForm = document.getElementById('save-all-questions-form');
   const quizId = document.getElementById('question-forms-container').dataset.quizId;
@@ -19,13 +20,13 @@ function initializeImageToTextAndGenerateQuestions() {
     imageForm.addEventListener('ajax:success', function(event) {
       const [data, status, xhr] = event.detail;
       extractedTextArea.value = data.text;
-      messageContainer.textContent = data.message || (data.errors && data.errors.join(', '));
+      addFlashMessage('notice', data.message || (data.errors && data.errors.join(', ')));
     });
 
     imageForm.addEventListener('ajax:error', function(event) {
       const [data, status, xhr] = event.detail;
       console.error('Error:', data);
-      messageContainer.textContent = 'テキストの抽出中にエラーが発生しました。';
+      addFlashMessage('alert', 'テキストの抽出中にエラーが発生しました。');
     });
   }
 
@@ -38,13 +39,13 @@ function initializeImageToTextAndGenerateQuestions() {
         generatedQuestionsContainer.appendChild(form);
         handleFormSubmit(form);
       });
-      messageContainer.textContent = data.message || (data.errors && data.errors.join(', '));
+      addFlashMessage('notice', data.message || (data.errors && data.errors.join(', ')));
     });
 
     textForm.addEventListener('ajax:error', function(event) {
       const [data, status, xhr] = event.detail;
       console.error('Error:', data);
-      messageContainer.textContent = '質問の生成中にエラーが発生しました。';
+      addFlashMessage('alert', '質問の生成中にエラーが発生しました。');
     });
   }
 
@@ -59,10 +60,7 @@ function initializeImageToTextAndGenerateQuestions() {
       questions.push({ question_text: questionText, correct_answer: correctAnswer });
     });
 
-    // 質問データをhiddenフィールドに設定
     questionsDataField.value = JSON.stringify({ questions: questions });
-
-    // Rails UJSの機能を使ってフォームを非同期で送信
     Rails.fire(saveAllQuestionsForm, 'submit');
   });
 
@@ -70,7 +68,7 @@ function initializeImageToTextAndGenerateQuestions() {
     const [data, status, xhr] = event.detail;
     const forms = document.querySelectorAll('.question-form');
     if (data.success) {
-      messageContainer.textContent = data.message;
+      addFlashMessage('notice', data.message);
       generatedQuestionsContainer.innerHTML = '';
       forms.forEach(form => form.reset());
     } else {
@@ -88,7 +86,7 @@ function initializeImageToTextAndGenerateQuestions() {
       }
 
       if (successCount > 0) {
-        messageContainer.textContent = `${successCount}件の質問が正常に保存されました。`;
+        addFlashMessage('notice', `${successCount}件の質問が正常に保存されました。`);
       }
 
       if (data.errors) {
@@ -98,9 +96,13 @@ function initializeImageToTextAndGenerateQuestions() {
             form.querySelector('input[name="question[correct_answer]"]').value === failed_question.correct_answer
           );
           if (form) {
-            const errorElement = form.querySelector('.error-messages');
-            errorElement.textContent = '';
-            errorElement.textContent = failed_question.errors.join(', ');
+            const errorElement = form.querySelector('.question-new__error-messages');
+            if (failed_question.errors) {
+              errorElement.innerHTML = failed_question.errors.map(error => `<li>${error}</li>`).join('');
+              errorElement.classList.add('visible');
+            } else {
+              errorElement.classList.remove('visible');
+            }
           }
         });
       }
@@ -110,7 +112,7 @@ function initializeImageToTextAndGenerateQuestions() {
   saveAllQuestionsForm.addEventListener('ajax:error', function(event) {
     const [xhr, status, error] = event.detail;
     console.error('Error:', error);
-    messageContainer.textContent = '質問の保存中にエラーが発生しました。';
+    addFlashMessage('alert', '質問の保存中にエラーが発生しました。');
   });
 
   addQuestionButton.addEventListener('click', function(event) {
@@ -123,45 +125,49 @@ function initializeImageToTextAndGenerateQuestions() {
   function handleFormSubmit(form) {
     form.addEventListener('ajax:success', function(event) {
       const [data, status, xhr] = event.detail;
-      messageContainer.textContent = data.message;
+      addFlashMessage('notice', data.message);
 
       if (data.success) {
         form.remove();
       } else {
-        const errorElement = form.querySelector('.error-messages');
-        errorElement.textContent = data.errors.join(', ');
+        const errorElement = form.querySelector('.question-new__error-messages');
+        if (data.errors && data.errors.length > 0) {
+          errorElement.innerHTML = data.errors.map(error => `<li>${error}</li>`).join('');
+          errorElement.classList.add('visible');
+        } else {
+          errorElement.classList.remove('visible');
+        }
       }
     });
 
     form.addEventListener('ajax:error', function(event) {
       const [data, status, xhr] = event.detail;
       console.error('Error:', data);
-      messageContainer.textContent = '質問の保存中にエラーが発生しました。';
+      addFlashMessage('alert', '質問の保存中にエラーが発生しました。');
     });
   }
 
   function createQuestionForm(question, answer) {
     const uniqueId = Math.random().toString(36).substr(2, 9);
     const form = document.createElement('form');
-    form.className = 'question-form';
+    form.className = 'question-new__form--dynamic question-form';
     form.action = `/quizzes/${quizId}/questions`;
     form.method = 'POST';
     form.setAttribute('data-remote', 'true');
     form.innerHTML = `
-      <div class="field">
-        <label for="question_text_${uniqueId}">質問テキスト</label>
-        <textarea name="question[question_text]" id="question_text_${uniqueId}">${question}</textarea>
+      <div class="question-new__field form-field">
+        <label for="question_text_${uniqueId}" class="form-label">質問テキスト</label>
+        <textarea name="question[question_text]" id="question_text_${uniqueId}" class="form-input">${question}</textarea>
       </div>
-      <div class="field">
-        <label for="correct_answer_${uniqueId}">正解</label>
-        <input type="text" name="question[correct_answer]" id="correct_answer_${uniqueId}" value="${answer}">
+      <div class="question-new__field form-field">
+        <label for="correct_answer_${uniqueId}" class="form-label">正解</label>
+        <input type="text" name="question[correct_answer]" id="correct_answer_${uniqueId}" class="form-input" value="${answer}">
       </div>
-      <div class="error-messages" style="color: red;"></div>
-      <div class="actions">
-        <input type="submit" value="質問を作成">
+      <div class="question-new__error-messages"></div>
+      <div class="question-new__actions--dynamic form-actions">
+        <input type="submit" value="質問を作成" class="button button--primary">
       </div>
     `;
-
     return form;
   }
 }

@@ -1,20 +1,23 @@
-<h1>クイズ一覧</h1>
+<div class="quizzes">
+  <div class="quizzes__header">
+    <h1 class="quizzes__title">クイズ一覧</h1>
+    <% if user_signed_in? %>
+      <%= link_to '新しいクイズを作成', new_quiz_path, class: 'quizzes__new-quiz button button--primary' %>
+    <% end %>
+  </div>
 
-<% if user_signed_in? %>
-  <%= link_to '新しいクイズを作成', new_quiz_path %>
-<% end %>
-
-<ul>
-  <% @quizzes.each do |quiz| %>
-    <li class="quiz-item-<%= quiz.id %>">
-      <%= link_to quiz.title, quiz %>
-      <% if user_signed_in? %>
-        <% if current_user.favorite_quizzes.exists?(quiz: quiz) %>
-          <%= link_to 'お気に入りから削除', quiz_favorite_quiz_path(quiz), method: :delete %>
-        <% else %>
-          <%= link_to 'お気に入りに追加', quiz_favorite_quiz_path(quiz), method: :post %>
+  <ul class="quizzes__list">
+    <% @quizzes.each do |quiz| %>
+      <li class="quizzes__list-item quizzes__item--<%= quiz.id %>">
+        <%= link_to quiz.title, quiz, class: 'quizzes__link' %>
+        <% if user_signed_in? %>
+          <% if current_user.favorite_quizzes.exists?(quiz: quiz) %>
+            <%= link_to 'お気に入りから削除', quiz_favorite_quiz_path(quiz), method: :delete, class: 'quizzes__favorite quizzes__favorite--remove button button--secondary' %>
+          <% else %>
+            <%= link_to 'お気に入りに追加', quiz_favorite_quiz_path(quiz), method: :post, class: 'quizzes__favorite quizzes__favorite--add button button--secondary' %>
+          <% end %>
         <% end %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,30 +1,32 @@
-<h1><%= @quiz.title %> - 結果</h1>
+<h1 class="results__title"><%= @quiz.title %> - 結果</h1>
 
-<p>クイズが完了しました！以下はあなたの結果です</p>
+<p class="results__description">クイズが完了しました！以下はあなたの結果です</p>
 
-<table class="results-table">
+<table class="results__table">
   <thead>
-    <tr>
-      <th>質問</th>
-      <th>あなたの回答</th>
-      <th>正解</th>
-      <th>回答の正否</th>
+    <tr class="results__header-row">
+      <th class="results__header">質問</th>
+      <th class="results__header">あなたの回答</th>
+      <th class="results__header">正解</th>
+      <th class="results__header">回答の正否</th>
     </tr>
   </thead>
   <tbody>
     <% @user_answers.each do |answer| %>
-      <tr>
-        <td><%= answer.question.question_text %></td>
-        <td><%= answer.answer_text %></td>
-        <td><%= answer.question.correct_answer %></td>
-        <td><%= answer.correct ? '〇' : '✕' %></td>
+      <tr class="results__row">
+        <td class="results__question"><%= answer.question.question_text %></td>
+        <td class="results__user-answer"><%= answer.answer_text %></td>
+        <td class="results__correct-answer"><%= answer.question.correct_answer %></td>
+        <td class="results__correctness"><%= answer.correct ? '〇' : '✕' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<div class="results-summary">
+<div class="results__summary">
   <p>総合結果: <%= @user_answers.select(&:correct).count %> / <%= @user_answers.count %> </p>
 </div>
 
-<%= link_to 'クイズ一覧に戻る', quizzes_path, class: 'btn btn-primary' %>
+<div class="results__back">
+  <%= link_to 'クイズ一覧に戻る', quizzes_path, class: 'button button--primary' %>
+</div>

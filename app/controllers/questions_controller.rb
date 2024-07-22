@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include QuestionsHelper
   before_action :authenticate_user!, only: %i[new create edit update destroy save_all_questions]
   before_action :set_question, only: %i[show edit update destroy]
-  before_action :set_quiz, only: %i[new create generate_from_image save_all_questions]
+  before_action :set_quiz, only: %i[new create edit update generate_from_image save_all_questions]
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def show

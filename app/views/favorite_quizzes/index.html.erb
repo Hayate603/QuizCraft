@@ -1,10 +1,12 @@
-<h1>お気に入りクイズ</h1>
+<div class="favorite-quizzes">
+  <h1 class="favorite-quizzes__title">お気に入りクイズ</h1>
 
-<ul>
-  <% @favorite_quizzes.each do |favorite_quiz| %>
-    <li>
-      <%= link_to favorite_quiz.quiz.title, favorite_quiz.quiz %>
-      <%= button_to 'お気に入りから削除', quiz_favorite_quiz_path(favorite_quiz.quiz), method: :delete %>
-    </li>
-  <% end %>
-</ul>
+  <ul class="favorite-quizzes__list">
+    <% @favorite_quizzes.each do |favorite_quiz| %>
+      <li class="favorite-quizzes__item">
+        <%= link_to favorite_quiz.quiz.title, favorite_quiz.quiz, class: 'favorite-quizzes__link' %>
+        <%= button_to 'お気に入りから削除', quiz_favorite_quiz_path(favorite_quiz.quiz), method: :delete, class: 'favorite-quizzes__remove button button--danger' %>
+      </li>
+    <% end %>
+  </ul>
+</div>

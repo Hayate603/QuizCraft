@@ -1,0 +1,64 @@
+// Flexbox center alignment
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Responsive typography
+@mixin responsive-font-size($size, $line-height, $breakpoint: $breakpoint-md) {
+  font-size: $size;
+  line-height: $line-height;
+
+  @media (min-width: $breakpoint) {
+    font-size: $size * 1.2;
+    line-height: $line-height * 1.2;
+  }
+}
+
+// Border radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// Box shadow
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+// Transition
+@mixin transition($property, $duration, $timing: ease-in-out) {
+  transition: $property $duration $timing;
+}
+
+// clearfix
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+// Hidden text (for accessibility)
+@mixin visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+// Gradient background
+@mixin gradient-bg($start-color, $end-color) {
+  background: $start-color;
+  background: -webkit-linear-gradient(top, $start-color, $end-color);
+  background: -o-linear-gradient(top, $start-color, $end-color);
+  background: -moz-linear-gradient(top, $start-color, $end-color);
+  background: linear-gradient(to bottom, $start-color, $end-color);
+}

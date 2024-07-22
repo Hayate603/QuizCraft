@@ -1,15 +1,15 @@
-<h2>アンロック指示を送信</h2>
+<h2 class="unlocks-new__title">アンロック指示を送信</h2>
 
-<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: 'unlocks-new__form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="unlocks-new__field form-field">
+    <%= f.label :email, "メールアドレス", class: 'form-label' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-input' %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "アンロック指示を送信" %>
+  <div class="unlocks-new__actions form-actions">
+    <%= f.submit "アンロック指示を送信", class: 'form-submit button button--primary' %>
   </div>
 <% end %>
 

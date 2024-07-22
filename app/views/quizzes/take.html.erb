@@ -1,36 +1,42 @@
-<h1><%= @quiz.title %></h1>
-<p><%= @quiz.description %></p>
+<div class="quiz-take">
+  <h1 class="quiz-take__title"><%= @quiz.title %></h1>
+  <p class="quiz-take__description"><%= @quiz.description %></p>
 
-<% if @resume_session %>
-  <p>途中のセッションが見つかりました。</p>
-  <h2>クイズを再開しますか？</h2>
-  <%= link_to '再開する', resume_quiz_path(@quiz), class: 'btn btn-primary' %>
-  <%= link_to '新しく開始する', start_quiz_path(@quiz), class: 'btn btn-secondary' %>
-<% else %>
-  <div class="question">
-    <h2><%= @question.question_text %></h2>
-    <%= form_with(model: [@quiz, @question, @user_answer], local: true) do |form| %>
-      <% if @user_answer.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user_answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
-          <ul>
-            <% @user_answer.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
+  <% if @resume_session %>
+    <p class="quiz-take__resume-message">途中のセッションが見つかりました。</p>
+    <h2 class="quiz-take__resume-title">クイズを再開しますか？</h2>
+    <div class="quiz-take__resume-actions">
+      <%= link_to '再開する', resume_quiz_path(@quiz), class: 'button button--primary' %>
+      <%= link_to '新しく開始する', start_quiz_path(@quiz), class: 'button button--secondary' %>
+    </div>
+  <% else %>
+    <div class="quiz-take__question">
+      <h2 class="quiz-take__question-title"><%= @question.question_text %></h2>
+      <%= form_with(model: [@quiz, @question, @user_answer], local: true, class: 'quiz-take__form') do |form| %>
+        <% if @user_answer.errors.any? %>
+          <div id="error_explanation" class="alert alert-danger">
+            <h2 class="alert-heading"><%= pluralize(@user_answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
+            <ul>
+              <% @user_answer.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-field">
+          <%= form.label :answer_text, "あなたの回答", class: 'form-label' %>
+          <%= form.text_field :answer_text, class: 'form-input' %>
+        </div>
+
+        <div class="form-actions">
+          <%= form.submit "回答を送信", class: 'button button--primary' %>
         </div>
       <% end %>
+    </div>
+  <% end %>
 
-      <div class="field">
-        <%= form.label :answer_text, "あなたの回答" %>
-        <%= form.text_field :answer_text %>
-      </div>
-
-      <div class="actions">
-        <%= form.submit "回答を送信" %>
-      </div>
-    <% end %>
+  <div class="quiz-take__back">
+    <%= link_to 'クイズ詳細に戻る', quiz_path(@quiz), class: 'button button--secondary' %>
   </div>
-<% end %>
-
-<%= link_to 'クイズ詳細に戻る', quiz_path(@quiz) %>
+</div>

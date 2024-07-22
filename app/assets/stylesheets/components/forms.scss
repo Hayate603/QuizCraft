@@ -1,0 +1,134 @@
+.form-field {
+  margin-bottom: 1.5rem;
+
+  .form-label {
+    margin-bottom: 0.5rem;
+    display: block;
+    font-weight: 600;
+
+    @media (max-width: 768px) {
+      font-size: 0.875rem; // 小さいデバイスでのフォントサイズを調整
+    }
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid $input-border-color;
+    border-radius: $border-radius-sm;
+
+    @media (max-width: 768px) {
+      padding: 0.375rem; // 小さいデバイスでのパディングを調整
+    }
+  }
+
+  .form-checkbox {
+    margin-right: 0.5rem;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid $input-border-color;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+
+    &:checked {
+      appearance: checkbox;
+      -webkit-appearance: checkbox;
+    }
+  }
+
+  .form-checkbox-label {
+    display: inline-block;
+    vertical-align: middle; // チェックボックスとラベルを中央揃えにする
+
+    @media (max-width: 768px) {
+      font-size: 0.875rem; // 小さいデバイスでのフォントサイズを調整
+    }
+  }
+
+  .form-hint {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: $text-muted-color;
+  }
+}
+
+.form-actions {
+  text-align: center;
+
+  .form-submit {
+    background-color: $primary-color;
+    color: #fff;
+    border: 2px solid $primary-color;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: background-color $transition-speed, border-color $transition-speed;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      border-color: darken($primary-color, 10%);
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.5rem 1rem; // 小さいデバイスでのパディングを調整
+      font-size: 0.875rem; // 小さいデバイスでのフォントサイズを調整
+    }
+  }
+}
+
+.oauth-providers {
+  margin: 2rem auto;
+  text-align: center;
+  color: $light-color;
+  max-width: 500px;
+
+  .oauth-title {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem; // 小さいデバイスでのフォントサイズを調整
+    }
+  }
+
+  .oauth-btn {
+    display: block;
+    width: 70%;
+    margin: 0.5rem auto;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &.google {
+      background-color: #db4437;
+      border-color: #db4437;
+
+      &:hover {
+        background-color: darken(#db4437, 10%);
+        border-color: darken(#db4437, 10%);
+      }
+    }
+
+    &.facebook {
+      background-color: #3b5998;
+      border-color: #3b5998;
+
+      &:hover {
+        background-color: darken(#3b5998, 10%);
+        border-color: darken(#3b5998, 10%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      width: 100%; // 小さいデバイスでの幅を調整
+      padding: 0.5rem; // 小さいデバイスでのパディングを調整
+      font-size: 0.875rem; // 小さいデバイスでのフォントサイズを調整
+    }
+  }
+}

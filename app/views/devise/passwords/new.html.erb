@@ -1,15 +1,15 @@
-<h2>パスワードをお忘れですか？</h2>
+<h2 class="passwords__title">パスワードをお忘れですか？</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'passwords__form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="passwords__field form-field">
+    <%= f.label :email, "メールアドレス", class: 'form-label' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-input' %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "パスワードリセットの案内を送信" %>
+  <div class="passwords__actions form-actions">
+    <%= f.submit "パスワードリセットの案内を送信", class: 'form-submit button button--primary' %>
   </div>
 <% end %>
 

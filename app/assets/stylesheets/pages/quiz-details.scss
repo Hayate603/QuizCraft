@@ -1,0 +1,156 @@
+.quiz-details {
+  text-align: center;
+
+  &__title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: $text-muted-color;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__qr-code {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    svg {
+      width: 100px;
+      height: 100px;
+    }
+
+    &-instruction {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: $text-muted-color;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  &__take {
+    margin: 0 auto 1.5rem;
+  }
+
+  &__favorite {
+    display: block;
+    margin: 0 auto 1.5rem;
+    text-align: center;
+
+    &--remove {
+      background-color: $danger-color;
+      border-color: $danger-color;
+    }
+
+    &--add {
+      background-color: $success-color;
+      border-color: $success-color;
+      color: #fff;
+    }
+  }
+
+  &__questions-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
+  }
+
+  &__questions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 2rem;
+    max-width: 800px;
+  }
+
+  &__question-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    padding: 0.5rem;
+    background-color: $white;
+
+    &:hover {
+      box-shadow: $box-shadow-md;
+    }
+  }
+
+  &__question-link {
+    font-size: 1.25rem;
+    color: $primary-color;
+    text-decoration: none;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__question-delete {
+    margin-left: 1rem;
+    flex-shrink: 0;
+  }
+
+  &__add-question {
+    margin: 0 auto 2rem;
+  }
+
+  &__back {
+    color: $primary-color;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
