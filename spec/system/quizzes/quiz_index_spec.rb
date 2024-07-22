@@ -20,7 +20,7 @@ RSpec.describe 'Quiz Index', type: :system do
 
       it 'クイズをお気に入りに追加できること' do
         visit quizzes_path
-        within(".quiz-item-#{quiz.id}") do
+        within(".quizzes__item--#{quiz.id}") do
           click_link 'お気に入りに追加'
         end
         expect(page).to have_content('クイズをお気に入りに追加しました。')
@@ -29,7 +29,7 @@ RSpec.describe 'Quiz Index', type: :system do
       it 'クイズをお気に入りから削除できること' do
         user.favorite_quizzes.create!(quiz:)
         visit quizzes_path
-        within(".quiz-item-#{quiz.id}") do
+        within(".quizzes__item--#{quiz.id}") do
           click_link 'お気に入りから削除'
         end
         expect(page).to have_content('クイズをお気に入りから削除しました。')

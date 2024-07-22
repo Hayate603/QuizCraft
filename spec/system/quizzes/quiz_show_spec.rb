@@ -22,7 +22,7 @@ RSpec.describe 'Quiz Show', type: :system do
 
     it 'QRコードが表示されていること' do
       visit quiz_path(quiz)
-      expect(page).to have_css('.qr-code svg')
+      expect(page).to have_css('.quiz-details__qr-code svg')
     end
 
     context 'ログインしている場合' do
