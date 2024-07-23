@@ -11,6 +11,8 @@
       <%= form.submit '画像からテキストを抽出', class: 'button button--primary' %>
     </div>
   <% end %>
+  <div id="image-loading-spinner" class="loading-spinner hidden"></div>
+  <p id="image-loading-message" class="hidden">画像からテキストを抽出中...</p>
 
   <%= form_with url: generate_questions_from_text_quiz_questions_path(@quiz), local: true, data: { remote: true }, id: 'text-generation-form', class: 'question-new__form--text' do |form| %>
     <div class="question-new__field form-field">
@@ -22,6 +24,8 @@
       <%= form.submit 'ChatGPTで質問を生成', class: 'button button--primary' %>
     </div>
   <% end %>
+  <div id="text-loading-spinner" class="loading-spinner hidden"></div>
+  <p id="text-loading-message" class="hidden">ChatGPTで質問を生成中...</p>
 </div>
 
 <!-- 生成された質問と回答を表示するコンテナ -->

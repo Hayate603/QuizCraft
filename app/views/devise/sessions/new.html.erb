@@ -1,6 +1,8 @@
 <h2 class="login__title">ログイン</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'login__form' }) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'login__form', data: { turbo: false } }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
   <div class="login__field form-field">
     <%= f.label :email, "メールアドレス", class: 'form-label' %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-input' %>
@@ -27,6 +29,14 @@
   <h3 class="oauth-title">または</h3>
   <%= button_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, method: :post, class: "oauth-btn google button button--danger", data: { turbo: false } %>
   <%= button_to "Facebookでログイン", user_facebook_omniauth_authorize_path, method: :post, class: "oauth-btn facebook button button--primary", data: { turbo: false } %>
+</div>
+
+<div class="login__guest">
+  <%= form_tag(session_path(:user), method: :post, style: "display:inline;") do %>
+    <%= hidden_field_tag "user[email]", 'guest@example.com' %>
+    <%= hidden_field_tag "user[password]", 'guestpassword' %>
+    <%= submit_tag 'ゲストログイン', class: 'button button--primary guest-login-button' %>
+  <% end %>
 </div>
 
 <%= render "devise/shared/links" %>

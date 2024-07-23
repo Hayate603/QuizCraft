@@ -13,17 +13,30 @@ function initializeImageToTextAndGenerateQuestions() {
   const questionsDataField = document.getElementById('questions-data');
   const saveAllQuestionsForm = document.getElementById('save-all-questions-form');
   const quizId = document.getElementById('question-forms-container').dataset.quizId;
+  const imageLoadingSpinner = document.getElementById('image-loading-spinner');
+  const imageLoadingMessage = document.getElementById('image-loading-message');
+  const textLoadingSpinner = document.getElementById('text-loading-spinner');
+  const textLoadingMessage = document.getElementById('text-loading-message');
 
   document.querySelectorAll('.question-form').forEach(form => handleFormSubmit(form));
 
   if (imageForm) {
+    imageForm.addEventListener('ajax:beforeSend', function() {
+      imageLoadingSpinner.classList.remove('hidden');
+      imageLoadingMessage.classList.remove('hidden');
+    });
+
     imageForm.addEventListener('ajax:success', function(event) {
+      imageLoadingSpinner.classList.add('hidden');
+      imageLoadingMessage.classList.add('hidden');
       const [data, status, xhr] = event.detail;
       extractedTextArea.value = data.text;
       addFlashMessage('notice', data.message || (data.errors && data.errors.join(', ')));
     });
 
     imageForm.addEventListener('ajax:error', function(event) {
+      imageLoadingSpinner.classList.add('hidden');
+      imageLoadingMessage.classList.add('hidden');
       const [data, status, xhr] = event.detail;
       console.error('Error:', data);
       addFlashMessage('alert', 'テキストの抽出中にエラーが発生しました。');
@@ -31,7 +44,14 @@ function initializeImageToTextAndGenerateQuestions() {
   }
 
   if (textForm) {
+    textForm.addEventListener('ajax:beforeSend', function() {
+      textLoadingSpinner.classList.remove('hidden');
+      textLoadingMessage.classList.remove('hidden');
+    });
+
     textForm.addEventListener('ajax:success', function(event) {
+      textLoadingSpinner.classList.add('hidden');
+      textLoadingMessage.classList.add('hidden');
       const [data, status, xhr] = event.detail;
       generatedQuestionsContainer.innerHTML = '';
       data.questions.forEach(({ question, answer }) => {
@@ -43,6 +63,8 @@ function initializeImageToTextAndGenerateQuestions() {
     });
 
     textForm.addEventListener('ajax:error', function(event) {
+      textLoadingSpinner.classList.add('hidden');
+      textLoadingMessage.classList.add('hidden');
       const [data, status, xhr] = event.detail;
       console.error('Error:', data);
       addFlashMessage('alert', '質問の生成中にエラーが発生しました。');

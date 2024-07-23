@@ -2,6 +2,7 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :authenticate_user!, only: %i[edit update destroy]
     before_action :authorize_user, only: [:edit]
+    before_action :restrict_guest_user, only: %i[edit update destroy]
 
     def update
       prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
@@ -53,6 +54,12 @@ module Users
       clean_up_passwords resource
       set_minimum_password_length
       render :edit
+    end
+
+    def restrict_guest_user
+      return unless current_user.email == 'guest@example.com'
+
+      redirect_to root_path, alert: I18n.t('devise.failure.guest_restricted')
     end
   end
 end

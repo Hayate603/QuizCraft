@@ -40,6 +40,11 @@ class QuizzesController < ApplicationController
   end
 
   def take
+    if @quiz.questions.empty?
+      redirect_to quiz_path(@quiz), alert: I18n.t('alerts.no_questions')
+      return
+    end
+
     @existing_session = find_existing_session
     if resume_session?
       @resume_session = true

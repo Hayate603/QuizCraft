@@ -17,6 +17,13 @@
         <% else %>
           <li><%= link_to '新規登録', new_user_registration_path, class: 'header__nav-link' %></li>
           <li><%= link_to 'ログイン', new_user_session_path, class: 'header__nav-link' %></li>
+          <li>
+            <%= form_tag(session_path(:user), method: :post ) do %>
+              <%= hidden_field_tag "user[email]", 'guest@example.com' %>
+              <%= hidden_field_tag "user[password]", 'guestpassword' %>
+              <%= submit_tag 'ゲストログイン', class: 'header__nav-link' %>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </nav>

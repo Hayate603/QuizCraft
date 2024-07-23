@@ -72,6 +72,7 @@ ja:
       expired: "アカウントの有効期限が切れています。"
       session_limit_exceeded: "このアカウントでログインできる最大セッション数を超えました。"
       unauthorized_access: "アクセス権がありません。"
+      guest_restricted: "ゲストユーザーはアカウント情報を更新できません。"
 
   errors:
     format: "%{message}"
@@ -88,7 +89,7 @@ ja:
     no_completed_session: 'このクイズの完了したセッションは見つかりませんでした。'
     already_answered: 'この質問には既に回答しています。'
     end_quiz_session_failed: 'クイズセッションの終了に失敗しました。'
-
+    no_questions: 'クイズに質問が設定されていません。'
 
   notices:
     quiz_created: 'クイズが作成されました。'
