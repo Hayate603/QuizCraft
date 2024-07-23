@@ -3,6 +3,12 @@
     <h1 class="quizzes__title">クイズ一覧</h1>
     <% if user_signed_in? %>
       <%= link_to '新しいクイズを作成', new_quiz_path, class: 'quizzes__new-quiz button button--primary' %>
+    <% else %>
+      <%= form_tag(session_path(:user), method: :post, style: "display:inline;") do %>
+        <%= hidden_field_tag "user[email]", 'guest@example.com' %>
+        <%= hidden_field_tag "user[password]", 'guestpassword' %>
+        <%= submit_tag 'ゲストログイン', class: 'quizzes__guest-login button button--primary' %>
+      <% end %>
     <% end %>
   </div>
 

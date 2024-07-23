@@ -82,4 +82,18 @@
       }
     }
   }
+
+  &__guest {
+    margin-top: 1.5rem;
+    text-align: center;
+
+    .guest-login-button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      border-radius: $border-radius-md;
+      transition: background-color $transition-speed, border-color $transition-speed;
+    }
+  }
 }
