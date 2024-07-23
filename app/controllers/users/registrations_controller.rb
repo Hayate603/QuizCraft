@@ -57,9 +57,9 @@ module Users
     end
 
     def restrict_guest_user
-      if current_user.email == 'guest@example.com'
-        redirect_to root_path, alert: I18n.t('devise.failure.guest_restricted')
-      end
+      return unless current_user.email == 'guest@example.com'
+
+      redirect_to root_path, alert: I18n.t('devise.failure.guest_restricted')
     end
   end
 end
