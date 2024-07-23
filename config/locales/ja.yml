@@ -89,7 +89,7 @@ ja:
     no_completed_session: 'このクイズの完了したセッションは見つかりませんでした。'
     already_answered: 'この質問には既に回答しています。'
     end_quiz_session_failed: 'クイズセッションの終了に失敗しました。'
-
+    no_questions: 'クイズに質問が設定されていません。'
 
   notices:
     quiz_created: 'クイズが作成されました。'
