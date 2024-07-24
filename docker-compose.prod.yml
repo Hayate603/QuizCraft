@@ -9,11 +9,11 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      RAILS_ENV: production
-      MYSQL_USERNAME: root
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: quizcraft_production
+      MYSQL_USERNAME: your_database_username
+      MYSQL_PASSWORD: your_database_password
       MYSQL_HOST: mysql
-      QUIZCRAFT_DATABASE_PASSWORD: your_database_password
     networks:
       - default
     ports:
@@ -30,9 +30,10 @@ services:
       - '3000:3000'
     environment:
       RAILS_ENV: production
-      MYSQL_USERNAME: root
-      MYSQL_PASSWORD: password
-      MYSQL_HOST: mysql
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USERNAME: "${MYSQL_USERNAME}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_HOST: "${MYSQL_HOST}"
       GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}"
       GOOGLE_CLIENT_SECRET: "${GOOGLE_CLIENT_SECRET}"
       FACEBOOK_APP_ID: "${FACEBOOK_APP_ID}"
