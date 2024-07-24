@@ -1,5 +1,5 @@
 # Base image
-FROM ruby:3.3.0-bookworm
+FROM ruby:3.3.4-bookworm
 
 # Set working directory
 WORKDIR /quizcraft
