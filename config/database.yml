@@ -45,7 +45,4 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['MYSQL_DATABASE'] %>
-  username: <%= ENV['MYSQL_USERNAME'] %>
-  password: <%= ENV['MYSQL_PASSWORD'] %>
-  host: <%= ENV['MYSQL_HOST'] %>
+  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
