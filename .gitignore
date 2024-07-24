@@ -2,3 +2,4 @@
 service-account-key.json
 tmp/*
 log/*
+.env
