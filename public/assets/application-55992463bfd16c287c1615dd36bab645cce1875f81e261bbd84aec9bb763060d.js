@@ -1,0 +1,1 @@
+import{Turbo}from"@hotwired/turbo-rails";import"controllers";import Rails from"@rails/ujs";Rails.start(),Turbo.start();import"image_to_text_and_generate_questions";import"bootstrap";import"flash_messages";import"hamburger_menu";
