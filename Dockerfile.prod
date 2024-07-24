@@ -33,10 +33,12 @@ COPY service-account-key.json /quizcraft/service-account-key.json
 # Copy application code
 COPY . .
 
-# Precompile assets
+# Install Ruby and Yarn dependencies
 RUN bundle install --without development test && \
-    yarn install && \
-    bundle exec rake assets:precompile
+    yarn install
+
+# Precompile assets
+RUN RAILS_ENV=production bundle exec rake assets:precompile
 
 # Specify the entry point script
 ENTRYPOINT ["entrypoint.sh"]
