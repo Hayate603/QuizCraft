@@ -1,0 +1,45 @@
+# Base image
+FROM ruby:3.3.0-bookworm
+
+# Set working directory
+WORKDIR /quizcraft
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    openssl \
+    curl \
+    wget \
+    default-mysql-client \
+    libxml2-dev \
+    libxslt-dev \
+    libc6-dev \
+    nodejs \
+    yarn \
+    zip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install foreman
+RUN gem install foreman
+
+# Add a script to be executed every time the container starts.
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+
+# Copy the service account key (make sure this file is secured and only accessible to those who need it)
+COPY service-account-key.json /quizcraft/service-account-key.json
+
+# Copy application code
+COPY . .
+
+# Precompile assets
+RUN bundle install --without development test && \
+    yarn install && \
+    bundle exec rake assets:precompile
+
+# Specify the entry point script
+ENTRYPOINT ["entrypoint.sh"]
+
+# Run the web server
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

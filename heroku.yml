@@ -1,0 +1,17 @@
+setup:
+  addons:
+    - plan: jawsdb:kitefin
+      as: DATABASE
+
+build:
+  docker:
+    web: Dockerfile.prod
+  config:
+    COMPOSE_FILE: docker-compose.prod.yml
+
+release:
+  command:
+    - bundle exec rails db:migrate
+
+run:
+  web: bundle exec puma -C config/puma.rb
