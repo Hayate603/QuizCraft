@@ -8,7 +8,7 @@ Rails.application.configure do
   # config.require_master_key = true
 
   # アセットプリコンパイル設定
-  config.assets.js_compressor = Uglifier.new(harmony: true)
+  config.assets.js_compressor = :terser
   config.assets.compile = false
   config.assets.digest = true
   config.assets.precompile += %w( application.js application.scss )
