@@ -48,7 +48,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '>= 6'
 gem 'terser'
 gem 'mini_racer', platforms: :ruby
-gem 'pg'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

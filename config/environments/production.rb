@@ -11,10 +11,7 @@ Rails.application.configure do
   config.assets.js_compressor = :terser
   config.assets.compile = false
   config.assets.digest = true
-  config.assets.precompile += %w( .svg .eot .woff .ttf )
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-
-  # 静的ファイルの提供
+  config.assets.precompile += %w( application.js application.scss )
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # アセットホスト
