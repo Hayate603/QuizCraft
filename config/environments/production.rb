@@ -1,28 +1,24 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # コードの再読み込みを無効にし、Eager Load を有効にする
   config.enable_reloading = false
   config.eager_load = true
+
+  # 詳細なエラーメッセージを無効にする
   config.consider_all_requests_local = false
+
+  # キャッシュを有効にする
   config.action_controller.perform_caching = true
-  # config.require_master_key = true
 
   # アセットプリコンパイル設定
   config.assets.js_compressor = :terser
-  config.assets.compile = false
+  config.assets.compile = true
   config.assets.digest = true
   config.assets.precompile += %w( application.js application.scss )
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # アセットホスト
-  # config.asset_host = "http://assets.example.com"
-
-  # ファイル送信ヘッダー
-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
-  # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
-
   # SSL設定
-  # config.assume_ssl = true
   config.force_ssl = true
 
   # ログ設定
@@ -38,9 +34,6 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  # キャッシュストアの設定
-  # config.cache_store = :mem_cache_store
-
   # メール設定
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
@@ -48,20 +41,31 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'example.com',
-    user_name:            '<username>',
-    password:             '<password>',
+    domain:               'quiz-craft-new-6bafbe70ad3e.herokuapp.com',
+    user_name:            ENV['GMAIL_USERNAME'], # 環境変数を使用
+    password:             ENV['GMAIL_PASSWORD'], # 環境変数を使用
     authentication:       'plain',
     enable_starttls_auto: true
   }
+  config.action_mailer.default_url_options = {
+    host: 'quiz-craft-new-6bafbe70ad3e.herokuapp.com', # ここにHerokuアプリのドメイン名を入力
+    protocol: 'https'
+  }
 
+  # アクティブストレージ設定
   config.active_storage.service = :local
+
+  # 国際化（i18n）設定
   config.i18n.fallbacks = true
+
+  # 非推奨警告の報告を無効にする
   config.active_support.report_deprecations = false
+
+  # マイグレーション後にスキーマをダンプしない
   config.active_record.dump_schema_after_migration = false
 
-  # Active Jobの設定
-  # config.active_job.queue_adapter = :resque
+  # Active Jobの設定（例: Sidekiq を使用する場合）
+  # config.active_job.queue_adapter = :sidekiq
   # config.active_job.queue_name_prefix = "quizcraft_production"
 
   # Action Cableの設定
@@ -70,5 +74,5 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
   # ホストの設定
-  # config.hosts = [ "example.com", /.*\.example\.com/ ]
+  config.hosts << "quiz-craft-new-6bafbe70ad3e.herokuapp.com"
 end
