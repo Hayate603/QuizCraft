@@ -1,26 +1,10 @@
 version: "3"
 volumes:
-  mysql_data:
   vendor_bundle:
   node_modules:
   storage:
 
 services:
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USERNAME}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    networks:
-      - default
-    ports:
-      - '3306:3306'
-    volumes:
-      - mysql_data:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
-
   quizcraft:
     build:
       context: .
@@ -29,18 +13,13 @@ services:
       - '3000:3000'
     environment:
       RAILS_ENV: production
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USERNAME: ${MYSQL_USERNAME}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_HOST: ${MYSQL_HOST}
+      JAWSDB_URL: ${JAWSDB_URL}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       FACEBOOK_APP_ID: ${FACEBOOK_APP_ID}
       FACEBOOK_APP_SECRET: ${FACEBOOK_APP_SECRET}
       GOOGLE_APPLICATION_CREDENTIALS: /quizcraft/service-account-key.json
       OPENAI_API_KEY: ${OPENAI_API_KEY}
-    depends_on:
-      - mysql
     networks:
       - default
     volumes:
