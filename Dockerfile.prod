@@ -35,6 +35,9 @@ RUN bundle config set --local without 'development test'
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
+# tmp/pidsディレクトリの作成
+RUN mkdir -p tmp/pids
+
 # アプリケーションコードのコピー
 COPY . .
 
