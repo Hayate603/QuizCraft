@@ -2,3 +2,6 @@
 service-account-key.json
 tmp/*
 log/*
+.env
+/config/master.key
+/config/credentials.yml.enc

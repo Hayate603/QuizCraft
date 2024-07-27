@@ -1,0 +1,36 @@
+version: "3"
+volumes:
+  vendor_bundle:
+  node_modules:
+  storage:
+
+services:
+  quizcraft:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - '3000:3000'
+    environment:
+      RAILS_ENV: production
+      JAWSDB_URL: ${JAWSDB_URL}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      FACEBOOK_APP_ID: ${FACEBOOK_APP_ID}
+      FACEBOOK_APP_SECRET: ${FACEBOOK_APP_SECRET}
+      GOOGLE_APPLICATION_CREDENTIALS: /quizcraft/service-account-key.json
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    networks:
+      - default
+    volumes:
+      - .:/quizcraft
+      - /quizcraft/log
+      - /quizcraft/tmp
+      - vendor_bundle:/quizcraft/vendor/bundle
+      - node_modules:/quizcraft/node_modules
+      - storage:/quizcraft/storage
+    command: bundle exec puma -C config/puma.rb
+
+networks:
+  default:
+    driver: bridge

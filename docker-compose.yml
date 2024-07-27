@@ -9,7 +9,7 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
       - default
     ports:
@@ -25,23 +25,23 @@ services:
     ports:
       - '3000:3000'
     environment:
-      MYSQL_USERNAME: root
-      MYSQL_PASSWORD: password
-      MYSQL_HOST: mysql
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       SELENIUM_REMOTE_URL: http://chrome:4444/wd/hub
-      GOOGLE_CLIENT_ID: "1084132138336-m0p9ujbhvdqf72cd5ko7fen9ck2qaiv1.apps.googleusercontent.com"
-      GOOGLE_CLIENT_SECRET: "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"
-      FACEBOOK_APP_ID: "1105642750504524"
-      FACEBOOK_APP_SECRET: "f64ae77d587ba3bd65358276a79fe29b"
-      GOOGLE_APPLICATION_CREDENTIALS: "/quizcraft/service-account-key.json"
-      OPENAI_API_KEY: "sk-quizcraft-key-vzBwcyaOZwXuVEKigI6iT3BlbkFJC4gpVg6GNDEajux6lt6J"
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      FACEBOOK_APP_ID: ${FACEBOOK_APP_ID}
+      FACEBOOK_APP_SECRET: ${FACEBOOK_APP_SECRET}
+      GOOGLE_APPLICATION_CREDENTIALS: /quizcraft/service-account-key.json
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
     depends_on:
       - mysql
     networks:
       - default
     volumes:
       - .:/quizcraft
-      # https://qiita.com/shotat/items/57d049793605ffc20135
       - /quizcraft/log
       - /quizcraft/tmp
       - vendor_bundle:/quizcraft/vendor/bundle

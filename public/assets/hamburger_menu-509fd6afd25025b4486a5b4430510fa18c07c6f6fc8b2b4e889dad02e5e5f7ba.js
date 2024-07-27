@@ -1,0 +1,1 @@
+document.addEventListener("turbo:load",(()=>{const e=document.querySelector(".header__menu-toggle"),t=document.querySelector(".header__nav");e&&t&&e.addEventListener("click",(()=>{t.classList.toggle("open"),e.classList.toggle("open")}))}));
