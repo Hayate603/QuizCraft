@@ -29,7 +29,6 @@ tmp/*
 !/yarn/patches
 
 # Ignore local config files
-config/database.yml
 config/master.key
 config/credentials.yml.enc
 
