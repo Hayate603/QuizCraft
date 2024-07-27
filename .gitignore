@@ -1,7 +1,51 @@
-.DS_Store
-service-account-key.json
-tmp/*
-log/*
+# Environment
 .env
-/config/master.key
-/config/credentials.yml.enc
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Service Account Key
+service-account-key.json
+
+# Log files
+log/*
+!log/.keep
+
+# Temp files
+tmp/*
+!tmp/.keep
+
+# Ignore all bundler config.
+.bundle
+
+# Ignore cache, build results, and generated files.
+/.yarn/*
+!/yarn/cache
+!/yarn/global
+!/yarn/offline-mirror
+!/yarn/patches
+
+# Ignore local config files
+config/database.yml
+config/master.key
+config/credentials.yml.enc
+
+# Ignore test files
+/spec/examples.txt
+
+# Ignore node modules
+node_modules/
+
+# Ignore compiled assets
+/public/assets/
+/public/packs/
+
+# Ignore IDE/editor config files
+.vscode/
+.idea/
+
+# Ignore coverage results
+coverage/

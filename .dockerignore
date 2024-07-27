@@ -10,7 +10,7 @@
 /.env*
 !/.env*.erb
 
-# Ignore all default key files.
+# # Ignore all default key files.
 # /config/master.key
 # /config/credentials/*.key
 
@@ -35,3 +35,17 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /public/assets
+
+# Ignore IDE/editor config files
+.vscode/
+.idea/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore coverage results
+coverage/
+
+# Ignore test files
+/spec/examples.txt
