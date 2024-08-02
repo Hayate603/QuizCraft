@@ -32,6 +32,11 @@
     </div>
   <% end %>
 
+  <div class="form-field account-edit__field">
+    <%= f.label :quiz_mode, "クイズモード", class: 'form-label account-edit__label' %>
+    <%= f.select :quiz_mode, options_for_select(User::QUIZ_MODES.map { |key, value| [User::QUIZ_MODE_LABELS[key.to_sym], value] }, selected: @user.quiz_mode), {}, class: 'form-input account-edit__input' %>
+  </div>
+
   <div class="form-actions account-edit__actions">
     <%= f.submit "更新", class: 'button button--primary account-edit__submit' %>
   </div>

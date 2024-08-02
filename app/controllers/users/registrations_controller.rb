@@ -30,6 +30,10 @@ module Users
 
     private
 
+    def account_update_params
+      params.require(:user).permit(:email, :password, :password_confirmation, :current_password, :quiz_mode)
+    end
+
     def authorize_user
       user = User.find_by(id: params[:id])
       redirect_to(root_path, alert: I18n.t('devise.failure.unauthorized_access')) if user.nil? || (current_user != user)

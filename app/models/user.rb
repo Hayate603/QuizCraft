@@ -8,10 +8,16 @@ class User < ApplicationRecord
          :confirmable, :lockable, :omniauthable,
          omniauth_providers: %i[google_oauth2 facebook]
 
-  # クイズの形式の定数
+  # クイズの形式の定数（英語）
   QUIZ_MODES = {
     default: 'default',
-    self_grading: 'self_grading',
+    self_grading: 'self_grading'
+  }.freeze
+
+  # クイズモードの日本語ラベル
+  QUIZ_MODE_LABELS = {
+    default: '入力モード',
+    self_grading: '自己採点モード'
   }.freeze
 
   # バリデーション (クイズ形式)
