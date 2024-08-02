@@ -46,7 +46,8 @@ class User < ApplicationRecord
         uid: auth.uid,
         username: auth.info.name,
         email: auth.info.email,
-        password: Devise.friendly_token[0, 20]
+        password: Devise.friendly_token[0, 20],
+        quiz_mode: User::QUIZ_MODES[:default]
       )
       user.skip_confirmation! if user.respond_to?(:skip_confirmation!)
       user.save!
