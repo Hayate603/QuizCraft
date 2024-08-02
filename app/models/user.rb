@@ -47,7 +47,14 @@ class User < ApplicationRecord
     end
 
     def create_user_from_omniauth(auth)
-      user = User.create!(
+      user = initialize_user_from_auth(auth)
+      user.skip_confirmation! if user.respond_to?(:skip_confirmation!)
+      user.save!
+      user
+    end
+
+    def initialize_user_from_auth(auth)
+      User.new(
         provider: auth.provider,
         uid: auth.uid,
         username: auth.info.name,
@@ -55,9 +62,6 @@ class User < ApplicationRecord
         password: Devise.friendly_token[0, 20],
         quiz_mode: User::QUIZ_MODES[:default]
       )
-      user.skip_confirmation! if user.respond_to?(:skip_confirmation!)
-      user.save!
-      user
     end
   end
 end
