@@ -8,6 +8,15 @@ class User < ApplicationRecord
          :confirmable, :lockable, :omniauthable,
          omniauth_providers: %i[google_oauth2 facebook]
 
+  # クイズの形式の定数
+  QUIZ_MODES = {
+    default: 'default',
+    self_grading: 'self_grading',
+  }.freeze
+
+  # バリデーション (クイズ形式)
+  validates :quiz_mode, inclusion: { in: QUIZ_MODES.values }
+
   def self.from_omniauth(auth)
     user = User.find_by(provider: auth.provider, uid: auth.uid)
     user ||= User.find_by(email: auth.info.email)
