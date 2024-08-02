@@ -10,3 +10,4 @@ pin "image_to_text_and_generate_questions", to: "image_to_text_and_generate_ques
 pin "bootstrap", to: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js", preload: true
 pin "flash_messages", to: "flash_messages.js", preload: true
 pin "hamburger_menu", to: "hamburger_menu.js", preload: true
+pin "display_answer", to: "display_answer.js", preload: true
