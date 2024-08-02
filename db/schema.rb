@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_05_025215) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_02_074828) do
   create_table "favorite_quizzes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "quiz_id", null: false
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_025215) do
     t.string "provider"
     t.string "uid"
     t.string "username"
+    t.string "quiz_mode"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
