@@ -19,10 +19,8 @@ module Users
     def update_resource(resource, params)
       if current_user.email == 'guest@example.com' && params.keys == ['quiz_mode']
         resource.update_without_password(params)
-      elsif resource.provider.present?
-        resource.update_without_password(params)
       else
-        resource.update_with_password(params)
+        resource.provider.present? ? resource.update_without_password(params) : resource.update_with_password(params)
       end
     end
 
@@ -64,10 +62,7 @@ module Users
 
     def restrict_guest_user
       return unless current_user.email == 'guest@example.com'
-
-      if params[:user] && account_update_params.keys == ["quiz_mode"]
-        return
-      end
+      return if params[:user] && account_update_params.keys == ["quiz_mode"]
 
       redirect_to root_path, alert: I18n.t('devise.failure.guest_restricted')
     end
