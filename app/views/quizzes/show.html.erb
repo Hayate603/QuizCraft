@@ -39,16 +39,19 @@
   <% end %>
 
   <h2 class="quiz-details__questions-title">質問一覧</h2>
-  <ul class="quiz-details__questions-list">
-    <% @quiz.questions.each do |question| %>
-      <li class="quiz-details__question-item">
-        <%= link_to question.question_text, quiz_question_path(@quiz, question), class: 'quiz-details__question-link' %>
-        <% if user_signed_in? && @quiz.user == current_user %>
-          <%= button_to '質問を削除', quiz_question_path(@quiz, question), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'quiz-details__question-delete button button--danger' %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+  <button id="show-questions-btn" class="button button--primary">質問を表示</button>
+  <div id="questions-section" style="display:none;">
+    <ul class="quiz-details__questions-list">
+      <% @quiz.questions.each do |question| %>
+        <li class="quiz-details__question-item">
+          <%= link_to question.question_text, quiz_question_path(@quiz, question), class: 'quiz-details__question-link' %>
+          <% if user_signed_in? && @quiz.user == current_user %>
+            <%= button_to '質問を削除', quiz_question_path(@quiz, question), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'quiz-details__question-delete button button--danger' %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
   <% if user_signed_in? && @quiz.user == current_user %>
     <div>
