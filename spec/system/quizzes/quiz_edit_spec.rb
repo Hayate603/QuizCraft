@@ -23,6 +23,15 @@ RSpec.describe 'Quiz Edit', type: :system do
             expect(page).to have_content 'Updated Quiz'
             expect(page).to have_content 'This is an updated description'
           end
+
+          it '説明が空でもタイトルがあればクイズを更新できること' do
+            fill_in 'タイトル', with: 'Updated Quiz'
+            fill_in '説明', with: ''
+            click_button 'クイズを更新'
+
+            expect(page).to have_content 'クイズが更新されました。'
+            expect(page).to have_content 'Updated Quiz'
+          end
         end
 
         context '無効な値が入力された場合' do
@@ -31,13 +40,6 @@ RSpec.describe 'Quiz Edit', type: :system do
             click_button 'クイズを更新'
 
             expect(page).to have_content 'タイトルを入力してください'
-          end
-
-          it '説明が空である場合クイズを更新できないこと' do
-            fill_in '説明', with: ''
-            click_button 'クイズを更新'
-
-            expect(page).to have_content '説明を入力してください'
           end
         end
       end
