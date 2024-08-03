@@ -24,6 +24,16 @@ RSpec.describe 'Quiz Creation', type: :system do
         expect(page).to have_content 'This is a test description'
       end
 
+      it '説明が空でもタイトルがあればクイズを作成できること' do
+        visit new_quiz_path
+        fill_in 'タイトル', with: 'Test Quiz'
+        fill_in '説明', with: ''
+        click_button 'クイズを作成'
+
+        expect(page).to have_content 'クイズが作成されました。'
+        expect(page).to have_content 'Test Quiz'
+      end
+
       it '他のユーザーなら同じタイトルのクイズでも作成できること' do
         Quiz.create!(title: 'Duplicate Title', description: 'This is a test description', user:)
         sign_out user
@@ -46,15 +56,6 @@ RSpec.describe 'Quiz Creation', type: :system do
         click_button 'クイズを作成'
 
         expect(page).to have_content 'タイトルを入力してください'
-      end
-
-      it '説明が空である場合クイズを作成できないこと' do
-        visit new_quiz_path
-        fill_in 'タイトル', with: 'Test Quiz'
-        fill_in '説明', with: ''
-        click_button 'クイズを作成'
-
-        expect(page).to have_content '説明を入力してください'
       end
 
       it '同じユーザーが同じタイトルのクイズを作成できないこと' do
