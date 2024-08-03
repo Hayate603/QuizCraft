@@ -7,6 +7,18 @@
     <%= raw RQRCode::QRCode.new(quiz_url(@quiz)).as_svg(module_size: 6).html_safe %>
   </div>
 
+  <% if user_signed_in? %>
+    <div class="form-field quiz-mode__field">
+      <%= form_for(current_user, as: :user, url: update_user_registration_path(current_user), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: current_user %>
+        <%= f.label :quiz_mode, "クイズの形式", class: 'form-label quiz-mode__label' %>
+        <%= f.select :quiz_mode, options_for_select(User::QUIZ_MODES.map { |key, value| [User::QUIZ_MODE_LABELS[key.to_sym], value] }, selected: current_user.quiz_mode), {}, class: 'form-input quiz-mode__input' %>
+        <%= f.submit "変更", class: 'button button--primary quiz-mode__submit' %>
+      <% end %>
+    </div>
+  <% end %>
+
+
   <% if user_signed_in? && @quiz.user == current_user %>
     <div class="quiz-details__actions">
       <%= link_to 'クイズを編集', edit_quiz_path(@quiz), class: 'quiz-details__edit button button--secondary' %>
