@@ -11,6 +11,11 @@ RSpec.describe Quiz, type: :model do
         expect(quiz).to be_valid
       end
 
+      it '説明がなくても有効であること' do
+        quiz = Quiz.new(title: '有効なタイトル', user:)
+        expect(quiz).to be_valid
+      end
+
       it '他のユーザーなら同じタイトルのクイズでも作成できること' do
         Quiz.create!(title: '同じタイトル', description: '有効な説明', user:)
         quiz = Quiz.new(title: '同じタイトル', description: '有効な説明', user: another_user)
@@ -23,12 +28,6 @@ RSpec.describe Quiz, type: :model do
         quiz = Quiz.new(description: '有効な説明', user:)
         quiz.valid?
         expect(quiz.errors[:title]).to include("タイトルを入力してください")
-      end
-
-      it '説明がなければ無効であること' do
-        quiz = Quiz.new(title: '有効なタイトル', user:)
-        quiz.valid?
-        expect(quiz.errors[:description]).to include("説明を入力してください")
       end
 
       it '同じユーザーが同じタイトルのクイズを作成できないこと' do
