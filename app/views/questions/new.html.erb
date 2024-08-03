@@ -62,3 +62,7 @@
     <%= form.submit 'すべての質問を作成', class: 'button button--primary', id: 'submit-all-questions' %>
   </div>
 <% end %>
+
+<div class="question-new__back">
+  <%= link_to 'クイズ詳細に戻る', quiz_path(@quiz), class: 'button button--link' %>
+</div>
