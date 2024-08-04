@@ -15,8 +15,9 @@ RSpec.describe 'Quiz Show', type: :system do
       expect(page).to have_content 'Sample description'
     end
 
-    it 'クイズに関連する質問が表示されること' do
+    it 'クイズに関連する質問が表示されること', js: true do
       visit quiz_path(quiz)
+      click_button '質問を表示'
       expect(page).to have_content 'Sample Question'
     end
 

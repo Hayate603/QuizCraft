@@ -31,6 +31,7 @@ module QuestionsHelper
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def fetch_openai_response(client, extracted_text)
     client.chat(
       parameters: {
@@ -58,6 +59,7 @@ module QuestionsHelper
       }
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 

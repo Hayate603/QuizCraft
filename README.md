@@ -7,7 +7,7 @@ Quizcraftはテキストから自動でクイズを作成するアプリケー�
 
 ![アプリのデモ](https://github.com/Hayate603/QuizCraft/blob/docs/readme/quizcraft-ezgif.com-cut.gif?raw=true)
 
-- URL: https://quiz-craft-new-6bafbe70ad3e.herokuapp.com/
+URL: https://quiz-craft-new-6bafbe70ad3e.herokuapp.com/<br>
 ヘッダーかタイトルの右側のゲストログインボタンから、メールアドレスとパスワードを入力せずにログインできます。
 
 ### 使用技術

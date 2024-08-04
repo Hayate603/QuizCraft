@@ -7,6 +7,18 @@
     <%= raw RQRCode::QRCode.new(quiz_url(@quiz)).as_svg(module_size: 6).html_safe %>
   </div>
 
+  <% if user_signed_in? %>
+    <div class="form-field quiz-mode__field">
+      <%= form_for(current_user, as: :user, url: update_user_registration_path(current_user), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: current_user %>
+        <%= f.label :quiz_mode, "クイズの形式", class: 'form-label quiz-mode__label' %>
+        <%= f.select :quiz_mode, options_for_select(User::QUIZ_MODES.map { |key, value| [User::QUIZ_MODE_LABELS[key.to_sym], value] }, selected: current_user.quiz_mode), {}, class: 'form-input quiz-mode__input' %>
+        <%= f.submit "変更", class: 'button button--primary quiz-mode__submit' %>
+      <% end %>
+    </div>
+  <% end %>
+
+
   <% if user_signed_in? && @quiz.user == current_user %>
     <div class="quiz-details__actions">
       <%= link_to 'クイズを編集', edit_quiz_path(@quiz), class: 'quiz-details__edit button button--secondary' %>
@@ -27,16 +39,19 @@
   <% end %>
 
   <h2 class="quiz-details__questions-title">質問一覧</h2>
-  <ul class="quiz-details__questions-list">
-    <% @quiz.questions.each do |question| %>
-      <li class="quiz-details__question-item">
-        <%= link_to question.question_text, quiz_question_path(@quiz, question), class: 'quiz-details__question-link' %>
-        <% if user_signed_in? && @quiz.user == current_user %>
-          <%= button_to '質問を削除', quiz_question_path(@quiz, question), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'quiz-details__question-delete button button--danger' %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+  <button id="show-questions-btn" class="button button--primary">質問を表示</button>
+  <div id="questions-section" style="display:none;">
+    <ul class="quiz-details__questions-list">
+      <% @quiz.questions.each do |question| %>
+        <li class="quiz-details__question-item">
+          <%= link_to question.question_text, quiz_question_path(@quiz, question), class: 'quiz-details__question-link' %>
+          <% if user_signed_in? && @quiz.user == current_user %>
+            <%= button_to '質問を削除', quiz_question_path(@quiz, question), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'quiz-details__question-delete button button--danger' %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
   <% if user_signed_in? && @quiz.user == current_user %>
     <div>

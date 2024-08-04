@@ -97,6 +97,11 @@
       display: block;
     }
   }
+
+  &__back {
+    margin-top: 2rem;
+    text-align: center;
+  }
 }
 
 .loading-spinner {

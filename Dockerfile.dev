@@ -3,9 +3,12 @@ FROM ruby:3.3.4-bookworm
 
 WORKDIR /quizcraft
 
+# Install system dependencies
 RUN apt-get update                                                                                                                      \
-  && apt-get install                                                                                                                    \
+  && apt-get install -y                                                                                                                 \
     openssl                                                                                                                             \
+    curl                                                                                                                                \
+    wget                                                                                                                                \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash -                                                                            \
   && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -                                                                  \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list                                      \
@@ -26,6 +29,15 @@ RUN apt-get update                                                              
     zip                                                                                                                                 \
   && gem install foreman                                                                                                                \
   && apt-get clean
+
+# Add Gemfile and Gemfile.lock before installing gems
+COPY Gemfile Gemfile.lock /quizcraft/
+
+# Install gems
+RUN bundle install
+
+# Copy the rest of the application code
+COPY . /quizcraft/
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
