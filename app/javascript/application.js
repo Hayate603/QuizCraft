@@ -6,6 +6,7 @@ import Rails from "@rails/ujs"
 Rails.start();
 Turbo.start();
 
+import "bootstrap"
 import "image_to_text_and_generate_questions"
 import "flash_messages"
 import "hamburger_menu"
