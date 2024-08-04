@@ -12,6 +12,9 @@
         </li>
       <% end %>
     </ul>
+    <div class="my-quizzes__pagination">
+      <%= paginate @quizzes %>
+    </div>
   <% else %>
     <p class="my-quizzes__message">クイズはまだありません。</p>
   <% end %>

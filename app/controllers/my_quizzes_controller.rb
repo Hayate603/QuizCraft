@@ -3,7 +3,7 @@ class MyQuizzesController < ApplicationController
   before_action :correct_user
 
   def index
-    @quizzes = current_user.quizzes
+    @quizzes = current_user.quizzes.page(params[:page]).per(10)
   end
 
   private
