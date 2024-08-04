@@ -9,6 +9,7 @@ class QuizzesController < ApplicationController
 
   def show
     @qr = RQRCode::QRCode.new(quiz_url(@quiz))
+    @questions = @quiz.questions.page(params[:page]).per(10)
   end
 
   def new
