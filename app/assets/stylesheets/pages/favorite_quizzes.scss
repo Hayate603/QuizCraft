@@ -67,4 +67,16 @@
       margin-top: 0.5rem; // モバイルデバイスでのマージンを調整
     }
   }
+
+  &__pagination {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      padding: 0;
+    }
+  }
 }

@@ -186,4 +186,16 @@
   &__add-question {
     margin: 0 auto 2rem;
   }
+
+  &__pagination {
+    margin: 1rem auto;
+    max-width: 800px;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      padding: 0;
+    }
+  }
 }

@@ -20,6 +20,9 @@
 @import "components/alerts";
 @import 'components/devise';
 
+// Import Bootstrap
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css');
+
 // Import page-specific styles
 @import "pages/quizzes";
 @import "pages/registration";

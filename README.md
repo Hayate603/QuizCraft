@@ -1,14 +1,22 @@
 # Quizcraft
 
 ## 概要
-Quizcraftはテキストから自動でクイズを作成するアプリケーションです。
-このアプリケーションを使用することで、ユーザーは簡単にクイズを生成し、他のユーザーにシェアして挑戦してもらうことができます。
+Quizcraftはテキストから自動でクイズを作成することができるアプリケーションです。<br>
+このアプリケーションを使用することで、ユーザーは簡単にクイズを生成し、覚えておきたい知識の復習に使うことができます。<br>
+他のユーザーにシェアして挑戦してもらうこともできます。<br>
 レスポンシブ対応しているのでスマホからもご確認いただけます。
 
-![アプリのデモ](https://github.com/Hayate603/QuizCraft/blob/docs/readme/quizcraft-ezgif.com-cut.gif?raw=true)
+![アプリのデモ](https://github.com/Hayate603/QuizCraft/blob/main/quizcraft-ezgif.com-cut.gif?raw=true)
 
 URL: https://quiz-craft-new-6bafbe70ad3e.herokuapp.com/<br>
 ヘッダーかタイトルの右側のゲストログインボタンから、メールアドレスとパスワードを入力せずにログインできます。
+
+## 開発の経緯
+私は読書が趣味ですが、ただ読むだけでは記憶に残りにくいと感じていました。<br>
+調べたところ、クイズ形式で勉強することが記憶の定着に非常に効果的であるとわかりました。[参考リンク](https://yuchrszk.blogspot.com/2016/11/blog-post_30.html)。<br>
+確かに読んでいるだけだと、記憶に残っているところと残ってないところが自分で把握しずらいため、クイズ形式で勉強するのは効果的だと思いました。<br>
+しかし、資格試験などならともかく、自分が記憶したい内容のクイズは存在しないことが多いため、自分でつくるしかありませんが、作るのに手間がかかるためなかなか手がつきません。学生だったときもノートにしか書いていない内容があったため、簡単にクイズにできたら便利だと思ったことがあります。<br>
+このような背景から、自動でクイズを作成し、記憶の定着を助けるツールを作りたいと思い、Quizcraftの開発を始めました。
 
 ### 使用技術
 - **フレームワーク**: Ruby on Rails 7.1.3.2
@@ -22,10 +30,10 @@ URL: https://quiz-craft-new-6bafbe70ad3e.herokuapp.com/<br>
 - **コンテナ化**: Docker
 
 ## 構成図
-![構成図](https://github.com/Hayate603/QuizCraft/blob/docs/readme/quizcraft.png?raw=true)
+![構成図](https://github.com/Hayate603/QuizCraft/blob/main/quizcraft.png?raw=true)
 
 ## ER図
-![ER図](https://github.com/Hayate603/QuizCraft/blob/docs/readme/quizcraft-puml.png?raw=true)
+![ER図](https://github.com/Hayate603/QuizCraft/blob/main/quizcraft-puml.png?raw=true)
 
 
 ## 機能
@@ -36,6 +44,7 @@ URL: https://quiz-craft-new-6bafbe70ad3e.herokuapp.com/<br>
 - お気に入り機能
 - クイズへの回答,結果表示
 - ゲストログイン機能
+- ページネーション
 
 ## テスト
 - RSpec
