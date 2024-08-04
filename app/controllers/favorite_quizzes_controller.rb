@@ -2,7 +2,7 @@ class FavoriteQuizzesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @favorite_quizzes = current_user.favorite_quizzes.includes(:quiz)
+    @favorite_quizzes = current_user.favorite_quizzes.includes(:quiz).page(params[:page]).per(10)
   end
 
   def create
