@@ -9,15 +9,17 @@
 #   end
 
 # ゲストユーザーを作成
-User.create!(
+guest_user = User.create!(
   email: 'guest@example.com',
   password: 'guestpassword',
   confirmed_at: Time.zone.now
 )
 
-# ユーザーを作成
-users = []
-5.times do |n|
+# ゲストユーザーを配列に追加
+users = [guest_user]
+
+# 他のユーザーを作成
+4.times do |n|
   users << User.create!(
     email: "user#{n + 1}@example.com",
     password: 'password',
