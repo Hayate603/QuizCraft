@@ -12,85 +12,54 @@ URL: https://quiz-craft-new-6bafbe70ad3e.herokuapp.com/<br>
 ## 使い方と機能
 
 ### ゲストログイン
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E3%82%B1%E3%82%99%E3%82%B9%E3%83%88%E3%83%AD%E3%82%AF%E3%82%99%E3%82%A4%E3%83%B3.png?raw=true" style="max-width: 300px;">
-</p>
-<p>ゲストログインボタンをクリックすることで、登録せずにアプリの機能を試すことができます。メールアドレスで登録する場合はメールでアカウント有効化する必要があります。ゲストログインではアカウント情報更新機能以外は試すことができます。</p>
+| ![ゲストログイン](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E3%82%B1%E3%82%99%E3%82%B9%E3%83%88%E3%83%AD%E3%82%AF%E3%82%99%E3%82%A4%E3%83%B3.png?raw=true) |
+|:---:|
+| ゲストログインボタンをクリックすることで、登録せずにアプリの機能を試すことができます。メールアドレスで登録する場合はメールでアカウント有効化する必要があります。ゲストログインではアカウント情報更新機能以外は試すことができます。 |
 
 ### ページの説明
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E3%83%AD%E3%82%AF%E3%82%99%E3%82%A4%E3%83%B3%E5%BE%8C%E3%83%98%E3%83%83%E3%82%BF%E3%82%99%E3%83%BC.png?raw=true" style="max-width: 300px;">
-</p>
-<p>
-  QuizCraftをクリックするとホームページ兼クイズ一覧のページにいきます。<br>
-  マイクイズは自分で作成したクイズの一覧ページです。<br>
-  お気に入りはお気に入りしたクイズの一覧ページです。<br>
-</p>
+| ![ページの説明](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E3%83%AD%E3%82%AF%E3%82%99%E3%82%A4%E3%83%B3%E5%BE%8C%E3%83%98%E3%83%83%E3%82%BF%E3%82%99%E3%83%BC.png?raw=true) |
+|:---:|
+| QuizCraftをクリックするとホームページ兼クイズ一覧のページにいきます。マイクイズは自分で作成したクイズの一覧ページです。お気に入りはお気に入りしたクイズの一覧ページです。 |
 
 ### クイズの作成
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E6%96%B0%E3%81%97%E3%81%84%E3%82%AF%E3%82%A4%E3%82%B9%E3%82%99.png?raw=true" style="max-width: 300px; display: inline-block;">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E3%82%AF%E3%82%A4%E3%82%B9%E3%82%99%E4%BD%9C%E6%88%90.png?raw=true" style="max-width: 300px; display: inline-block;">
-</p>
-<p>
-  「クイズ作成」ボタンから新しいクイズを作成するページに行けます。<br>
-  クイズのタイトルの入力は必須です。説明は任意です。<br>
-  入力が終わったら、クイズ作成ボタンを押します。
-</p>
+| ![クイズの作成](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E6%96%B0%E3%81%97%E3%81%84%E3%82%AF%E3%82%A4%E3%82%B9%E3%82%99.png?raw=true) | ![クイズ作成](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E3%82%AF%E3%82%A4%E3%82%B9%E3%82%99%E4%BD%9C%E6%88%90.png?raw=true) |
+|:---:|:---:|
+| 「クイズ作成」ボタンから新しいクイズを作成するページに行けます。クイズのタイトルの入力は必須です。説明は任意です。入力が終わったら、クイズ作成ボタンを押します。 |
 
 ### 新しい質問を追加
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E6%96%B0%E3%81%97%E3%81%84%E8%B3%AA%E5%95%8F%E3%82%92%E8%BF%BD%E5%8A%A0.png?raw=true" style="max-width: 300px;">
-</p>
-<p>クイズ詳細ページの「質問を追加」ボタンをクリックすることで質問作成画面にいけます。</p>
+| ![新しい質問を追加](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E6%96%B0%E3%81%97%E3%81%84%E8%B3%AA%E5%95%8F%E3%82%92%E8%BF%BD%E5%8A%A0.png?raw=true) |
+|:---:|
+| クイズ詳細ページの「質問を追加」ボタンをクリックすることで質問作成画面にいけます。 |
 
 ### 画像からテキストに変換してクイズ作成
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/quizcraft-ezgif.com-cut.gif?raw=true" style="max-width: 300px;">
-</p>
-<p>画像を選択して「画像からテキストを抽出」ボタンを押すことで画像からテキストを抽出できます。
-「ChatGPTで質問を作成」ボタンを押すこと抽出したテキストからクイズが作成されフォームに入力された形式で返ってきます。</p>
+| ![画像からテキストに変換](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/quizcraft-ezgif.com-cut.gif?raw=true) |
+|:---:|
+| 画像を選択して「画像からテキストを抽出」ボタンを押すことで画像からテキストを抽出できます。「ChatGPTで質問を作成」ボタンを押すこと抽出したテキストからクイズが作成されフォームに入力された形式で返ってきます。 |
 
 ### 質問を作成ボタンを押す
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E8%B3%AA%E5%95%8F%E3%82%92%E4%BD%9C%E6%88%90.gif?raw=true" style="max-width: 300px;">
-</p>
-<p>
-  フォームに入力されたテキストを編集する必要があれば編集し、「質問を作成」ボタン、または「すべての質問を作成」ボタンを押してクイズを完成させます。<br>
-  「質問を作成」ボタンは個別に質問を作成するボタンです。<br>
-  「すべての質問を作成」ボタンはすべてのフォームの質問を作成するボタンです。押すと入力に問題がない質問は作成され、入力に問題があるところにはエラーが表示されます。
-</p>
+| ![質問を作成](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E8%B3%AA%E5%95%8F%E3%82%92%E4%BD%9C%E6%88%90.gif?raw=true) |
+|:---:|
+| フォームに入力されたテキストを編集する必要があれば編集し、「質問を作成」ボタン、または「すべての質問を作成」ボタンを押してクイズを完成させます。「質問を作成」ボタンは個別に質問を作成するボタンです。「すべての質問を作成」ボタンはすべてのフォームの質問を作成するボタンです。押すと入力に問題がない質問は作成され、入力に問題があるところにはエラーが表示されます。 |
 
 ### クイズ形式の選択とクイズ開始
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E6%8E%A1%E7%82%B9%E5%BD%A2%E5%BC%8F.png?raw=true" style="max-width: 300px;">
-</p>
-<p>
-  クイズ詳細ページの「クイズの形式」でクイズの形式を選択できます。選択肢には「自己採点形式」と「入力形式」があります。<br>
-  「クイズを実行する」ボタンからクイズを開始できます。
-</p>
+| ![クイズ形式の選択](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E6%8E%A1%E7%82%B9%E5%BD%A2%E5%BC%8F.png?raw=true) |
+|:---:|
+| クイズ詳細ページの「クイズの形式」でクイズの形式を選択できます。選択肢には「自己採点形式」と「入力形式」があります。「クイズを実行する」ボタンからクイズを開始できます。 |
 
 ### 自己採点形式
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E8%87%AA%E5%B7%B1%E6%8E%A1%E7%82%B9%E7%AD%94%E3%81%88%E6%9C%AA%E8%A1%A8%E7%A4%BA.png?raw=true" style="max-width: 300px; display: inline-block;">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E8%87%AA%E5%B7%B1%E6%8E%A1%E7%82%B9%E7%AD%94%E3%81%88%E8%A1%A8%E7%A4%BA.png?raw=true" style="max-width: 300px; display: inline-block;">
-</p>
-<p>自己採点形式では自分で回答を考えたあとに、「答えを見る」を押して答えを確認して正解、不正解を選択して自己採点をしてきます。</p>
+| ![自己採点形式](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E8%87%AA%E5%B7%B1%E6%8E%A1%E7%82%B9%E7%AD%94%E3%81%88%E6%9C%AA%E8%A1%A8%E7%A4%BA.png?raw=true) | ![自己採点形式](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E8%87%AA%E5%B7%B1%E6%8E%A1%E7%82%B9%E7%AD%94%E3%81%88%E8%A1%A8%E7%A4%BA.png?raw=true) |
+|:---:|:---:|
+| 自己採点形式では自分で回答を考えたあとに、「答えを見る」を押して答えを確認して正解、不正解を選択して自己採点をしてきます。 |
 
 ### 入力形式
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E5%85%A5%E5%8A%9B%E5%BD%A2%E5%BC%8F.png?raw=true" style="max-width: 300px;">
-</p>
-<p>
-  ユーザーが直接答えを入力していく形式のクイズです。完全に一致しないと不正解となってしまうので自己採点形式のほうがおすすめです。
-</p>
+| ![入力形式](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E5%85%A5%E5%8A%9B%E5%BD%A2%E5%BC%8F.png?raw=true) |
+|:---:|
+| ユーザーが直接答えを入力していく形式のクイズです。完全に一致しないと不正解となってしまうので自己採点形式のほうがおすすめです。 |
 
 ### クイズ結果の表示
-<p align="center">
-  <img src="https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E3%82%AF%E3%82%A4%E3%82%B9%E3%82%99%E7%B5%90%E6%9E%9C%E8%A1%A8%E7%A4%BA.png?raw=true" style="max-width: 300px;">
-</p>
-<p>クイズが終了するとクイズの結果が表示されます。</p>
-
+| ![クイズ結果の表示](https://github.com/Hayate603/QuizCraft/blob/fix/data-and-readme/%E3%82%AF%E3%82%A4%E3%82%B9%E3%82%99%E7%B5%90%E6%9E%9C%E8%A1%A8%E7%A4%BA.png?raw=true) |
+|:---:|
+| クイズが終了するとクイズの結果が表示されます。 |
 
 ## 開発の経緯
 私は読書が趣味ですが、ただ読むだけでは記憶に残りにくいと感じていました。<br>
