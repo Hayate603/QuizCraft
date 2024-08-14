@@ -1,7 +1,7 @@
 <h2 class="question-new__title">テキストから質問を自動生成</h2>
 
 <div class="question-new__generation-section">
-  <%= form_with url: generate_from_image_quiz_questions_path(@quiz), local: true, multipart: true, data: { remote: true }, id: 'image-upload-form', class: 'question-new__form--image' do |form| %>
+  <%= form_with url: generate_from_image_quiz_questions_path(@quiz), multipart: true, data: { remote: true }, id: 'image-upload-form', class: 'question-new__form--image' do |form| %>
     <div class="question-new__field form-field">
       <%= form.label :image, '画像をアップロードしてください', class: 'form-label' %>
       <%= form.file_field :image, class: 'form-input' %>
@@ -14,7 +14,7 @@
   <div id="image-loading-spinner" class="loading-spinner hidden"></div>
   <p id="image-loading-message" class="hidden">画像からテキストを抽出中...</p>
 
-  <%= form_with url: generate_questions_from_text_quiz_questions_path(@quiz), local: true, data: { remote: true }, id: 'text-generation-form', class: 'question-new__form--text' do |form| %>
+  <%= form_with url: generate_questions_from_text_quiz_questions_path(@quiz), data: { remote: true }, id: 'text-generation-form', class: 'question-new__form--text' do |form| %>
     <div class="question-new__field form-field">
       <%= form.label :extracted_text, 'テキストを入力してください', class: 'form-label', for: 'extracted-text-area' %>
       <%= form.text_area :extracted_text, id: 'extracted-text-area', class: 'form-input question-new__textarea' %>
@@ -34,7 +34,7 @@
 </div>
 
 <div id="question-forms-container" class="question-new__container" data-quiz-id="<%= @quiz.id %>">
-  <%= form_with model: [@quiz, @question], local: true, data: { remote: true }, class: 'question-new__form--dynamic question-form' do |form| %>
+  <%= form_with model: [@quiz, @question], data: { remote: true }, class: 'question-new__form--dynamic question-form' do |form| %>
     <div class="question-new__field form-field">
       <%= form.label :question_text, "質問テキスト", class: 'form-label', for: 'initial_question_text' %>
       <%= form.text_area :question_text, id: 'initial_question_text', class: 'form-input' %>
@@ -56,7 +56,7 @@
   <button id="add-question-form" class="button button--secondary">質問を追加</button>
 </div>
 
-<%= form_with url: save_all_questions_quiz_questions_path(@quiz), local: true, data: { remote: true }, id: 'save-all-questions-form', class: 'question-new__form--save-all' do |form| %>
+<%= form_with url: save_all_questions_quiz_questions_path(@quiz), data: { remote: true }, id: 'save-all-questions-form', class: 'question-new__form--save-all' do |form| %>
   <%= form.hidden_field :questions_data, id: 'questions-data' %>
   <div class="question-new__actions--save-all form-actions">
     <%= form.submit 'すべての質問を作成', class: 'button button--primary', id: 'submit-all-questions' %>
