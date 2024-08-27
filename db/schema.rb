@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_02_131318) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_27_061732) do
   create_table "favorite_quizzes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "quiz_id", null: false
@@ -59,8 +59,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_131318) do
   end
 
   create_table "user_answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "quiz_id", null: false
     t.bigint "question_id", null: false
     t.bigint "quiz_session_id", null: false
     t.string "answer_text"
@@ -68,9 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_131318) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_user_answers_on_question_id"
-    t.index ["quiz_id"], name: "index_user_answers_on_quiz_id"
     t.index ["quiz_session_id"], name: "index_user_answers_on_quiz_session_id"
-    t.index ["user_id"], name: "index_user_answers_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -108,6 +104,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_02_131318) do
   add_foreign_key "quizzes", "users"
   add_foreign_key "user_answers", "questions"
   add_foreign_key "user_answers", "quiz_sessions"
-  add_foreign_key "user_answers", "quizzes"
-  add_foreign_key "user_answers", "users"
 end
