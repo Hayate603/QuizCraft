@@ -49,8 +49,9 @@ class QuizzesController < ApplicationController
     @existing_session = find_existing_session
     if resume_session?
       @resume_session = true
+      @quiz_session = @existing_session
     else
-      start_new_session
+      @quiz_session = start_new_session
     end
   end
 
@@ -104,6 +105,7 @@ class QuizzesController < ApplicationController
     @existing_session ||= QuizSession.create(user: current_user, quiz: @quiz, start_time: Time.current)
     @question = params[:question_id] ? @quiz.questions.find(params[:question_id]) : @quiz.questions.first
     @user_answer = UserAnswer.new
+    @existing_session
   end
 
   def find_last_completed_session
