@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
+  resources :users, only: [] do
     resources :favorite_quizzes, only: [:index]
     get 'my_quizzes', to: 'my_quizzes#index', as: 'my_quizzes'
   end
