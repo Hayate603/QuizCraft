@@ -41,14 +41,12 @@ class UserAnswersController < ApplicationController
 
   def build_user_answer
     @question.user_answers.build(user_answer_params).tap do |user_answer|
-      user_answer.user = current_user
-      user_answer.quiz = @quiz
       user_answer.quiz_session = current_quiz_session
     end
   end
 
   def existing_answer
-    UserAnswer.find_by(user: current_user, question: @question, quiz_session: @user_answer.quiz_session)
+    UserAnswer.find_by(question: @question, quiz_session: current_quiz_session)
   end
 
   def redirect_to_existing_answer
