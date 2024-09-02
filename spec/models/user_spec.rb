@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
 
     it 'メールアドレスがない場合、無効であること' do
       user = User.new(
-        email:'',
+        email: '',
         password: 'password',
         quiz_mode: 'default'
       )
