@@ -27,7 +27,7 @@ RSpec.describe "クイズの実行", type: :system do
 
   context '既存のセッションがある場合' do
     let!(:quiz_session) { QuizSession.create!(user:, quiz:, start_time: Time.current) }
-    let!(:user_answer) { UserAnswer.create!(user:, quiz:, question: question1, quiz_session:, answer_text: '答え1') }
+    let!(:user_answer) { UserAnswer.create!(question: question1, quiz_session:, answer_text: '答え1') }
 
     it '再開する、新しく開始するのリンクが表示されること' do
       visit take_quiz_path(quiz)

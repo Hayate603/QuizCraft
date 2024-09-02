@@ -17,11 +17,11 @@
     <h3>正解: <%= @question.correct_answer %></h3>
     <p>あなたの答えはどうでしたか？</p>
     <div class="quiz-take__buttons">
-      <%= form_with(model: [@quiz, @question, @user_answer], local: true) do |form| %>
+      <%= form_with(model: [@quiz, @quiz_session, @question, @user_answer], local: true) do |form| %>
         <%= form.hidden_field :answer_text, value: @question.correct_answer %>
         <%= form.submit "正解", class: 'button button--primary' %>
       <% end %>
-      <%= form_with(model: [@quiz, @question, @user_answer], local: true) do |form| %>
+      <%= form_with(model: [@quiz, @quiz_session, @question, @user_answer], local: true) do |form| %>
         <%= form.hidden_field :answer_text, value: "不正解" %>
         <%= form.submit "不正解", class: 'button button--secondary' %>
       <% end %>

@@ -53,7 +53,11 @@ Layout/FirstHashElementIndentation:
 Rails/LexicallyScopedActionFilter:
   Enabled: false
 
+Metrics/ClassLength:
+  Max: 110
+
 Metrics/MethodLength:
+  Max: 15
   Exclude:
     - 'spec/**/*'
 

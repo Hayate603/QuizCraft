@@ -10,10 +10,8 @@ RSpec.describe UserAnswer, type: :model do
     context '有効な場合' do
       it '回答テキストが存在すれば有効であること' do
         user_answer = UserAnswer.new(
-          user:,
-          quiz:,
-          question:,
           quiz_session:,
+          question:,
           answer_text: '回答'
         )
         expect(user_answer).to be_valid
@@ -24,10 +22,8 @@ RSpec.describe UserAnswer, type: :model do
   describe 'コールバックに関するテスト' do
     it '回答テキストが正解の場合、correctがtrueになること' do
       user_answer = UserAnswer.new(
-        user:,
-        quiz:,
-        question:,
         quiz_session:,
+        question:,
         answer_text: '正解'
       )
       user_answer.save
@@ -36,10 +32,8 @@ RSpec.describe UserAnswer, type: :model do
 
     it '回答テキストが正解でない場合、correctがfalseになること' do
       user_answer = UserAnswer.new(
-        user:,
-        quiz:,
-        question:,
         quiz_session:,
+        question:,
         answer_text: '不正解'
       )
       user_answer.save
@@ -48,16 +42,6 @@ RSpec.describe UserAnswer, type: :model do
   end
 
   describe 'アソシエーションに関するテスト' do
-    it 'UserAnswerは1つのUserに属すること' do
-      assoc = described_class.reflect_on_association(:user)
-      expect(assoc.macro).to eq :belongs_to
-    end
-
-    it 'UserAnswerは1つのQuizに属すること' do
-      assoc = described_class.reflect_on_association(:quiz)
-      expect(assoc.macro).to eq :belongs_to
-    end
-
     it 'UserAnswerは1つのQuestionに属すること' do
       assoc = described_class.reflect_on_association(:question)
       expect(assoc.macro).to eq :belongs_to
