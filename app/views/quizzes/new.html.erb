@@ -16,10 +16,21 @@
     <%= form.label :title, "タイトル", class: 'form-label quiz-new__label' %>
     <%= form.text_field :title, class: 'form-input quiz-new__input' %>
   </div>
+
   <div class="form-field quiz-new__field">
     <%= form.label :description, "説明", class: 'form-label quiz-new__label' %>
     <%= form.text_area :description, class: 'form-input quiz-new__textarea' %>
   </div>
+
+  <!-- 公開・非公開の選択フィールド -->
+  <div class="form-field quiz-new__field">
+    <%= form.label :publish, "クイズの公開設定", class: 'form-label quiz-new__label' %>
+    <div class="quiz-new__publish-info">
+      <%= form.check_box :publish, class: 'form-checkbox quiz-new__checkbox' %>
+      <span>クイズを公開する (チェックすると他のユーザーがクイズにアクセスできます)</span>
+    </div>
+  </div>
+
   <div class="form-actions quiz-new__actions">
     <%= form.submit 'クイズを作成', class: 'form-submit button button--primary quiz-new__submit' %>
   </div>
