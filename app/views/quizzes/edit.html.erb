@@ -22,6 +22,15 @@
     <%= form.text_area :description, class: 'form-input quiz-edit__textarea' %>
   </div>
 
+  <!-- 公開・非公開の選択フィールド -->
+  <div class="form-field quiz-edit__field">
+    <%= form.label :publish, "クイズの公開設定", class: 'form-label quiz-edit__label' %>
+    <div class="quiz-edit__publish-info">
+      <%= form.check_box :publish, class: 'form-checkbox quiz-edit__checkbox' %>
+      <span>クイズを公開する (チェックすると他のユーザーがクイズにアクセスできます)</span>
+    </div>
+  </div>
+
   <div class="form-actions quiz-edit__actions">
     <%= form.submit "クイズを更新", class: 'form-submit button button--primary quiz-edit__submit' %>
   </div>
