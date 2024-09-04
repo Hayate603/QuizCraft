@@ -4,7 +4,7 @@ class QuizzesController < ApplicationController
   before_action :authorize_user!, only: %i[edit update destroy]
 
   def index
-    @quizzes = Quiz.page(params[:page]).per(10)
+    @quizzes = Quiz.published.page(params[:page]).per(10)
   end
 
   def show
