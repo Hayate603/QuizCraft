@@ -90,7 +90,7 @@ class QuizzesController < ApplicationController
   end
 
   def quiz_params
-    params.require(:quiz).permit(:title, :description)
+    params.require(:quiz).permit(:title, :description, :publish)
   end
 
   def find_existing_session
