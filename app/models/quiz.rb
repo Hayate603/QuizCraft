@@ -8,4 +8,6 @@ class Quiz < ApplicationRecord
 
   validates :title, presence: true, uniqueness: { scope: :user_id }
   validates :publish, inclusion: { in: [true, false] }
+
+  scope :published, -> { where(publish: true) }
 end
