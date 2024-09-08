@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get 'results'
       get 'start'
       get 'resume'
+      patch 'toggle_publish', to: 'quizzes#toggle_publish'
     end
     resource :favorite_quiz, only: [:create, :destroy]
     resources :questions, only: %i[new create show edit update destroy] do
