@@ -6,9 +6,19 @@
       <% @quizzes.each do |quiz| %>
         <li class="my-quizzes__item">
           <%= link_to quiz.title, quiz_path(quiz), class: 'my-quizzes__link' %>
-          <% if user_signed_in? && quiz.user == current_user %>
+
+          <!-- トグルスイッチと削除ボタンを一つのdivにまとめる -->
+          <div class="action-buttons">
+            <%= form_with model: quiz, url: toggle_publish_quiz_path(quiz), method: :patch, data: { remote: true }, id: "publish-form-#{quiz.id}" do |f| %>
+              <label class="switch">
+                <%= f.check_box :publish, class: 'switch-input', checked: quiz.publish, data: { quiz_id: quiz.id } %>
+                <span class="switch-slider"></span>
+              </label>
+            <% end %>
+
+            <!-- クイズ削除ボタン（非同期ではなく通常の削除） -->
             <%= link_to '削除', quiz, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'my-quizzes__delete button button--danger' %>
-          <% end %>
+          </div>
         </li>
       <% end %>
     </ul>
