@@ -17,15 +17,28 @@ RSpec.describe 'Quiz Creation', type: :system do
       it 'クイズが作成されること' do
         fill_in 'タイトル', with: 'Test Quiz'
         fill_in '説明', with: 'This is a test description'
+        check 'クイズの公開設定'
         click_button 'クイズを作成'
 
         expect(page).to have_content 'クイズが作成されました。'
         expect(page).to have_content 'Test Quiz'
-        expect(page).to have_content 'This is a test description'
+        visit root_path
+        expect(page).to have_content 'Test Quiz'
+      end
+
+      it 'クイズが非公開で作成されること' do
+        fill_in 'タイトル', with: 'Test Quiz'
+        fill_in '説明', with: 'This is a test description'
+        uncheck 'クイズの公開設定'
+        click_button 'クイズを作成'
+
+        expect(page).to have_content 'クイズが作成されました。'
+        expect(page).to have_content 'Test Quiz'
+        visit root_path
+        expect(page).not_to have_content 'Test Quiz'
       end
 
       it '説明が空でもタイトルがあればクイズを作成できること' do
-        visit new_quiz_path
         fill_in 'タイトル', with: 'Test Quiz'
         fill_in '説明', with: ''
         click_button 'クイズを作成'
