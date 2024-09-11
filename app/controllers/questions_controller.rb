@@ -39,21 +39,15 @@ class QuestionsController < ApplicationController
   end
 
   def generate_from_image
-    uploaded_image = params[:image].tempfile
-    vision = Google::Cloud::Vision.image_annotator
-    response = vision.text_detection(image: uploaded_image)
-    extracted_text = response.responses.first.text_annotations.first.description
-
+    service = QuestionGeneratorService.new(params[:image])
+    extracted_text = service.generate_from_image
     render json: { text: extracted_text, message: I18n.t('notices.text_extracted_from_image') }
   end
 
   def generate_questions_from_text
-    extracted_text = params[:extracted_text]
-    client = OpenAI::Client.new
-    response = fetch_openai_response(client, extracted_text)
-
+    service = QuestionGeneratorService.new(nil, params[:extracted_text])
+    response = service.generate_from_text
     questions_and_answers = Question.parse_response(response)
-
     render json: { questions: questions_and_answers, message: I18n.t('notices.questions_generated') }
   end
 
