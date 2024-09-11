@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Quiz Edit', type: :system do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-  let!(:quiz) { create(:quiz, user:, title: 'Sample Quiz', description: 'Sample description') }
+  let!(:quiz) { create(:quiz, user:, title: 'Sample Quiz', description: 'Sample description', publish: false) }
 
   describe 'クイズ編集' do
     context 'ログインしている場合' do
@@ -31,6 +31,24 @@ RSpec.describe 'Quiz Edit', type: :system do
 
             expect(page).to have_content 'クイズが更新されました。'
             expect(page).to have_content 'Updated Quiz'
+          end
+
+          it '公開設定をオンにするとクイズが公開されること' do
+            check 'クイズの公開設定'
+            click_button 'クイズを更新'
+
+            expect(page).to have_content 'クイズが更新されました。'
+            visit root_path
+            expect(page).to have_content 'Sample Quiz'
+          end
+
+          it '公開設定をオフにするとクイズが非公開にされること' do
+            uncheck 'クイズの公開設定'
+            click_button 'クイズを更新'
+
+            expect(page).to have_content 'クイズが更新されました。'
+            visit root_path
+            expect(page).not_to have_content 'Sample Quiz'
           end
         end
 

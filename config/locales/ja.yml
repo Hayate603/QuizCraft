@@ -102,6 +102,8 @@ ja:
   notices:
     quiz_created: 'クイズが作成されました。'
     quiz_updated: 'クイズが更新されました。'
+    quiz_published: 'クイズが公開されました。'
+    quiz_unpublished: 'クイズが非公開にされました。'
     quiz_deleted: 'クイズが削除されました。'
     quiz_completed: 'クイズが完了しました！'
     question_created: '質問が作成されました。'

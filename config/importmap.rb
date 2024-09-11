@@ -11,3 +11,4 @@ pin "flash_messages", to: "flash_messages.js", preload: true
 pin "hamburger_menu", to: "hamburger_menu.js", preload: true
 pin "display_answer", to: "display_answer.js", preload: true
 pin "quiz_details", to: "quiz_details.js", preload: true
+pin "toggle_publish", to: "toggle_publish.js", preload: true

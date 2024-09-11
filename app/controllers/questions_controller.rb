@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
 
   def save_all_questions
     questions_params = fetch_questions_params
-    success_questions, failed_questions = save_questions(questions_params, @quiz)
+    success_questions, failed_questions = Question.save_questions(questions_params, @quiz)
 
     if failed_questions.empty?
       render json: { success: true, message: I18n.t('notices.all_questions_created') }
@@ -39,21 +39,15 @@ class QuestionsController < ApplicationController
   end
 
   def generate_from_image
-    uploaded_image = params[:image].tempfile
-    vision = Google::Cloud::Vision.image_annotator
-    response = vision.text_detection(image: uploaded_image)
-    extracted_text = response.responses.first.text_annotations.first.description
-
+    service = QuestionGeneratorService.new(params[:image])
+    extracted_text = service.generate_from_image
     render json: { text: extracted_text, message: I18n.t('notices.text_extracted_from_image') }
   end
 
   def generate_questions_from_text
-    extracted_text = params[:extracted_text]
-    client = OpenAI::Client.new
-    response = fetch_openai_response(client, extracted_text)
-
-    questions_and_answers = parse_response(response)
-
+    service = QuestionGeneratorService.new(nil, params[:extracted_text])
+    response = service.generate_from_text
+    questions_and_answers = Question.parse_response(response)
     render json: { questions: questions_and_answers, message: I18n.t('notices.questions_generated') }
   end
 
@@ -83,6 +77,13 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:question_text, :correct_answer)
+  end
+
+  def fetch_questions_params
+    questions_data = JSON.parse(params[:questions_data])['questions']
+    questions_data.map do |q|
+      ActionController::Parameters.new(q).permit(:question_text, :correct_answer)
+    end
   end
 
   def authorize_user!

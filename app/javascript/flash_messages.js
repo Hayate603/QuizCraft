@@ -17,11 +17,24 @@ function displayFlashMessages() {
   });
 }
 
+// フラッシュメッセージをクリアする関数
+export function clearFlashMessages() {
+  const flashContainer = document.querySelector('.toast-container');
+  if (flashContainer) {
+    flashContainer.innerHTML = ''; // メッセージをすべてクリア
+  }
+}
+
 export function addFlashMessage(type, message) {
+  // 既存のメッセージをクリア
+  clearFlashMessages();
+
   const flashContainer = document.querySelector('.toast-container');
   const flashMessage = document.createElement('div');
   flashMessage.className = `toast-message ${type}`;
   flashMessage.textContent = message;
   flashContainer.appendChild(flashMessage);
+
+  // 新しいメッセージを表示
   displayFlashMessages();
 }

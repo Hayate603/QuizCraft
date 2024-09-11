@@ -580,7 +580,8 @@ assigned_quizzes.each do |user, quizzes|
     quiz = Quiz.create!(
       title: quiz_data[:title],
       description: quiz_data[:description],
-      user: user
+      user: user,
+      publish: true
     )
 
     quiz_data[:questions].each do |q|
