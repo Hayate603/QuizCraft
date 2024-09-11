@@ -20,6 +20,7 @@
     &:hover {
       background-color: darken($primary-color, 10%);
       border-color: darken($primary-color, 10%);
+      color: #fff;
     }
   }
 
@@ -31,6 +32,7 @@
     &:hover {
       background-color: darken($secondary-color, 10%);
       border-color: darken($secondary-color, 10%);
+      color: #fff;
     }
   }
 
@@ -42,6 +44,7 @@
     &:hover {
       background-color: darken($danger-color, 10%);
       border-color: darken($danger-color, 10%);
+      color: #fff;
     }
   }
 
