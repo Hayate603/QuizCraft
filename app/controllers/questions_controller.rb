@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
 
   def save_all_questions
     questions_params = fetch_questions_params
-    success_questions, failed_questions = save_questions(questions_params, @quiz)
+    success_questions, failed_questions = Question.save_questions(questions_params, @quiz)
 
     if failed_questions.empty?
       render json: { success: true, message: I18n.t('notices.all_questions_created') }
@@ -52,7 +52,7 @@ class QuestionsController < ApplicationController
     client = OpenAI::Client.new
     response = fetch_openai_response(client, extracted_text)
 
-    questions_and_answers = parse_response(response)
+    questions_and_answers = Question.parse_response(response)
 
     render json: { questions: questions_and_answers, message: I18n.t('notices.questions_generated') }
   end
