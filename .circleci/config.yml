@@ -22,7 +22,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.3.4-node
     steps:
-      - setup_remote_docker  # Dockerの設定
+      - setup_remote_docker
       - setup
       - run:
           name: Build and run services with docker-compose
@@ -40,11 +40,11 @@ jobs:
             docker-compose ps  # コンテナの状態を確認
       - run:
           name: Check MySQL Logs
-          command: docker-compose logs mysql  # MySQLのログを確認
+          command: docker-compose logs mysql
 
       - run:
           name: Database creation
-          command: docker-compose exec quizcraft bundle exec rails db:create  # データベース作成
+          command: docker-compose exec quizcraft bundle exec rails db:create
 
       - run:
           name: Database setup
