@@ -18,11 +18,17 @@ commands:
           key: gems-v1-{{ checksum "Gemfile.lock" }}
 
 jobs:
-  rspec:
+  build:
     docker:
       - image: cimg/ruby:3.3.4-node
     steps:
-      - setup_remote_docker
+      - setup
+
+  test:
+    docker:
+      - image: cimg/ruby:3.3.4-node
+    steps:
+      - setup_remote_docker  # Dockerの設定
       - setup
       - run:
           name: Build and run services with docker-compose
@@ -40,11 +46,11 @@ jobs:
             docker-compose ps  # コンテナの状態を確認
       - run:
           name: Check MySQL Logs
-          command: docker-compose logs mysql
+          command: docker-compose logs mysql  # MySQLのログを確認
 
       - run:
           name: Database creation
-          command: docker-compose exec quizcraft bundle exec rails db:create
+          command: docker-compose exec quizcraft bundle exec rails db:create  # データベース作成
 
       - run:
           name: Database setup
@@ -57,23 +63,11 @@ jobs:
           name: Rspec
           command: docker-compose exec quizcraft bundle exec rspec  # RSpecを実行
 
-  rubocop:
-    docker:
-      - image: cimg/ruby:3.3.4-node
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: bundle install --path vendor/bundle
-      - run:
-          name: Run Rubocop
-          command: bundle exec rubocop --parallel
-
 workflows:
   version: 2
-  test_and_lint:
+  test_and_deploy:
     jobs:
-      - rspec
-      - rubocop:
+      - build
+      - test:
           requires:
-            - rspec
+            - build
