@@ -1,15 +1,20 @@
 # -*- mode: dockerfile -*-
-FROM ruby:2.7.3-buster
+FROM ruby:3.3.4-bookworm
 
+WORKDIR /quizcraft
+
+# Install system dependencies
 RUN apt-get update                                                                                                                      \
-  && apt-get install                                                                                                                    \
+  && apt-get install -y                                                                                                                 \
     openssl                                                                                                                             \
+    curl                                                                                                                                \
+    wget                                                                                                                                \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash -                                                                            \
   && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -                                                                  \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list                                      \
   && wget https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb                                                                   \
   && DEBIAN_FRONTEND=noninteractive dpkg -i mysql-apt-config_0.8.22-1_all.deb                                                           \
-  && apt-get update --allow-insecure-repositories                                                                                                                   \
+  && apt-get update --allow-insecure-repositories                                                                                                                    \
   && apt-get remove -y                                                                                                                  \
     libmariadbclient18                                                                                                                  \
     libmariadbclient-dev-compat                                                                                                         \
@@ -25,7 +30,17 @@ RUN apt-get update                                                              
   && gem install foreman                                                                                                                \
   && apt-get clean
 
-RUN mkdir /quizcraft
-WORKDIR /quizcraft
-COPY . /quizcraft
+# Add Gemfile and Gemfile.lock before installing gems
+COPY Gemfile Gemfile.lock /quizcraft/
+
+# Install gems
 RUN bundle install
+
+# Copy the rest of the application code
+COPY . /quizcraft/
+
+# Add a script to be executed every time the container starts.
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]

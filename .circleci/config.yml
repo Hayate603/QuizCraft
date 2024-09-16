@@ -1,0 +1,79 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.1.2
+  node: circleci/node@2
+
+commands:
+  setup:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gems-v1-{{ checksum "Gemfile.lock" }}
+      - ruby/install-deps
+      - save_cache:
+          paths:
+            - vendor/bundle
+          key: gems-v1-{{ checksum "Gemfile.lock" }}
+
+jobs:
+  rspec:
+    docker:
+      - image: cimg/ruby:3.3.4-node
+    steps:
+      - setup_remote_docker  # Dockerの設定
+      - setup
+      - run:
+          name: Build and run services with docker-compose
+          command: |
+            docker-compose -f docker-compose.ci.yml up -d
+            docker-compose ps  # コンテナの状態を確認
+      - run:
+          name: Wait for MySQL to be ready
+          command: |
+            for i in `seq 1 60`; do  # 60秒間リトライを増やす
+              docker-compose exec mysql mysqladmin ping -u root -ppassword --silent && break;
+              echo "Waiting for MySQL... $i";
+              sleep 3;  # 3秒間隔でリトライ
+            done
+            docker-compose ps  # コンテナの状態を確認
+      - run:
+          name: Check MySQL Logs
+          command: docker-compose logs mysql  # MySQLのログを確認
+
+      - run:
+          name: Database creation
+          command: docker-compose exec quizcraft bundle exec rails db:create  # データベース作成
+
+      - run:
+          name: Database setup
+          command: |
+            docker-compose ps  # コンテナの状態を再確認
+            docker-compose logs quizcraft  # quizcraft のログを確認
+            docker-compose exec quizcraft bundle exec rails db:migrate  # マイグレーションを実行
+
+      - run:
+          name: Rspec
+          command: docker-compose exec quizcraft bundle exec rspec  # RSpecを実行
+
+  rubocop:
+    docker:
+      - image: cimg/ruby:3.3.4-node
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: bundle install --path vendor/bundle
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop --parallel
+
+workflows:
+  version: 2
+  test_and_lint:
+    jobs:
+      - rspec
+      - rubocop:
+          requires:
+            - rspec
