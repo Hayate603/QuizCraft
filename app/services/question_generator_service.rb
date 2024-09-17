@@ -10,9 +10,10 @@ class QuestionGeneratorService
     response.responses.first.text_annotations.first.description
   end
 
+  # rubocop:disable Metrics/MethodLength
   def generate_from_text
     client = OpenAI::Client.new
-    response = client.chat(
+    client.chat(
       parameters: {
         model: "gpt-4",
         messages: [
@@ -37,6 +38,6 @@ class QuestionGeneratorService
         n: 1
       }
     )
-    response
   end
+  # rubocop:enable Metrics/MethodLength
 end
