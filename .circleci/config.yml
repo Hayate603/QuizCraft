@@ -59,7 +59,7 @@ jobs:
       - save_cache:
           paths:
             - /home/circleci/.docker
-          key: v1-docker-cache-{{ .Branch }}-{{ checksum "/home/circleci/.docker" }}
+          key: v1-docker-cache-{{ .Branch }}
 
   rubocop:
     docker:
