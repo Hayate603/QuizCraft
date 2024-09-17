@@ -22,8 +22,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.3.4-node
     steps:
-      - setup_remote_docker:
-          version: 20.10.7
+      - setup_remote_docker
       - restore_cache:
           keys:
             - v1-docker-cache-{{ .Branch }}-{{ checksum "docker-compose.ci.yml" }}
