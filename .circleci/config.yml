@@ -69,6 +69,8 @@ jobs:
       - image: cimg/ruby:3.3.4-node
     steps:
       - setup_remote_docker
+      - setup
+      - heroku/install
       - run:
           name: Heroku Login
           command: heroku container:login
