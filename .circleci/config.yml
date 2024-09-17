@@ -26,7 +26,7 @@ jobs:
       - setup
       - restore_cache:
           keys:
-            - v1-docker-cache-{{ .Branch }}-{{ checksum "docker-compose.ci.yml" }}
+            - v1-docker-cache-{{ .Branch }}-{{ checksum "/home/circleci/.docker" }}
       - run:
           name: Build and run services with docker-compose
           command: |
@@ -58,8 +58,8 @@ jobs:
           command: docker-compose exec quizcraft bundle exec rspec
       - save_cache:
           paths:
-            - /var/lib/docker
-          key: v1-docker-cache-{{ .Branch }}-{{ checksum "docker-compose.ci.yml" }}
+            - /home/circleci/.docker
+          key: v1-docker-cache-{{ .Branch }}-{{ checksum "/home/circleci/.docker" }}
 
   rubocop:
     docker:
