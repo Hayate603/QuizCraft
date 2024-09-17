@@ -24,7 +24,7 @@ jobs:
     steps:
       - setup_remote_docker
       - setup
-       - restore_cache:
+      - restore_cache:
           keys:
             - v1-docker-cache-{{ .Branch }}-{{ checksum "docker-compose.ci.yml" }}
       - run:
