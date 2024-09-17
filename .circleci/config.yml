@@ -76,28 +76,28 @@ jobs:
           command: heroku container:login
       - run:
           name: Set Heroku Stack
-          command: heroku stack:set container -a quiz-craft
+          command: heroku stack:set container -a quiz-qraft
       - run:
           name: Build Docker Image
-          command: docker build -t quiz-craft -f Dockerfile.prod .
+          command: docker build -t quiz-qraft -f Dockerfile.prod .
       - run:
           name: Tag Docker Image
-          command: docker tag quiz-craft registry.heroku.com/quiz-craft/web
+          command: docker tag quiz-qraft registry.heroku.com/quiz-qraft/web
       - run:
           name: Push Docker Image to Heroku
-          command: docker push registry.heroku.com/quiz-craft/web
+          command: docker push registry.heroku.com/quiz-qraft/web
       - run:
           name: Release to Heroku
-          command: heroku container:release web --app quiz-craft
+          command: heroku container:release web --app quiz-qraft
       - run:
           name: Migrate Database
-          command: heroku run rails db:migrate --app quiz-craft
+          command: heroku run rails db:migrate --app quiz-qraft
       - run:
           name: Seed Database
-          command: heroku run rails db:seed --app quiz-craft
+          command: heroku run rails db:seed --app quiz-qraft
       - run:
           name: Restart Heroku App
-          command: heroku restart --app quiz-craft
+          command: heroku restart --app quiz-qraft
 
 workflows:
   version: 2
