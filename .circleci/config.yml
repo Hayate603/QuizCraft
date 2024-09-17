@@ -26,7 +26,7 @@ jobs:
       - setup
       - restore_cache:
           keys:
-            - v1-docker-cache-{{ .Branch }}-{{ checksum "/home/circleci/.docker" }}
+            - v1-docker-cache-{{ .Branch }}
       - run:
           name: Build and run services with docker-compose
           command: |
