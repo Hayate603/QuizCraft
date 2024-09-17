@@ -22,7 +22,11 @@ jobs:
     docker:
       - image: cimg/ruby:3.3.4-node
     steps:
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.7
+      - restore_cache:
+          keys:
+            - v1-docker-cache-{{ .Branch }}-{{ checksum "docker-compose.ci.yml" }}
       - setup
       - run:
           name: Build and run services with docker-compose
@@ -41,21 +45,22 @@ jobs:
       - run:
           name: Check MySQL Logs
           command: docker-compose logs mysql
-
       - run:
           name: Database creation
           command: docker-compose exec quizcraft bundle exec rails db:create
-
       - run:
           name: Database setup
           command: |
             docker-compose ps  # コンテナの状態を再確認
             docker-compose logs quizcraft  # quizcraft のログを確認
             docker-compose exec quizcraft bundle exec rails db:migrate  # マイグレーションを実行
-
       - run:
           name: Rspec
           command: docker-compose exec quizcraft bundle exec rspec
+      - save_cache:
+          paths:
+            - /var/lib/docker
+          key: v1-docker-cache-{{ .Branch }}-{{ checksum "docker-compose.ci.yml" }}
 
   rubocop:
     docker:
@@ -65,12 +70,14 @@ jobs:
       - run:
           name: Run Rubocop
           command: bundle exec rubocop --parallel
+      - save_cache:
+          paths:
+            - vendor/bundle
+          key: gems-v1-{{ checksum "Gemfile.lock" }}
 
 workflows:
   version: 2
   test_and_lint:
     jobs:
       - rspec
-      - rubocop:
-          requires:
-            - rspec
+      - rubocop
