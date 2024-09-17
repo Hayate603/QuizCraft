@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.2
   node: circleci/node@2
+  heroku: circleci/heroku@1.2.2  # Heroku Orbを追加
 
 commands:
   setup:
@@ -14,7 +15,7 @@ commands:
       - ruby/install-deps
 
 jobs:
-  rspec:
+  build_and_test:
     docker:
       - image: cimg/ruby:3.3.4-node
     steps:
@@ -35,37 +36,50 @@ jobs:
             done
             docker-compose ps
       - run:
-          name: Check MySQL Logs
-          command: docker-compose logs mysql
-      - run:
-          name: Database creation
-          command: docker-compose exec quizcraft bundle exec rails db:create
-      - run:
-          name: Database setup
-          command: |
-            docker-compose ps
-            docker-compose logs quizcraft
-            docker-compose exec quizcraft bundle exec rails db:migrate
-      - run:
           name: Rspec
           command: docker-compose exec quizcraft bundle exec rspec
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop --parallel
 
-  rubocop:
+  deploy_to_heroku:
     docker:
       - image: cimg/ruby:3.3.4-node
     steps:
-      - setup
+      - setup_remote_docker
       - run:
-          name: Run Rubocop
-          command: bundle exec rubocop --parallel
-      - save_cache:
-          paths:
-            - vendor/bundle
-          key: gems-v1-{{ checksum "Gemfile.lock" }}
+          name: Heroku Login
+          command: heroku container:login
+      - run:
+          name: Set Heroku Stack
+          command: heroku stack:set container -a quiz-craft
+      - run:
+          name: Build Docker Image
+          command: docker build -t quiz-craft -f Dockerfile.prod .
+      - run:
+          name: Tag Docker Image
+          command: docker tag quiz-craft registry.heroku.com/quiz-craft/web
+      - run:
+          name: Push Docker Image to Heroku
+          command: docker push registry.heroku.com/quiz-craft/web
+      - run:
+          name: Release to Heroku
+          command: heroku container:release web --app quiz-craft
+      - run:
+          name: Migrate Database
+          command: heroku run rails db:migrate --app quiz-craft
+      - run:
+          name: Seed Database
+          command: heroku run rails db:seed --app quiz-craft
+      - run:
+          name: Restart Heroku App
+          command: heroku restart --app quiz-craft
 
 workflows:
   version: 2
-  test_and_lint:
+  build_test_and_deploy:
     jobs:
-      - rspec
-      - rubocop
+      - build_and_test
+      - deploy_to_heroku:
+          requires:
+            - build_and_test
