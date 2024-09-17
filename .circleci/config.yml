@@ -12,10 +12,6 @@ commands:
           keys:
             - gems-v1-{{ checksum "Gemfile.lock" }}
       - ruby/install-deps
-      - save_cache:
-          paths:
-            - vendor/bundle
-          key: gems-v1-{{ checksum "Gemfile.lock" }}
 
 jobs:
   rspec:
@@ -24,23 +20,20 @@ jobs:
     steps:
       - setup_remote_docker
       - setup
-      - restore_cache:
-          keys:
-            - v1-docker-cache-{{ .Branch }}
       - run:
           name: Build and run services with docker-compose
           command: |
             docker-compose -f docker-compose.ci.yml up -d
-            docker-compose ps  # コンテナの状態を確認
+            docker-compose ps
       - run:
           name: Wait for MySQL to be ready
           command: |
-            for i in `seq 1 60`; do  # 60秒間リトライを増やす
+            for i in `seq 1 60`; do
               docker-compose exec mysql mysqladmin ping -u root -ppassword --silent && break;
               echo "Waiting for MySQL... $i";
-              sleep 3;  # 3秒間隔でリトライ
+              sleep 3;
             done
-            docker-compose ps  # コンテナの状態を確認
+            docker-compose ps
       - run:
           name: Check MySQL Logs
           command: docker-compose logs mysql
@@ -50,16 +43,12 @@ jobs:
       - run:
           name: Database setup
           command: |
-            docker-compose ps  # コンテナの状態を再確認
-            docker-compose logs quizcraft  # quizcraft のログを確認
-            docker-compose exec quizcraft bundle exec rails db:migrate  # マイグレーションを実行
+            docker-compose ps
+            docker-compose logs quizcraft
+            docker-compose exec quizcraft bundle exec rails db:migrate
       - run:
           name: Rspec
           command: docker-compose exec quizcraft bundle exec rspec
-      - save_cache:
-          paths:
-            - /home/circleci/.docker
-          key: v1-docker-cache-{{ .Branch }}
 
   rubocop:
     docker:
