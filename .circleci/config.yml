@@ -15,7 +15,7 @@ commands:
       - ruby/install-deps
 
 jobs:
-  build_and_test:
+  rspec:
     docker:
       - image: cimg/ruby:3.3.4-node
     steps:
@@ -36,11 +36,33 @@ jobs:
             done
             docker-compose ps
       - run:
+          name: Check MySQL Logs
+          command: docker-compose logs mysql
+      - run:
+          name: Database creation
+          command: docker-compose exec quizcraft bundle exec rails db:create
+      - run:
+          name: Database setup
+          command: |
+            docker-compose ps
+            docker-compose logs quizcraft
+            docker-compose exec quizcraft bundle exec rails db:migrate
+      - run:
           name: Rspec
           command: docker-compose exec quizcraft bundle exec rspec
+
+  rubocop:
+    docker:
+      - image: cimg/ruby:3.3.4-node
+    steps:
+      - setup
       - run:
-          name: Rubocop
+          name: Run Rubocop
           command: bundle exec rubocop --parallel
+      - save_cache:
+          paths:
+            - vendor/bundle
+          key: gems-v1-{{ checksum "Gemfile.lock" }}
 
   deploy_to_heroku:
     docker:
@@ -77,9 +99,13 @@ jobs:
 
 workflows:
   version: 2
-  build_test_and_deploy:
+  test_and_deploy:
     jobs:
-      - build_and_test
+      - rspec
+      - rubocop:
+          requires:
+            - rspec
       - deploy_to_heroku:
           requires:
-            - build_and_test
+            - rspec
+            - rubocop
