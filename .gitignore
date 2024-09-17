@@ -30,7 +30,6 @@ tmp/*
 
 # Ignore local config files
 config/master.key
-config/credentials.yml.enc
 
 # Ignore test files
 /spec/examples.txt
