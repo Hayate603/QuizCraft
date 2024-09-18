@@ -72,7 +72,7 @@ jobs:
       - setup
       - run:
           name: Check RAILS_MASTER_KEY
-          command: echo $RAILS_MASTER_KEY
+          command: echo echo ${RAILS_MASTER_KEY}
       - heroku/install
       - run:
           name: Heroku Login
