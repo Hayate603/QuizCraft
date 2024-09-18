@@ -72,7 +72,7 @@ jobs:
       - setup
       - run:
           name: Check RAILS_MASTER_KEY
-          command: echo echo ${RAILS_MASTER_KEY}
+          command:  echo ${RAILS_MASTER_KEY}
       - heroku/install
       - run:
           name: Heroku Login
@@ -101,9 +101,6 @@ jobs:
       - run:
           name: Restart Heroku App
           command: heroku restart --app quiz-qraft
-    environment:
-      SECRET_KEY_BASE: $SECRET_KEY_BASE
-      RAILS_MASTER_KEY: $RAILS_MASTER_KEY
 
 workflows:
   version: 2
