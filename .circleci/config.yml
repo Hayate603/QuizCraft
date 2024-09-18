@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.2
   node: circleci/node@2
-  heroku: circleci/heroku@1.2.2  # Heroku Orbを追加
+  heroku: circleci/heroku@1.2.2
 
 commands:
   setup:
@@ -98,6 +98,9 @@ jobs:
       - run:
           name: Restart Heroku App
           command: heroku restart --app quiz-qraft
+    environment:
+      SECRET_KEY_BASE: $SECRET_KEY_BASE
+      RAILS_MASTER_KEY: $RAILS_MASTER_KEY
 
 workflows:
   version: 2
