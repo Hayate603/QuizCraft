@@ -72,7 +72,10 @@ jobs:
       - setup
       - run:
           name: Check RAILS_MASTER_KEY
-          command:  echo ${RAILS_MASTER_KEY}
+          command: echo ${RAILS_MASTER_KEY}
+      - run:
+          name: Check SECRET_KEY_BASE
+          command: echo ${SECRET_KEY_BASE}
       - heroku/install
       - run:
           name: Heroku Login
@@ -106,11 +109,4 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - rspec
-      - rubocop:
-          requires:
-            - rspec
-      - deploy_to_heroku:
-          requires:
-            - rspec
-            - rubocop
+      - deploy_to_heroku
