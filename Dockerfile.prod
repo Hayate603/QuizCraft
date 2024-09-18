@@ -31,6 +31,12 @@ RUN gem install bundler -v 2.5.3
 # Bundlerの設定（開発環境とテスト環境のグループを除外）
 RUN bundle config set --local without 'development test'
 
+# 環境変数の設定
+ARG RAILS_MASTER_KEY
+ARG SECRET_KEY_BASE
+ENV RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
+
 # エントリポイントスクリプトのコピーと権限の設定
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
