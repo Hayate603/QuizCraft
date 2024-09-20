@@ -108,4 +108,11 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - deploy_to_heroku
+      - rspec
+      - rubocop:
+          requires:
+            - rspec
+      - deploy_to_heroku:
+          requires:
+            - rspec
+            - rubocop
