@@ -34,8 +34,12 @@ RUN bundle config set --local without 'development test'
 # 環境変数の設定
 ARG RAILS_MASTER_KEY
 ARG SECRET_KEY_BASE
+ARG GOOGLE_CREDENTIALS
 ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+
+# Google Credentialsのデコードとファイル保存
+RUN echo $GOOGLE_CREDENTIALS | base64 --decode > /quizcraft/service-account-key.json
 
 # エントリポイントスクリプトのコピーと権限の設定
 COPY entrypoint.sh /usr/bin/

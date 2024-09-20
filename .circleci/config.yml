@@ -79,10 +79,12 @@ jobs:
           command: heroku stack:set container -a quiz-qraft
       - run:
           name: Build Docker Image
-          command: docker build --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE -t quiz-qraft -f Dockerfile.prod .
-      - run:
-          name: Decode and Save Google Credentials
-          command: echo $GOOGLE_CREDENTIALS | base64 --decode > /quizcraft/service-account-key.json
+          command: |
+            docker build \
+            --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY \
+            --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
+            --build-arg GOOGLE_CREDENTIALS=$GOOGLE_CREDENTIALS \
+            -t quiz-qraft -f Dockerfile.prod .
       - run:
           name: Tag Docker Image
           command: docker tag quiz-qraft registry.heroku.com/quiz-qraft/web
