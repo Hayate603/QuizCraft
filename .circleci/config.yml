@@ -71,8 +71,8 @@ jobs:
       - setup_remote_docker
       - setup
       - run:
-        name: Decode and Save Google Credentials
-        command: echo $GOOGLE_CREDENTIALS | base64 --decode > /quizcraft/service-account-key.json
+          name: Decode and Save Google Credentials
+          command: echo $GOOGLE_CREDENTIALS | base64 --decode > /quizcraft/service-account-key.json
       - heroku/install
       - run:
           name: Heroku Login
