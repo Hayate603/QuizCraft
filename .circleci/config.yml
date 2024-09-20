@@ -71,11 +71,8 @@ jobs:
       - setup_remote_docker
       - setup
       - run:
-          name: Check RAILS_MASTER_KEY
-          command: echo ${RAILS_MASTER_KEY}
-      - run:
-          name: Check SECRET_KEY_BASE
-          command: echo ${SECRET_KEY_BASE}
+        name: Decode and Save Google Credentials
+        command: echo $GOOGLE_CREDENTIALS | base64 --decode > /quizcraft/service-account-key.json
       - heroku/install
       - run:
           name: Heroku Login
