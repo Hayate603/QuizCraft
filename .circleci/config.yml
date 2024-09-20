@@ -1,0 +1,122 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.1.2
+  node: circleci/node@2
+  heroku: circleci/heroku@1.2.2
+
+commands:
+  setup:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gems-v1-{{ checksum "Gemfile.lock" }}
+      - ruby/install-deps
+
+jobs:
+  rspec:
+    docker:
+      - image: cimg/ruby:3.3.4-node
+    steps:
+      - setup_remote_docker
+      - setup
+      - run:
+          name: Build and run services with docker-compose
+          command: |
+            docker-compose -f docker-compose.ci.yml up -d
+            docker-compose ps
+      - run:
+          name: Wait for MySQL to be ready
+          command: |
+            for i in `seq 1 60`; do
+              docker-compose exec mysql mysqladmin ping -u root -ppassword --silent && break;
+              echo "Waiting for MySQL... $i";
+              sleep 3;
+            done
+            docker-compose ps
+      - run:
+          name: Check MySQL Logs
+          command: docker-compose logs mysql
+      - run:
+          name: Database creation
+          command: docker-compose exec quizcraft bundle exec rails db:create
+      - run:
+          name: Database setup
+          command: |
+            docker-compose ps
+            docker-compose logs quizcraft
+            docker-compose exec quizcraft bundle exec rails db:migrate
+      - run:
+          name: Rspec
+          command: docker-compose exec quizcraft bundle exec rspec
+
+  rubocop:
+    docker:
+      - image: cimg/ruby:3.3.4-node
+    steps:
+      - setup
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop --parallel
+      - save_cache:
+          paths:
+            - vendor/bundle
+          key: gems-v1-{{ checksum "Gemfile.lock" }}
+
+  deploy_to_heroku:
+    docker:
+      - image: cimg/ruby:3.3.4-node
+    steps:
+      - setup_remote_docker
+      - setup
+      - heroku/install
+      - run:
+          name: Heroku Login
+          command: heroku container:login
+      - run:
+          name: Set Heroku Stack
+          command: heroku stack:set container -a quiz-craft-new
+      - run:
+          name: Build Docker Image
+          command: |
+            docker build \
+            --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY \
+            --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
+            --build-arg GOOGLE_CREDENTIALS=$GOOGLE_CREDENTIALS \
+            -t quiz-craft-new -f Dockerfile.prod .
+      - run:
+          name: Tag Docker Image
+          command: docker tag quiz-craft-new registry.heroku.com/quiz-craft-new/web
+      - run:
+          name: Push Docker Image to Heroku
+          command: docker push registry.heroku.com/quiz-craft-new/web
+      - run:
+          name: Release to Heroku
+          command: heroku container:release web --app quiz-craft-new
+      - run:
+          name: Migrate Database
+          command: heroku run rails db:migrate --app quiz-craft-new
+      - run:
+          name: Seed Database
+          command: heroku run rails db:seed --app quiz-craft-new
+      - run:
+          name: Restart Heroku App
+          command: heroku restart --app quiz-craft-new
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - rspec
+      - rubocop:
+          requires:
+            - rspec
+      - deploy_to_heroku:
+          requires:
+            - rspec
+            - rubocop
+          filters:
+            branches:
+              only:
+                - main

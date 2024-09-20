@@ -36,18 +36,20 @@ class Question < ApplicationRecord
 
   private
 
-  def self.build_question(question_param, quiz)
-    question = Question.new(question_param)
-    question.quizzes << quiz
-    question
-  end
+  class << self
+    def build_question(question_param, quiz)
+      question = Question.new(question_param)
+      question.quizzes << quiz
+      question
+    end
 
-  def self.save_question(question, success_questions, failed_questions)
-    if question.save
-      success_questions << { question_text: question.question_text, correct_answer: question.correct_answer }
-    else
-      failed_questions << { errors: question.errors.full_messages, question_text: question.question_text,
-                            correct_answer: question.correct_answer }
+    def save_question(question, success_questions, failed_questions)
+      if question.save
+        success_questions << { question_text: question.question_text, correct_answer: question.correct_answer }
+      else
+        failed_questions << { errors: question.errors.full_messages, question_text: question.question_text,
+                              correct_answer: question.correct_answer }
+      end
     end
   end
 

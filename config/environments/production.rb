@@ -75,4 +75,5 @@ Rails.application.configure do
 
   # ホストの設定
   config.hosts << "quiz-craft-new-6bafbe70ad3e.herokuapp.com"
+  config.hosts << "quiz-qraft-119438ed08c0.herokuapp.com"
 end
