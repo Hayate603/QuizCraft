@@ -76,7 +76,7 @@ jobs:
           command: heroku container:login
       - run:
           name: Set Heroku Stack
-          command: heroku stack:set container -a quiz-qraft
+          command: heroku stack:set container -a quiz-craft-new
       - run:
           name: Build Docker Image
           command: |
@@ -84,25 +84,25 @@ jobs:
             --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY \
             --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
             --build-arg GOOGLE_CREDENTIALS=$GOOGLE_CREDENTIALS \
-            -t quiz-qraft -f Dockerfile.prod .
+            -t quiz-craft-new -f Dockerfile.prod .
       - run:
           name: Tag Docker Image
-          command: docker tag quiz-qraft registry.heroku.com/quiz-qraft/web
+          command: docker tag quiz-craft-new registry.heroku.com/quiz-craft-new/web
       - run:
           name: Push Docker Image to Heroku
-          command: docker push registry.heroku.com/quiz-qraft/web
+          command: docker push registry.heroku.com/quiz-craft-new/web
       - run:
           name: Release to Heroku
-          command: heroku container:release web --app quiz-qraft
+          command: heroku container:release web --app quiz-craft-new
       - run:
           name: Migrate Database
-          command: heroku run rails db:migrate --app quiz-qraft
+          command: heroku run rails db:migrate --app quiz-craft-new
       - run:
           name: Seed Database
-          command: heroku run rails db:seed --app quiz-qraft
+          command: heroku run rails db:seed --app quiz-craft-new
       - run:
           name: Restart Heroku App
-          command: heroku restart --app quiz-qraft
+          command: heroku restart --app quiz-craft-new
 
 workflows:
   version: 2
@@ -116,3 +116,7 @@ workflows:
           requires:
             - rspec
             - rubocop
+          filters:
+            branches:
+              only:
+                - main
