@@ -114,7 +114,7 @@ RSpec.describe 'Question Management', type: :system do
       it 'テキストから質問を生成できること' do
         visit new_quiz_question_path(quiz)
         fill_in 'テキストを入力してください', with: 'これはサンプルテキストです。'
-        click_button 'ChatGPTで質問を生成'
+        click_button 'AIで質問を生成'
 
         expect(page).to have_content('質問が生成されました。')
       end
