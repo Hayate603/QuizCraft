@@ -24,23 +24,22 @@
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css');
 
 // Import page-specific styles
-@import "pages/quizzes";
-@import "pages/registration";
-@import "pages/login";
-@import "pages/quiz-details";
-@import "pages/account_edit";
-@import "pages/quiz_new";
-@import "pages/quiz_edit";
-@import "pages/question_new";
+@import "pages/quizzes_index";
+@import "pages/devise_registrations_new";
+@import "pages/devise_sessions_new";
+@import "pages/quizzes_show";
+@import "pages/devise_registrations_edit";
+@import "pages/quizzes_new";
+@import "pages/quizzes_edit";
+@import "pages/questions_new";
 @import "pages/questions_show";
-@import "pages/question_edit";
-@import "pages/favorite_quizzes";
-@import "pages/my_quizzes";
-@import "pages/confirmations";
-@import "pages/passwords";
-@import "pages/passwords-edit";
-@import "pages/unlocks_new";
-@import "pages/layout.scss";
-@import "pages/quiz_take";
-@import "pages/results";
-
+@import "pages/questions_edit";
+@import "pages/favorite_quizzes_index";
+@import "pages/my_quizzes_index";
+@import "pages/devise_confirmations_new";
+@import "pages/devise_passwords_new";
+@import "pages/devise_passwords_edit";
+@import "pages/devise_unlocks_new";
+@import "pages/layout";
+@import "pages/quizzes_take";
+@import "pages/quizzes_results";
