@@ -4,7 +4,6 @@ import { handleFormSubmit } from "./form_handlers";
 import { createQuestionForm } from "./question_form";
 import { handleTextFormEvents } from "./text_form_handler";
 import { handleQuestionSubmission } from "./submit_handler";
-import { handleAddQuestion } from "./add_question_handler";
 
 document.addEventListener('turbo:load', initializeImageToTextAndGenerateQuestions);
 
@@ -40,5 +39,10 @@ function initializeImageToTextAndGenerateQuestions() {
     generatedQuestionsContainer
   );
 
-  handleAddQuestion(addQuestionButton, generatedQuestionsContainer, quizId);
+  addQuestionButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    const form = createQuestionForm(quizId, '', '');
+    generatedQuestionsContainer.appendChild(form);
+    handleFormSubmit(form);
+  });
 }
