@@ -12,32 +12,18 @@ function initializeImageToTextAndGenerateQuestions() {
   const imageForm = document.getElementById('image-upload-form');
   const extractedTextArea = document.getElementById('extracted-text-area');
   const generatedQuestionsContainer = document.getElementById('generated-questions');
-  const submitAllButton = document.getElementById('submit-all-questions');
   const addQuestionButton = document.getElementById('add-question-form');
-  const questionsDataField = document.getElementById('questions-data');
-  const saveAllQuestionsForm = document.getElementById('save-all-questions-form');
   const quizId = document.getElementById('question-forms-container').dataset.quizId;
-  const textLoadingSpinner = document.getElementById('text-loading-spinner');
-  const textLoadingMessage = document.getElementById('text-loading-message');
+
+
 
   document.querySelectorAll('.question-form').forEach(form => handleFormSubmit(form));
 
   if (textForm) {
-    handleTextFormEvents(
-      textForm,
-      generatedQuestionsContainer,
-      quizId,
-      textLoadingSpinner,
-      textLoadingMessage
-    );
+    handleTextFormEvents();
   }
 
-  handleQuestionSubmission(
-    submitAllButton,
-    saveAllQuestionsForm,
-    questionsDataField,
-    generatedQuestionsContainer
-  );
+  handleQuestionSubmission();
 
   addQuestionButton.addEventListener('click', function(event) {
     event.preventDefault();

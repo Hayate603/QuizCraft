@@ -2,7 +2,18 @@ import { addFlashMessage } from './flash_messages';
 import { handleFormSubmit } from './form_handlers';
 import { createQuestionForm } from './question_form';
 
-export function handleTextFormEvents(textForm, generatedQuestionsContainer, quizId, textLoadingSpinner, textLoadingMessage) {
+export function handleTextFormEvents() {
+  const textForm = document.getElementById('text-generation-form');
+  const generatedQuestionsContainer = document.getElementById('generated-questions');
+  const textLoadingSpinner = document.getElementById('text-loading-spinner');
+  const textLoadingMessage = document.getElementById('text-loading-message');
+  const quizId = document.getElementById('question-forms-container')?.dataset.quizId;
+
+  if (!textForm || !generatedQuestionsContainer || !textLoadingSpinner || !textLoadingMessage || !quizId) {
+    console.error('必要なDOM要素が見つかりませんでした');
+    return;
+  }
+
   textForm.addEventListener('ajax:beforeSend', function() {
     textLoadingSpinner.classList.remove('hidden');
     textLoadingMessage.classList.remove('hidden');

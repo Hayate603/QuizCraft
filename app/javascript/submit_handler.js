@@ -1,7 +1,17 @@
 import Rails from "@rails/ujs";
 import { addFlashMessage } from "./flash_messages";
 
-export function handleQuestionSubmission(submitAllButton, saveAllQuestionsForm, questionsDataField, generatedQuestionsContainer) {
+export function handleQuestionSubmission() {
+  const submitAllButton = document.getElementById('submit-all-questions');
+  const saveAllQuestionsForm = document.getElementById('save-all-questions-form');
+  const questionsDataField = document.getElementById('questions-data');
+  const generatedQuestionsContainer = document.getElementById('generated-questions');
+
+  if (!submitAllButton || !saveAllQuestionsForm || !questionsDataField || !generatedQuestionsContainer) {
+    console.error('必要なDOM要素が見つかりませんでした');
+    return;
+  }
+
   submitAllButton.addEventListener('click', function(event) {
     event.preventDefault();
     const forms = document.querySelectorAll('.question-form');
