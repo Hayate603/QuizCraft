@@ -1,5 +1,6 @@
 import Rails from "@rails/ujs";
-import { addFlashMessage } from "./flash_messages"; // フラッシュメッセージの関数をインポート
+import { addFlashMessage } from "./flash_messages";
+import { handleFormSubmit } from "./form_handlers";
 
 document.addEventListener('turbo:load', initializeImageToTextAndGenerateQuestions);
 
@@ -118,31 +119,6 @@ function initializeImageToTextAndGenerateQuestions() {
     generatedQuestionsContainer.appendChild(form);
     handleFormSubmit(form);
   });
-
-  function handleFormSubmit(form) {
-    form.addEventListener('ajax:success', function(event) {
-      const [data, status, xhr] = event.detail;
-      addFlashMessage('notice', data.message);
-
-      if (data.success) {
-        form.remove();
-      } else {
-        const errorElement = form.querySelector('.question-new__error-messages');
-        if (data.errors && data.errors.length > 0) {
-          errorElement.innerHTML = data.errors.map(error => `<li>${error}</li>`).join('');
-          errorElement.classList.add('visible');
-        } else {
-          errorElement.classList.remove('visible');
-        }
-      }
-    });
-
-    form.addEventListener('ajax:error', function(event) {
-      const [data, status, xhr] = event.detail;
-      console.error('Error:', data);
-      addFlashMessage('alert', '質問の保存中にエラーが発生しました。');
-    });
-  }
 
   function createQuestionForm(question, answer) {
     const uniqueId = Math.random().toString(36).substr(2, 9);

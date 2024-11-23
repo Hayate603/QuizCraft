@@ -13,3 +13,4 @@ pin "display_answer", to: "display_answer.js", preload: true
 pin "quiz_details", to: "quiz_details.js", preload: true
 pin "toggle_publish", to: "toggle_publish.js", preload: true
 pin "image_to_text", to: "image_to_text.js", preload: true
+pin "form_handlers", to: "form_handlers.js", preload: true
