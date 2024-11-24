@@ -1,4 +1,3 @@
-// form_handlers.js
 import { addFlashMessage } from "./flash_messages";
 
 export function handleFormSubmit(form) {

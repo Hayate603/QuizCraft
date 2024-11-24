@@ -1,8 +1,8 @@
-import { addFlashMessage } from './flash_messages';
-import { handleFormSubmit } from './form_handlers';
-import { createQuestionForm } from './question_form';
+import { addFlashMessage } from 'flash_messages';
+import { handleFormSubmit } from 'handleFormSubmit';
+import { createQuestionForm } from 'createQuestionForm';
 
-export function handleTextFormEvents() {
+export function textFormHandler() {
   const textForm = document.getElementById('text-generation-form');
   const generatedQuestionsContainer = document.getElementById('generated-questions');
   const textLoadingSpinner = document.getElementById('text-loading-spinner');

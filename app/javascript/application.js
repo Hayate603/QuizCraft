@@ -6,11 +6,14 @@ import Rails from "@rails/ujs"
 Rails.start();
 Turbo.start();
 
-import "image_to_text_and_generate_questions"
 import "flash_messages"
 import "hamburger_menu"
 import "display_answer"
 import "quiz_details"
 import "toggle_publish"
 import "image_to_text"
-import "form_handlers"
+import "handleFormSubmit"
+import "createQuestionForm"
+import "textFormHandler"
+import "submitAllQuestions"
+import "image_to_text_and_generate_questions"

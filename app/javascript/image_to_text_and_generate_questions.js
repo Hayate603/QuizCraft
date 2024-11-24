@@ -1,7 +1,7 @@
-import { handleFormSubmit } from "./form_handlers";
-import { createQuestionForm } from "./question_form";
-import { handleTextFormEvents } from "./text_form_handler";
-import { handleQuestionSubmission } from "./submit_handler";
+import { handleFormSubmit } from "handleFormSubmit";
+import { createQuestionForm } from "createQuestionForm";
+import { textFormHandler } from "textFormHandler";
+import { submitAllQuestions } from "submitAllQuestions";
 
 document.addEventListener('turbo:load', initializeImageToTextAndGenerateQuestions);
 
@@ -14,10 +14,10 @@ function initializeImageToTextAndGenerateQuestions() {
   document.querySelectorAll('.question-form').forEach(form => handleFormSubmit(form));
 
   if (textForm) {
-    handleTextFormEvents();
+    textFormHandler();
   }
 
-  handleQuestionSubmission();
+  submitAllQuestions();
 
   addQuestionButton.addEventListener('click', function(event) {
     event.preventDefault();

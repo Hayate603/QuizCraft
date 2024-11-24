@@ -1,7 +1,7 @@
 import Rails from "@rails/ujs";
 import { addFlashMessage } from "./flash_messages";
 
-export function handleQuestionSubmission() {
+export function submitAllQuestions() {
   const submitAllButton = document.getElementById('submit-all-questions');
   const saveAllQuestionsForm = document.getElementById('save-all-questions-form');
   const questionsDataField = document.getElementById('questions-data');
