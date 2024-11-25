@@ -2,8 +2,16 @@ import { handleFormSubmit } from "./handleFormSubmit";
 import { createQuestionForm } from "./createQuestionForm";
 import { textFormHandler } from "./textFormHandler";
 import { submitAllQuestions } from "./submitAllQuestions";
+import { imageToText } from "./image_to_text";
 
 document.addEventListener('turbo:load', () => {
+
+  // 画像からテキストへ
+  const imageForm = document.getElementById('image-upload-form');
+  if (imageForm) {
+    imageToText();
+  }
+
   // 既存の質問フォームに送信機能を追加
   const questionForms = document.querySelectorAll('.question-form');
   if (questionForms.length > 0) {
@@ -22,7 +30,7 @@ document.addEventListener('turbo:load', () => {
     submitAllQuestions();
   }
 
-  // 4. 質問フォームを追加するボタン
+  // 質問フォームを追加するボタン
   const addQuestionButton = document.getElementById('add-question-form');
   const generatedQuestionsContainer = document.getElementById('generated-questions');
   const quizId = document.getElementById('question-forms-container')?.dataset.quizId;
@@ -36,5 +44,3 @@ document.addEventListener('turbo:load', () => {
     });
   }
 });
-
-

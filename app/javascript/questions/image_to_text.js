@@ -1,10 +1,6 @@
-import { addFlashMessage } from "./flash_messages";
+import { addFlashMessage } from "flash_messages";
 
-document.addEventListener('turbo:load', () => {
-    initializeImageUploadForm();
-});
-
-function initializeImageUploadForm() {
+export function imageToText() {
     const imageForm = document.getElementById('image-upload-form');
     const extractedTextArea = document.getElementById('extracted-text-area');
     const imageLoadingSpinner = document.getElementById('image-loading-spinner');
