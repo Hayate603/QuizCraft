@@ -1,6 +1,6 @@
 import { addFlashMessage } from 'flash_messages';
-import { handleFormSubmit } from 'handleFormSubmit';
-import { createQuestionForm } from 'createQuestionForm';
+import { handleFormSubmit } from './handleFormSubmit';
+import { createQuestionForm } from './createQuestionForm';
 
 export function textFormHandler() {
   const textForm = document.getElementById('text-generation-form');

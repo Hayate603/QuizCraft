@@ -12,8 +12,4 @@ pin "display_answer", to: "display_answer.js", preload: true
 pin "quiz_details", to: "quiz_details.js", preload: true
 pin "toggle_publish", to: "toggle_publish.js", preload: true
 pin "image_to_text", to: "image_to_text.js", preload: true
-pin "handleFormSubmit", to: "handleFormSubmit.js", preload: true
-pin "createQuestionForm", to: "createQuestionForm.js", preload: true
-pin "textFormHandler", to: "textFormHandler.js", preload: true
-pin "submitAllQuestions", to: "submitAllQuestions.js", preload: true
-pin "image_to_text_and_generate_questions", to: "image_to_text_and_generate_questions.js", preload: true
+pin "questions_new", to: "questions_new.js", preload: true

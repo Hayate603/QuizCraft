@@ -1,4 +1,4 @@
-import { addFlashMessage } from "./flash_messages";
+import { addFlashMessage } from "flash_messages";
 
 export function handleFormSubmit(form) {
   form.addEventListener('ajax:success', function(event) {

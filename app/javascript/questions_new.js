@@ -1,7 +1,7 @@
-import { handleFormSubmit } from "handleFormSubmit";
-import { createQuestionForm } from "createQuestionForm";
-import { textFormHandler } from "textFormHandler";
-import { submitAllQuestions } from "submitAllQuestions";
+import { handleFormSubmit } from "./handleFormSubmit";
+import { createQuestionForm } from "./createQuestionForm";
+import { textFormHandler } from "./textFormHandler";
+import { submitAllQuestions } from "./submitAllQuestions";
 
 document.addEventListener('turbo:load', () => {
   // 既存の質問フォームに送信機能を追加
