@@ -1,18 +1,19 @@
 document.addEventListener('turbo:load', () => {
-  const showQuestionsButton = document.getElementById('show-questions-btn');
+  const toggleQuestionsButton = document.getElementById('show-questions-btn');
   const questionsSection = document.getElementById('questions-section');
 
-  if (showQuestionsButton && questionsSection) {
-    // 質問セクションが表示されていたら、常に表示を維持する
+  if (toggleQuestionsButton && questionsSection) {
+    // ページ遷移後も状態を維持する
     if (window.location.search.includes('page=') || window.location.hash.includes('questions-section')) {
-      questionsSection.style.display = 'block';
-      showQuestionsButton.style.display = 'none';
-    } else {
-      // ボタンをクリックで質問セクションを表示
-      showQuestionsButton.addEventListener('click', function() {
-        questionsSection.style.display = 'block';
-        this.style.display = 'none';
-      });
+      questionsSection.classList.add('open');
+      toggleQuestionsButton.textContent = '質問を隠す';
     }
+
+    // トグルボタンのクリックイベント
+    toggleQuestionsButton.addEventListener('click', function () {
+      questionsSection.classList.toggle('open');
+      this.textContent = questionsSection.classList.contains('open') ? '質問を隠す' : '質問を表示';
+    });
   }
 });
+

@@ -15,10 +15,28 @@ RSpec.describe 'Quiz Show', type: :system do
       expect(page).to have_content 'Sample description'
     end
 
-    it 'クイズに関連する質問が表示されること', js: true do
-      visit quiz_path(quiz)
-      click_button '質問を表示'
-      expect(page).to have_content 'Sample Question'
+    context '「質問を表示」ボタンと質問セクションの動作', js: true do
+      before do
+        visit quiz_path(quiz)
+      end
+
+      it '初期状態では「質問を表示」と表示され、質問セクションが非表示になっていること' do
+        expect(page).to have_button('質問を表示')
+        expect(page).not_to have_content('Sample Question')
+      end
+
+      it '「質問を表示」をクリックするとボタンが「質問を隠す」に切り替わり、質問セクションが表示されること' do
+        click_button '質問を表示'
+        expect(page).to have_button('質問を隠す')
+        expect(page).to have_content('Sample Question')
+      end
+
+      it '「質問を隠す」をクリックするとボタンが「質問を表示」に戻り、質問セクションが非表示になること' do
+        click_button '質問を表示'
+        click_button '質問を隠す'
+        expect(page).to have_button('質問を表示')
+        expect(page).not_to have_content('Sample Question')
+      end
     end
 
     it 'QRコードが表示されていること' do
