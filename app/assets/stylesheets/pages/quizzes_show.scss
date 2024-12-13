@@ -126,6 +126,17 @@
 
   #questions-section {
     margin-top: 1rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.7s ease, opacity 0.7s ease;
+  }
+
+  #questions-section.open {
+    max-height: 900px;
+    opacity: 1;
+    visibility: visible;
   }
 
   #show-questions-btn,
