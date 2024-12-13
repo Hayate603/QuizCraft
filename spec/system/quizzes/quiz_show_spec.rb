@@ -15,6 +15,11 @@ RSpec.describe 'Quiz Show', type: :system do
       expect(page).to have_content 'Sample description'
     end
 
+    it 'QRコードが表示されていること' do
+      visit quiz_path(quiz)
+      expect(page).to have_css('.quiz-details__qr-code svg')
+    end
+
     context '「質問を表示」ボタンと質問セクションの動作', js: true do
       before do
         visit quiz_path(quiz)
@@ -39,9 +44,19 @@ RSpec.describe 'Quiz Show', type: :system do
       end
     end
 
-    it 'QRコードが表示されていること' do
-      visit quiz_path(quiz)
-      expect(page).to have_css('.quiz-details__qr-code svg')
+    context '質問がない場合' do
+      before do
+        quiz.questions.destroy_all
+        visit quiz_path(quiz)
+      end
+
+      it '「質問は一件もありません」と表示されること' do
+        expect(page).to have_content('質問は一件もありません')
+      end
+
+      it '質問セクションが非表示になっていること' do
+        expect(page).not_to have_css('#questions-section')
+      end
     end
 
     context 'ログインしている場合' do
