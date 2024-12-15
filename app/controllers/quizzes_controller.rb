@@ -1,6 +1,6 @@
 class QuizzesController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create edit update toggle_publish destroy take results start resume]
-  before_action :set_quiz, only: %i[show edit update toggle_publish destroy take results start resume]
+  before_action :authenticate_user!, only: %i[new create edit update toggle_publish destroy take results start answer_question]
+  before_action :set_quiz, only: %i[show edit update toggle_publish destroy take results start answer_question]
   before_action :authorize_user!, only: %i[edit update toggle_publish destroy]
 
   def index
@@ -38,7 +38,6 @@ class QuizzesController < ApplicationController
   def toggle_publish
     if @quiz.user == current_user
       @quiz.update(publish: !@quiz.publish)
-
       respond_to do |format|
         format.json { render_quiz_publish_status }
       end
@@ -54,41 +53,81 @@ class QuizzesController < ApplicationController
     redirect_to quizzes_url, notice: I18n.t('notices.quiz_deleted')
   end
 
+  def start
+    session[:quiz_progress] = {
+      "quiz_id" => @quiz.id,
+      "start_time" => Time.current.iso8601,
+      "answers" => []
+    }
+    redirect_to take_quiz_path(@quiz)
+  end
+
   def take
     if @quiz.questions.empty?
       redirect_to quiz_path(@quiz), alert: I18n.t('alerts.no_questions')
       return
     end
 
-    @existing_session = find_existing_session
-    if resume_session?
-      @resume_session = true
-      @quiz_session = @existing_session
-    else
-      @quiz_session = start_new_session
+    quiz_progress = session[:quiz_progress]
+
+    unless quiz_progress && quiz_progress["quiz_id"] == @quiz.id
+      redirect_to quiz_path(@quiz), alert: "Session not found, starting anew."
+      return
     end
+
+    answered_ids = quiz_progress["answers"].map { |a| a["question_id"] }
+    @question = @quiz.questions.where.not(id: answered_ids).first
+
+    if @question.nil?
+      redirect_to results_quiz_path(@quiz)
+      return
+    end
+  end
+
+  def answer_question
+    quiz_progress = session[:quiz_progress]
+
+    unless quiz_progress && quiz_progress["quiz_id"] == @quiz.id
+      redirect_to quiz_path(@quiz), alert: "Session not found, starting anew."
+      return
+    end
+
+    question = @quiz.questions.find(params[:question_id])
+    correct = (params[:answer_text] == question.correct_answer)
+
+    quiz_progress["answers"] << {
+      "question_id" => question.id,
+      "answer_text" => params[:answer_text],
+      "correct" => correct
+    }
+    session[:quiz_progress] = quiz_progress
+
+    redirect_to take_quiz_path(@quiz), notice: "回答を送信しました"
   end
 
   def results
-    @quiz_session = find_last_completed_session
-    if @quiz_session&.end_time
-      @user_answers = @quiz_session.user_answers
+    quiz_progress = session[:quiz_progress]
+    if quiz_progress && quiz_progress["quiz_id"] == @quiz.id && quiz_progress["answers"].present?
+      @answers = quiz_progress["answers"]
+      @correct_count = @answers.count { |answer| answer["correct"] }
+
+      # 質問情報を取得し、question_idをキーにしたハッシュを作成
+      question_data = @quiz.questions.pluck(:id, :question_text, :correct_answer).map do |id, q_text, c_answer|
+        [id, { "question_text" => q_text, "correct_answer" => c_answer }]
+      end.to_h
+
+      # @answersにquestion_textとcorrect_answerを付与
+      @answers.each do |answer|
+        q_info = question_data[answer["question_id"]]
+        answer["question_text"] = q_info["question_text"]
+        answer["correct_answer"] = q_info["correct_answer"]
+      end
+
+      # クイズ完了後にセッションをクリア
+      session.delete(:quiz_progress)
     else
-      redirect_to quizzes_path, alert: I18n.t('alerts.no_completed_session')
+      redirect_to quiz_path(@quiz), alert: "No completed session."
     end
-  end
-
-  def start
-    end_existing_session
-    @quiz_session = QuizSession.create(user: current_user, quiz: @quiz, start_time: Time.current)
-    redirect_to take_quiz_path(@quiz, question_id: @quiz.questions.first.id, resume_session: "false")
-  end
-
-  def resume
-    existing_session = find_existing_session
-    last_answered_question_id = existing_session&.user_answers&.last&.question_id
-    next_question = find_next_question(last_answered_question_id)
-    redirect_to take_quiz_path(@quiz, question_id: next_question.id, resume_session: "false")
   end
 
   private
@@ -120,37 +159,5 @@ class QuizzesController < ApplicationController
 
   def quiz_publish_message
     @quiz.publish ? I18n.t('notices.quiz_published') : I18n.t('notices.quiz_unpublished')
-  end
-
-  def find_existing_session
-    QuizSession.find_by(user: current_user, quiz: @quiz, end_time: nil)
-  end
-
-  def resume_session?
-    @existing_session && params[:resume_session] != "false"
-  end
-
-  def start_new_session
-    @existing_session ||= QuizSession.create(user: current_user, quiz: @quiz, start_time: Time.current)
-    @question = params[:question_id] ? @quiz.questions.find(params[:question_id]) : @quiz.questions.first
-    @user_answer = UserAnswer.new
-    @existing_session
-  end
-
-  def find_last_completed_session
-    QuizSession.where(user: current_user, quiz: @quiz).order(end_time: :desc).first
-  end
-
-  def end_existing_session
-    existing_session = find_existing_session
-    existing_session&.update(end_time: Time.current)
-  end
-
-  def find_next_question(last_answered_question_id)
-    if last_answered_question_id
-      @quiz.questions.where('questions.id > ?', last_answered_question_id).first
-    else
-      @quiz.questions.first
-    end
   end
 end
