@@ -3,25 +3,20 @@
   <button id="show-answer-btn" class="button button--primary">答えを見る</button>
 
   <div id="answer-section" class="quiz-take__answer-section" style="display:none;">
-    <% if @user_answer.errors.any? %>
-      <div id="error_explanation" class="alert alert-danger">
-        <h2 class="alert-heading"><%= pluralize(@user_answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
-        <ul>
-          <% @user_answer.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
 
     <h3>正解: <%= @question.correct_answer %></h3>
     <p>あなたの答えはどうでしたか？</p>
     <div class="quiz-take__buttons">
-      <%= form_with(model: [@quiz, @quiz_session, @question, @user_answer], local: true) do |form| %>
+      <!-- 正解送信用フォーム -->
+      <%= form_with(url: answer_question_quiz_path(@quiz), local: true) do |form| %>
+        <%= form.hidden_field :question_id, value: @question.id %>
         <%= form.hidden_field :answer_text, value: @question.correct_answer %>
         <%= form.submit "正解", class: 'button button--primary' %>
       <% end %>
-      <%= form_with(model: [@quiz, @quiz_session, @question, @user_answer], local: true) do |form| %>
+
+      <!-- 不正解送信用フォーム -->
+      <%= form_with(url: answer_question_quiz_path(@quiz), local: true) do |form| %>
+        <%= form.hidden_field :question_id, value: @question.id %>
         <%= form.hidden_field :answer_text, value: "不正解" %>
         <%= form.submit "不正解", class: 'button button--secondary' %>
       <% end %>
