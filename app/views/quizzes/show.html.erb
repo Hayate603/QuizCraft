@@ -27,7 +27,7 @@
   <% end %>
 
   <% if user_signed_in? %>
-    <%= link_to 'クイズを実行する', take_quiz_path(@quiz), class: 'quiz-details__take button button--primary' %>
+    <%= link_to 'クイズを実行する', start_quiz_path(@quiz), class: 'quiz-details__take button button--primary' %>
   <% end %>
 
   <% if user_signed_in? %>

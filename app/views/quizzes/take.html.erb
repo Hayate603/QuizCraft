@@ -2,20 +2,13 @@
   <h1 class="quiz-take__title"><%= @quiz.title %></h1>
   <p class="quiz-take__description"><%= @quiz.description %></p>
 
-  <% if @resume_session %>
-    <p class="quiz-take__resume-message">途中のセッションが見つかりました。</p>
-    <h2 class="quiz-take__resume-title">クイズを再開しますか？</h2>
-    <div class="quiz-take__resume-actions">
-      <%= link_to '再開する', resume_quiz_path(@quiz), class: 'button button--primary' %>
-      <%= link_to '新しく開始する', start_quiz_path(@quiz), class: 'button button--secondary' %>
-    </div>
+  <!-- 再開機能を削除したため、@resume_sessionブロックは不要 -->
+  <h2 class="quiz-take__question-title"><%= @question.question_text %></h2>
+
+  <% if current_user.quiz_mode == 'self_grading' %>
+    <%= render 'shared/self_grading', quiz: @quiz, question: @question %>
   <% else %>
-    <h2 class="quiz-take__question-title"><%= @question.question_text %></h2>
-    <% if current_user.quiz_mode == 'self_grading' %>
-      <%= render 'shared/self_grading' %>
-    <% else %>
-      <%= render 'shared/default' %>
-    <% end %>
+    <%= render 'shared/default', quiz: @quiz, question: @question %>
   <% end %>
 
   <div class="quiz-take__back">

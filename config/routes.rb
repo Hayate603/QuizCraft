@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       get 'take'
       get 'results'
       get 'start'
-      get 'resume'
+      post 'answer_question'
       patch 'toggle_publish', to: 'quizzes#toggle_publish'
     end
     resource :favorite_quiz, only: [:create, :destroy]
@@ -26,11 +26,6 @@ Rails.application.routes.draw do
         post 'generate_from_image'
         post 'generate_questions_from_text'
         post 'save_all_questions'
-      end
-    end
-    resources :quiz_sessions, only: [:create, :update] do
-      resources :questions, only: [] do
-        resources :user_answers, only: [:create]
       end
     end
   end

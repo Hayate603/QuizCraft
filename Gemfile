@@ -75,6 +75,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
+gem 'activerecord-session_store'
 gem 'devise'
 gem 'google-cloud-vision'
 gem 'kaminari'

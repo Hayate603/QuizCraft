@@ -12,19 +12,19 @@
     </tr>
   </thead>
   <tbody>
-    <% @user_answers.each do |answer| %>
+    <% @answers.each do |answer| %>
       <tr class="results__row">
-        <td class="results__question"><%= answer.question.question_text %></td>
-        <td class="results__user-answer"><%= answer.answer_text %></td>
-        <td class="results__correct-answer"><%= answer.question.correct_answer %></td>
-        <td class="results__correctness"><%= answer.correct ? '〇' : '✕' %></td>
+        <td class="results__question"><%= answer["question_text"] %></td>
+        <td class="results__user-answer"><%= answer["answer_text"] %></td>
+        <td class="results__correct-answer"><%= answer["correct_answer"] %></td>
+        <td class="results__correctness"><%= answer["correct"] ? '〇' : '✕' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <div class="results__summary">
-  <p>総合結果: <%= @user_answers.select(&:correct).count %> / <%= @user_answers.count %> </p>
+  <p>総合結果: <%= @correct_count %> / <%= @answers.size %> </p>
 </div>
 
 <div class="results__back">
