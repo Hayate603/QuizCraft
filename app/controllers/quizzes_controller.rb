@@ -1,5 +1,6 @@
 class QuizzesController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create edit update toggle_publish destroy take results start answer_question]
+  before_action :authenticate_user!,
+                only: %i[new create edit update toggle_publish destroy take results start answer_question]
   before_action :set_quiz, only: %i[show edit update toggle_publish destroy take results start answer_question]
   before_action :authorize_user!, only: %i[edit update toggle_publish destroy]
 
@@ -75,13 +76,13 @@ class QuizzesController < ApplicationController
       return
     end
 
-    answered_ids = quiz_progress["answers"].map { |a| a["question_id"] }
+    answered_ids = quiz_progress["answers"].pluck("question_id")
     @question = @quiz.questions.where.not(id: answered_ids).first
 
-    if @question.nil?
-      redirect_to results_quiz_path(@quiz)
-      return
-    end
+    return unless @question.nil?
+
+    redirect_to results_quiz_path(@quiz)
+    nil
   end
 
   def answer_question
@@ -112,9 +113,9 @@ class QuizzesController < ApplicationController
       @correct_count = @answers.count { |answer| answer["correct"] }
 
       # 質問情報を取得し、question_idをキーにしたハッシュを作成
-      question_data = @quiz.questions.pluck(:id, :question_text, :correct_answer).map do |id, q_text, c_answer|
+      question_data = @quiz.questions.pluck(:id, :question_text, :correct_answer).to_h do |id, q_text, c_answer|
         [id, { "question_text" => q_text, "correct_answer" => c_answer }]
-      end.to_h
+      end
 
       # @answersにquestion_textとcorrect_answerを付与
       @answers.each do |answer|
