@@ -1,4 +1,6 @@
 class QuizzesController < ApplicationController
+  include QuizHelpers
+
   before_action :authenticate_user!,
                 only: %i[new create edit update toggle_publish destroy take results start answer_question]
   before_action :set_quiz, only: %i[show edit update toggle_publish destroy take results start answer_question]
@@ -64,71 +66,29 @@ class QuizzesController < ApplicationController
   end
 
   def take
-    if @quiz.questions.empty?
-      redirect_to quiz_path(@quiz), alert: I18n.t('alerts.no_questions')
-      return
-    end
+    redirect_if_no_questions(@quiz) && return
 
     quiz_progress = session[:quiz_progress]
+    redirect_unless_valid_session(quiz_progress, @quiz) && return
 
-    unless quiz_progress && quiz_progress["quiz_id"] == @quiz.id
-      redirect_to quiz_path(@quiz), alert: I18n.t('alerts.session_not_found')
-      return
-    end
-
-    answered_ids = quiz_progress["answers"].pluck("question_id")
-    @question = @quiz.questions.where.not(id: answered_ids).first
-
-    return unless @question.nil?
-
-    redirect_to results_quiz_path(@quiz)
-    nil
+    @question = assign_next_question(quiz_progress, @quiz)
+    redirect_to results_quiz_path(@quiz) if @question.nil?
   end
 
   def answer_question
     quiz_progress = session[:quiz_progress]
+    return redirect_to_invalid_session(@quiz) unless valid_session?(quiz_progress, @quiz)
 
-    unless quiz_progress && quiz_progress["quiz_id"] == @quiz.id
-      redirect_to quiz_path(@quiz), alert: I18n.t('alerts.session_not_found')
-      return
-    end
-
-    question = @quiz.questions.find(params[:question_id])
-    correct = (params[:answer_text] == question.correct_answer)
-
-    quiz_progress["answers"] << {
-      "question_id" => question.id,
-      "answer_text" => params[:answer_text],
-      "correct" => correct
-    }
-    session[:quiz_progress] = quiz_progress
-
+    process_answer(quiz_progress, params[:question_id], params[:answer_text], @quiz)
     redirect_to take_quiz_path(@quiz), notice: I18n.t('notices.answer_submitted')
   end
 
   def results
     quiz_progress = session[:quiz_progress]
-    if quiz_progress && quiz_progress["quiz_id"] == @quiz.id && quiz_progress["answers"].present?
-      @answers = quiz_progress["answers"]
-      @correct_count = @answers.count { |answer| answer["correct"] }
+    return redirect_to_no_completed_session(@quiz) unless valid_results_session?(quiz_progress, @quiz)
 
-      # 質問情報を取得し、question_idをキーにしたハッシュを作成
-      question_data = @quiz.questions.pluck(:id, :question_text, :correct_answer).to_h do |id, q_text, c_answer|
-        [id, { "question_text" => q_text, "correct_answer" => c_answer }]
-      end
-
-      # @answersにquestion_textとcorrect_answerを付与
-      @answers.each do |answer|
-        q_info = question_data[answer["question_id"]]
-        answer["question_text"] = q_info["question_text"]
-        answer["correct_answer"] = q_info["correct_answer"]
-      end
-
-      # クイズ完了後にセッションをクリア
-      session.delete(:quiz_progress)
-    else
-      redirect_to quiz_path(@quiz), alert: I18n.t('alerts.no_completed_session')
-    end
+    prepare_results(quiz_progress, @quiz)
+    clear_quiz_session
   end
 
   private
