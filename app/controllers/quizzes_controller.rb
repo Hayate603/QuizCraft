@@ -71,7 +71,7 @@ class QuizzesController < ApplicationController
     quiz_progress = session[:quiz_progress]
 
     unless quiz_progress && quiz_progress["quiz_id"] == @quiz.id
-      redirect_to quiz_path(@quiz), alert: "Session not found, starting anew."
+      redirect_to quiz_path(@quiz), alert: I18n.t('alerts.session_not_found')
       return
     end
 
@@ -88,7 +88,7 @@ class QuizzesController < ApplicationController
     quiz_progress = session[:quiz_progress]
 
     unless quiz_progress && quiz_progress["quiz_id"] == @quiz.id
-      redirect_to quiz_path(@quiz), alert: "Session not found, starting anew."
+      redirect_to quiz_path(@quiz), alert: I18n.t('alerts.session_not_found')
       return
     end
 
@@ -102,7 +102,7 @@ class QuizzesController < ApplicationController
     }
     session[:quiz_progress] = quiz_progress
 
-    redirect_to take_quiz_path(@quiz), notice: "回答を送信しました"
+    redirect_to take_quiz_path(@quiz), notice: I18n.t('notices.answer_submitted')
   end
 
   def results
@@ -126,7 +126,7 @@ class QuizzesController < ApplicationController
       # クイズ完了後にセッションをクリア
       session.delete(:quiz_progress)
     else
-      redirect_to quiz_path(@quiz), alert: "No completed session."
+      redirect_to quiz_path(@quiz), alert: I18n.t('alerts.no_completed_session')
     end
   end
 
