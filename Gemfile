@@ -75,6 +75,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
+gem 'activerecord-session_store'
 gem 'devise'
 gem 'google-cloud-vision'
 gem 'kaminari'
@@ -86,4 +87,3 @@ gem 'rails-i18n'
 gem 'rqrcode'
 gem 'ruby-openai'
 gem 'sassc-rails'
-gem 'activerecord-session_store'
